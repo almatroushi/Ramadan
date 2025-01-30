@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>مسابقات رمضان 2025</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a237e, #3949ab);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #ffeb3b;
+            margin-bottom: 20px;
+        }
+        #total {
+            font-size: 1.5rem;
+            color: #ff9800;
+            margin: 20px 0;
+        }
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .square {
+            background: #673ab7;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        .square::before {
+            content: '🌙';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 16px;
+        }
+        .square:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #ffeb3b;
+        }
+        .square.used {
+            background: #424242 !important;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        .modal, .result-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content, .result-content {
+            background: #3f51b5;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .option {
+            background: #5c6bc0;
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        .option:hover {
+            background: #ff9800;
+            transform: scale(1.05);
+        }
+        .result-content button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #ffeb3b;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .result-content button:hover {
+            background: #ffc107;
+        }
+        #timer {
+            font-size: 1.2rem;
+            color: #ffeb3b;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>مسابقات رمضان 2025 🌙</h1>
+        <div id="total">إجمالي الجوائز: 0 درهم</div>
+        <div id="grid"></div>
+    </div>
+
+    <!-- Modal for Questions -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2 id="question"></h2>
+            <div id="options"></div>
+            <div id="timer">⏳ الوقت المتبقي: <span id="time-left">10</span> ثانية</div>
+        </div>
+    </div>
+
+    <!-- Modal for Results -->
+    <div id="result-modal" class="result-modal">
+        <div class="result-content">
+            <h2 id="result-text"></h2>
+            <button onclick="closeResultModal()">موافق</button>
+        </div>
+    </div>
+
+    <audio id="correct-sound" src="https://www.soundjay.com/button/beep-07.mp3"></audio>
+    <audio id="wrong-sound" src="https://www.soundjay.com/button/beep-09.mp3"></audio>
+    <audio id="timeout-sound" src="https://www.soundjay.com/button/beep-10.mp3"></audio>
+
+    <script>
+        let total = 0;
+        let prizes = [5, 10, 15, 20, 30, 40, 50, 100, 100];
+        const questions = [
+            { question: "ما هو أطول نهر في العالم؟", options: ["نهر النيل", "نهر الأمازون", "نهر الدانوب"], correct: 0 },
+            { question: "ما هي عاصمة اليابان؟", options: ["طوكيو", "أوساكا", "كيوتو"], correct: 0 },
+            { question: "كم عدد الكواكب في المجموعة الشمسية؟", options: ["8", "9", "7"], correct: 0 },
+            { question: "ما هو العنصر الكيميائي الذي يرمز له بـ 'O'؟", options: ["أكسجين", "ذهب", "فضة"], correct: 0 },
+            { question: "ما هو الحيوان الأسرع في العالم؟", options: ["الفهد", "الصقر", "الغزال"], correct: 0 },
+            { question: "ما هو أقرب كوكب إلى الشمس؟", options: ["عطارد", "الزهرة", "الأرض"], correct: 0 },
+            { question: "ما هو أكبر محيط في العالم؟", options: ["المحيط الأطلسي", "المحيط الهادئ", "المحيط الهندي"], correct: 1 },
+            { question: "ما هو اسم الطائر الذي يرمز إلى السلام؟", options: ["الحمامة", "الصقر", "البومة"], correct: 0 },
+            { question: "كم عدد ألوان قوس قزح؟", options: ["5", "7", "9"], correct: 1 },
+            { question: "ما هي عاصمة فرنسا؟", options: ["برلين", "باريس", "مدريد"], correct: 1 },
+            { question: "ما هو الغاز المستخدم في إطفاء الحرائق؟", options: ["ثاني أكسيد الكربون", "الأكسجين", "الهيدروجين"], correct: 0 },
+            { question: "من هو مخترع الهاتف؟", options: ["غراهام بيل", "توماس إديسون", "نيكولا تسلا"], correct: 0 },
+            { question: "ما هو الحيوان الذي ينام واقفًا؟", options: ["الحصان", "الأسد", "الفيل"], correct: 0 },
+            { question: "أي دولة تضم أطول سور في العالم؟", options: ["الصين", "الهند", "روسيا"], correct: 0 },
+            { question: "ما هي أكبر قارة في العالم؟", options: ["آسيا", "أفريقيا", "أوروبا"], correct: 0 },
+            { question: "ما هو الحيوان البحري الذي لديه 8 أرجل؟", options: ["الأخطبوط", "الدولفين", "القرش"], correct: 0 },
+            { question: "ما هو أكبر كوكب في المجموعة الشمسية؟", options: ["المشتري", "المريخ", "نبتون"], correct: 0 },
+            { question: "ما هي اللغة الرسمية في البرازيل؟", options: ["الإسبانية", "البرتغالية", "الإنجليزية"], correct: 1 },
+            { question: "كم عدد أسنان الإنسان البالغ؟", options: ["32", "28", "30"], correct: 0 },
+            { question: "أي دولة تُعرف ببلاد الفراعنة؟", options: ["مصر", "العراق", "اليونان"], correct: 0 },
+            { question: "ما هو اسم الكوكب الذي يملك حلقات حوله؟", options: ["المشتري", "زحل", "أورانوس"], correct: 1 },
+            { question: "ما هو أقرب نجم إلى الأرض بعد الشمس؟", options: ["الشعرى اليمانية", "ألفا سنتوري", "النجم القطبي"], correct: 1 },
+            { question: "ما هو أكبر جبل في العالم؟", options: ["جبل كليمنجارو", "جبل إيفرست", "جبل الألب"], correct: 1 },
+            { question: "ما هو الطائر الذي لا يطير ولكنه يسبح؟", options: ["البطريق", "النعامة", "الصقر"], correct: 0 },
+            { question: "ما هي العملة الرسمية للمملكة المتحدة؟", options: ["اليورو", "الجنيه الإسترليني", "الدولار"], correct: 1 },
+            { question: "ما هو الحيوان الذي يسمى سفينة الصحراء؟", options: ["الجمل", "الحصان", "الزرافة"], correct: 0 },
+            { question: "ما هو اسم البحر الذي يفصل بين أوروبا وأفريقيا؟", options: ["البحر الأحمر", "المحيط الأطلسي", "البحر المتوسط"], correct: 2 },
+            { question: "ما هو اسم أول سيارة صنعت في العالم؟", options: ["مرسيدس", "فورد موديل T", "رولز رويس"], correct: 1 },
+            { question: "أي دولة تُسمى بلاد الشمس المشرقة؟", options: ["الصين", "اليابان", "كوريا"], correct: 1 },
+            { question: "من هو العالم الذي طور نظرية الجاذبية؟", options: ["نيوتن", "أينشتاين", "غاليليو"], correct: 0 },
+            { question: "كم عدد الدول العربية في أفريقيا؟", options: ["8", "10", "12"], correct: 2 },
+            { question: "ما هي عاصمة أستراليا؟", options: ["سيدني", "كانبيرا", "ملبورن"], correct: 1 },
+            { question: "ما هي الدولة التي تُعرف بجزيرة الكنغر؟", options: ["نيوزيلندا", "أستراليا", "إندونيسيا"], correct: 1 },
+            { question: "ما هو الحيوان الذي لا يصدر أي صوت؟", options: ["الأخطبوط", "السلاحف", "الثعبان"], correct: 1 },
+            { question: "من هو صاحب لوحة الموناليزا؟", options: ["ليوناردو دافنشي", "فان غوخ", "بيكاسو"], correct: 0 },
+            { question: "ما هو أقدم كتاب ديني في العالم؟", options: ["التوراة", "الفيدا", "الإنجيل"], correct: 1 },
+            { question: "ما هي أول دولة استخدمت الأوراق النقدية؟", options: ["الصين", "بريطانيا", "فرنسا"], correct: 0 },
+            { question: "ما هو الاسم العلمي للسكر؟", options: ["الجلوكوز", "الفركتوز", "السكروز"], correct: 2 },
+            { question: "ما هو أعلى شلال في العالم؟", options: ["شلالات نياجرا", "شلالات أنجل", "شلالات فيكتوريا"], correct: 1 },
+            { question: "أي دولة تُعرف بأنها أرض الفايكنج؟", options: ["النرويج", "السويد", "الدنمارك"], correct: 0 },
+        ];
+
+        const grid = document.getElementById('grid');
+        const shuffledQuestions = shuffleArray(questions).slice(0, 40);
+
+        // Create Grid Squares
+        for (let i = 1; i <= 40; i++) {
+            const square = document.createElement('div');
+            square.className = 'square';
+            square.textContent = i;
+            square.onclick = () => openQuestion(i);
+            grid.appendChild(square);
+        }
+
+        let timerInterval;
+        function startTimer(duration, callback) {
+            let timeLeft = duration;
+            const timerElement = document.getElementById('time-left');
+            timerElement.textContent = timeLeft;
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    callback();
+                }
+            }, 1000);
+        }
+
+        function openQuestion(number) {
+            const square = grid.children[number - 1];
+            if (square.classList.contains('used')) return;
+
+            const modal = document.getElementById('modal');
+            const question = shuffledQuestions[number - 1];
+            document.getElementById('question').textContent = question.question;
+
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const opt = document.createElement('div');
+                opt.className = 'option';
+                opt.textContent = option;
+                opt.onclick = () => checkAnswer(index === question.correct, square);
+                optionsDiv.appendChild(opt);
+            });
+
+            modal.style.display = 'flex';
+
+            // Start Timer
+            startTimer(10, () => {
+                const timeoutSound = document.getElementById('timeout-sound');
+                timeoutSound.play();
+                closeModal();
+                showTimeoutMessage();
+                square.classList.add('used');
+            });
+        }
+
+        function checkAnswer(isCorrect, square) {
+            clearInterval(timerInterval); // Stop the timer when an answer is clicked
+
+            const resultModal = document.getElementById('result-modal');
+            const resultText = document.getElementById('result-text');
+
+            if (isCorrect) {
+                const correctSound = document.getElementById('correct-sound');
+                correctSound.play();
+
+                const randomIndex = Math.floor(Math.random() * prizes.length);
+                const prize = prizes[randomIndex];
+
+                if (prize === 100) {
+                    const indexToRemove = prizes.indexOf(100);
+                    if (indexToRemove > -1) prizes.splice(indexToRemove, 1);
+                }
+
+                total += prize;
+                document.getElementById('total').textContent = `إجمالي الجوائز: ${total} درهم`;
+                resultText.textContent = `🎉 مبروك! ربحت ${prize} درهم 🎉`;
+            } else {
+                const wrongSound = document.getElementById('wrong-sound');
+                wrongSound.play();
+                resultText.textContent = "❌ للأسف، الإجابة خاطئة. حاول مرة أخرى ❤️";
+            }
+
+            square.classList.add('used');
+            closeModal();
+            resultModal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        function closeResultModal() {
+            document.getElementById('result-modal').style.display = 'none';
+        }
+
+        function showTimeoutMessage() {
+            const resultModal = document.getElementById('result-modal');
+            const resultText = document.getElementById('result-text');
+            resultText.textContent = "⏳ انتهى الوقت! حاول مرة أخرى ❤️";
+            resultModal.style.display = 'flex';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            const resultModal = document.getElementById('result-modal');
+            if (event.target === modal) closeModal();
+            if (event.target === resultModal) closeResultModal();
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    </script>
+</body>
+</html>
