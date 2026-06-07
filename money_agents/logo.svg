@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 160" width="400" height="160">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8704A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C94B2A;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Icon: circle with checkmark -->
+  <circle cx="72" cy="80" r="52" fill="url(#grad)" />
+  <polyline
+    points="48,80 66,98 100,60"
+    fill="none"
+    stroke="white"
+    stroke-width="9"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Arabic text: اختارلك -->
+  <text
+    x="148"
+    y="95"
+    font-family="Arial, sans-serif"
+    font-size="54"
+    font-weight="bold"
+    fill="#2D2D2D"
+    direction="rtl"
+  >اختارلك</text>
+
+  <!-- Tagline -->
+  <text
+    x="152"
+    y="124"
+    font-family="Arial, sans-serif"
+    font-size="16"
+    fill="#E8704A"
+    letter-spacing="2"
+  >I CHOSE FOR YOU</text>
+</svg>
