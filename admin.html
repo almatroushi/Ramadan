@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة التحكم — المركز الملكي</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080808;--bg2:#111;--bg3:#1a1a1a;--bg4:#222;
+  --gold:#C8A84E;--gold2:#E5C97A;--gold3:#9a7a2e;
+  --white:#F5F5F5;--muted:#888;--border:#2a2a2a;
+  --success:#4caf50;--error:#f44336;--warning:#ff9800;
+  --radius:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--white);min-height:100vh;}
+
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+.login-box{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:48px 40px;width:100%;max-width:400px;text-align:center;}
+.login-logo{font-size:1.4rem;font-weight:700;color:var(--gold);margin-bottom:4px;}
+.login-sub{font-size:.8rem;color:var(--muted);letter-spacing:2px;margin-bottom:36px;}
+.login-box h2{font-size:1.2rem;margin-bottom:24px;}
+.form-group{margin-bottom:16px;text-align:right;}
+.form-group label{display:block;font-size:.82rem;color:var(--muted);margin-bottom:6px;}
+.form-group input{width:100%;padding:12px 14px;background:var(--bg4);border:1px solid var(--border);border-radius:8px;color:var(--white);font-family:inherit;font-size:.92rem;transition:.3s;}
+.form-group input:focus{outline:none;border-color:var(--gold);}
+.btn-gold{width:100%;background:var(--gold);color:var(--bg);border:none;padding:13px;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;font-family:inherit;transition:.3s;margin-top:8px;}
+.btn-gold:hover{background:var(--gold2);}
+.login-err{color:var(--error);font-size:.85rem;margin-top:12px;display:none;}
+.back-link{display:block;margin-top:20px;color:var(--muted);font-size:.82rem;text-decoration:none;transition:.3s;}
+.back-link:hover{color:var(--gold);}
+
+/* DASHBOARD */
+#dashboard{display:none;min-height:100vh;}
+.dash-header{background:var(--bg2);border-bottom:1px solid var(--border);padding:16px 5%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.dash-logo{font-size:1rem;font-weight:700;color:var(--gold);}
+.dash-logo span{display:block;font-size:.65rem;color:var(--muted);letter-spacing:2px;}
+.dash-actions{display:flex;gap:12px;align-items:center;}
+.btn-sm{padding:8px 18px;border-radius:6px;font-size:.82rem;cursor:pointer;font-family:inherit;transition:.3s;border:1px solid var(--border);background:transparent;color:var(--muted);}
+.btn-sm:hover{border-color:var(--gold);color:var(--gold);}
+.btn-sm.gold{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+.btn-sm.gold:hover{background:var(--gold2);}
+
+.dash-body{padding:32px 5%;max-width:1100px;margin:0 auto;}
+
+/* Stats */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:32px;}
+.stat-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:24px;text-align:center;}
+.stat-num{font-size:2.2rem;font-weight:900;color:var(--gold);}
+.stat-label{font-size:.78rem;color:var(--muted);margin-top:4px;letter-spacing:.5px;}
+
+/* Controls */
+.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:24px;}
+.controls input[type=date]{padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--white);font-family:inherit;font-size:.88rem;}
+.controls input[type=date]:focus{outline:none;border-color:var(--gold);}
+.filter-btn{padding:9px 20px;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-family:inherit;font-size:.82rem;transition:.3s;}
+.filter-btn:hover,.filter-btn.active{border-color:var(--gold);color:var(--gold);}
+
+/* Table */
+.table-wrap{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:32px;}
+table{width:100%;border-collapse:collapse;}
+th{background:var(--bg4);padding:13px 16px;text-align:right;font-size:.78rem;color:var(--muted);letter-spacing:1px;font-weight:600;border-bottom:1px solid var(--border);}
+td{padding:13px 16px;font-size:.88rem;border-bottom:1px solid var(--border);vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(200,168,78,.03);}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.72rem;font-weight:600;}
+.badge.confirmed{background:rgba(76,175,80,.15);color:var(--success);}
+.badge.cancelled{background:rgba(244,67,54,.12);color:var(--error);}
+.badge.manual{background:rgba(255,152,0,.12);color:var(--warning);}
+.action-btn{padding:5px 12px;border-radius:5px;font-size:.75rem;cursor:pointer;font-family:inherit;border:1px solid;transition:.3s;}
+.action-btn.cancel{border-color:var(--error);color:var(--error);background:transparent;}
+.action-btn.cancel:hover{background:var(--error);color:#fff;}
+.empty-state{text-align:center;padding:48px;color:var(--muted);}
+
+/* Add Booking Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1000;display:none;align-items:center;justify-content:center;padding:24px;}
+.modal-overlay.open{display:flex;}
+.modal{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:36px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;}
+.modal-title{font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:24px;}
+.modal select{width:100%;padding:12px 14px;background:var(--bg4);border:1px solid var(--border);border-radius:8px;color:var(--white);font-family:inherit;font-size:.92rem;margin-top:6px;cursor:pointer;}
+.modal select:focus{outline:none;border-color:var(--gold);}
+.modal-btns{display:flex;gap:10px;margin-top:24px;}
+.btn-cancel-modal{flex:1;background:transparent;border:1px solid var(--border);color:var(--muted);padding:12px;border-radius:8px;cursor:pointer;font-family:inherit;transition:.3s;}
+.btn-cancel-modal:hover{border-color:var(--gold);color:var(--gold);}
+
+/* Toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px 24px;font-size:.88rem;z-index:9999;transition:.4s;opacity:0;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast.success{border-color:var(--success);color:var(--success);}
+.toast.error{border-color:var(--error);color:var(--error);}
+
+@media(max-width:600px){
+  .login-box{padding:32px 24px;}
+  th,td{padding:10px 10px;font-size:.8rem;}
+  .controls{flex-direction:column;align-items:stretch;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <div class="login-logo">المركز الملكي للمساج</div>
+    <div class="login-sub">ADMIN PANEL</div>
+    <h2>تسجيل الدخول</h2>
+    <div class="form-group">
+      <label>اسم المستخدم</label>
+      <input type="text" id="loginUser" placeholder="admin" autocomplete="username">
+    </div>
+    <div class="form-group">
+      <label>كلمة المرور</label>
+      <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="btn-gold" onclick="doLogin()">دخول</button>
+    <div class="login-err" id="loginErr">اسم المستخدم أو كلمة المرور غلط</div>
+    <a href="index.html" class="back-link">← العودة للموقع</a>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <div class="dash-header">
+    <div class="dash-logo">
+      المركز الملكي
+      <span>ADMIN PANEL</span>
+    </div>
+    <div class="dash-actions">
+      <button class="btn-sm gold" onclick="openAddModal()">+ إضافة حجز</button>
+      <button class="btn-sm" onclick="doLogout()">خروج</button>
+    </div>
+  </div>
+
+  <div class="dash-body">
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num" id="statToday">0</div>
+        <div class="stat-label">حجوزات اليوم</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statTotal">0</div>
+        <div class="stat-label">إجمالي الحجوزات</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" id="statRevenue">0</div>
+        <div class="stat-label">إيرادات اليوم (د.إ)</div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <input type="date" id="filterDate" onchange="loadBookings()">
+      <button class="filter-btn" onclick="clearDateFilter()">كل الحجوزات</button>
+      <button class="filter-btn" onclick="setToday()">اليوم</button>
+      <button class="btn-sm gold" onclick="loadBookings()" style="margin-right:auto;">🔄 تحديث</button>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>رقم الحجز</th>
+            <th>الاسم</th>
+            <th>الخدمة</th>
+            <th>التاريخ</th>
+            <th>الوقت</th>
+            <th>المدة</th>
+            <th>السعر</th>
+            <th>الهاتف</th>
+            <th>النوع</th>
+            <th>الحالة</th>
+            <th>إجراء</th>
+          </tr>
+        </thead>
+        <tbody id="bookingsTable">
+          <tr><td colspan="11" class="empty-state">جاري التحميل...</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- ADD BOOKING MODAL -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal">
+    <div class="modal-title">إضافة حجز يدوي</div>
+    <div class="form-group">
+      <label>الخدمة</label>
+      <select id="mService">
+        <option value="full_body">مساج كامل</option>
+        <option value="sports">مساج رياضي</option>
+        <option value="foot_normatec">مساج قدمين — نورماتيك</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>المدة (دقيقة)</label>
+      <select id="mDuration">
+        <option value="30">30 دقيقة</option>
+        <option value="60">60 دقيقة</option>
+        <option value="90">90 دقيقة</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>التاريخ</label>
+      <input type="date" id="mDate">
+    </div>
+    <div class="form-group">
+      <label>الوقت</label>
+      <select id="mTime">
+        <option>10:00</option><option>10:30</option><option>11:00</option>
+        <option>11:30</option><option>12:00</option><option>12:30</option>
+        <option>16:00</option><option>16:30</option><option>17:00</option>
+        <option>17:30</option><option>18:00</option><option>18:30</option>
+        <option>19:00</option><option>19:30</option><option>20:00</option>
+        <option>20:30</option><option>21:00</option><option>21:30</option>
+        <option>22:00</option><option>22:30</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>اسم الزبون</label>
+      <input type="text" id="mName" placeholder="الاسم">
+    </div>
+    <div class="form-group">
+      <label>هاتف الزبون</label>
+      <input type="tel" id="mPhone" placeholder="05xxxxxxxx">
+    </div>
+    <div class="modal-btns">
+      <button class="btn-cancel-modal" onclick="closeAddModal()">إلغاء</button>
+      <button class="btn-gold" onclick="submitManualBooking()" style="flex:1;">حفظ الحجز</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+const ADMIN_USER = 'admin';
+const ADMIN_PASS = 'malaki2025';
+
+const SERVICE_NAMES = {
+  full_body:'مساج كامل',
+  sports:'مساج رياضي',
+  foot_normatec:'مساج قدمين — نورماتيك'
+};
+
+const SERVICE_PRICES = {
+  full_body:{30:70,60:120,90:190},
+  sports:{30:70,60:120,90:190},
+  foot_normatec:{60:80,90:120}
+};
+
+let sessionPass = '';
+
+// ── LOGIN ──
+function doLogin() {
+  const u = document.getElementById('loginUser').value.trim();
+  const p = document.getElementById('loginPass').value;
+  if(u === ADMIN_USER && p === ADMIN_PASS) {
+    sessionPass = p;
+    document.getElementById('loginWrap').style.display='none';
+    document.getElementById('dashboard').style.display='block';
+    setToday();
+    loadBookings();
+  } else {
+    document.getElementById('loginErr').style.display='block';
+  }
+}
+
+function doLogout() {
+  sessionPass = '';
+  document.getElementById('loginWrap').style.display='flex';
+  document.getElementById('dashboard').style.display='none';
+  document.getElementById('loginPass').value='';
+}
+
+// ── DATE CONTROLS ──
+function setToday() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('filterDate').value = today;
+  loadBookings();
+}
+
+function clearDateFilter() {
+  document.getElementById('filterDate').value = '';
+  loadBookings();
+}
+
+// ── LOAD BOOKINGS ──
+async function loadBookings() {
+  const date = document.getElementById('filterDate').value;
+  const tbody = document.getElementById('bookingsTable');
+  tbody.innerHTML = '<tr><td colspan="11" class="empty-state">جاري التحميل...</td></tr>';
+
+  if(APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+    // Demo data
+    const demo = [
+      {id:'BK001',name:'محمد العامري',service:'full_body',date:'2025-06-10',time:'10:00',duration:60,phone:'0501234567',status:'confirmed',isManual:false},
+      {id:'BK002',name:'سعيد الشحي',service:'sports',date:'2025-06-10',time:'16:30',duration:30,phone:'0557654321',status:'confirmed',isManual:true},
+    ];
+    renderTable(demo);
+    updateStats(demo, new Date().toISOString().split('T')[0]);
+    return;
+  }
+
+  try {
+    const params = new URLSearchParams({action:'admin_getBookings', password:sessionPass});
+    if(date) params.set('date', date);
+    const res = await fetch(`${APPS_SCRIPT_URL}?${params}`);
+    const data = await res.json();
+    if(data.error) { showToast(data.error, 'error'); return; }
+    const bookings = data.bookings || [];
+    renderTable(bookings);
+    updateStats(bookings, date || new Date().toISOString().split('T')[0]);
+  } catch(e) {
+    showToast('خطأ في تحميل الحجوزات', 'error');
+  }
+}
+
+function renderTable(bookings) {
+  const tbody = document.getElementById('bookingsTable');
+  if(!bookings.length) {
+    tbody.innerHTML = '<tr><td colspan="11" class="empty-state">لا توجد حجوزات</td></tr>';
+    return;
+  }
+  tbody.innerHTML = bookings.map(b => {
+    const price = SERVICE_PRICES[b.service]?.[b.duration] || '—';
+    return `
+      <tr>
+        <td style="color:var(--gold);font-size:.78rem">${b.id}</td>
+        <td>${b.name}</td>
+        <td>${SERVICE_NAMES[b.service]||b.service}</td>
+        <td>${b.date}</td>
+        <td>${b.time}</td>
+        <td>${b.duration} د</td>
+        <td>${price} د.إ</td>
+        <td dir="ltr">${b.phone}</td>
+        <td><span class="badge ${b.isManual?'manual':'confirmed'}">${b.isManual?'يدوي':'أونلاين'}</span></td>
+        <td><span class="badge ${b.status}">${b.status==='confirmed'?'مؤكد':'ملغي'}</span></td>
+        <td>${b.status==='confirmed'?`<button class="action-btn cancel" onclick="cancelBooking('${b.id}')">إلغاء</button>`:''}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+function updateStats(bookings, today) {
+  const todayBookings = bookings.filter(b => b.date === today && b.status !== 'cancelled');
+  document.getElementById('statToday').textContent = todayBookings.length;
+  document.getElementById('statTotal').textContent = bookings.filter(b=>b.status!=='cancelled').length;
+  const rev = todayBookings.reduce((sum, b) => sum + (SERVICE_PRICES[b.service]?.[b.duration]||0), 0);
+  document.getElementById('statRevenue').textContent = rev;
+}
+
+// ── CANCEL BOOKING ──
+async function cancelBooking(id) {
+  if(!confirm('هل تريد إلغاء هذا الحجز؟')) return;
+  if(APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+    showToast('وضع العرض — لا يمكن الإلغاء', 'error'); return;
+  }
+  try {
+    const params = new URLSearchParams({action:'admin_cancelBooking', id, password:sessionPass});
+    const res = await fetch(`${APPS_SCRIPT_URL}?${params}`);
+    const data = await res.json();
+    if(data.error) { showToast(data.error,'error'); return; }
+    showToast('تم الإلغاء بنجاح', 'success');
+    loadBookings();
+  } catch(e) { showToast('حدث خطأ', 'error'); }
+}
+
+// ── ADD MANUAL BOOKING ──
+function openAddModal() {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('mDate').value = today;
+  document.getElementById('addModal').classList.add('open');
+}
+
+function closeAddModal() {
+  document.getElementById('addModal').classList.remove('open');
+}
+
+async function submitManualBooking() {
+  const service = document.getElementById('mService').value;
+  const duration = document.getElementById('mDuration').value;
+  const date = document.getElementById('mDate').value;
+  const time = document.getElementById('mTime').value;
+  const name = document.getElementById('mName').value.trim();
+  const phone = document.getElementById('mPhone').value.trim();
+  if(!name||!phone||!date) { showToast('الرجاء ملء جميع البيانات','error'); return; }
+
+  if(APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+    showToast('وضع العرض — جاري المحاكاة...','');
+    setTimeout(()=>{ closeAddModal(); showToast('تمت الإضافة (وضع عرض)','success'); },1000);
+    return;
+  }
+
+  try {
+    const params = new URLSearchParams({
+      action:'admin_addBooking', service, duration, date, time, name, phone,
+      password:sessionPass, isManual:'true',
+      price: SERVICE_PRICES[service]?.[duration] || 0
+    });
+    const res = await fetch(`${APPS_SCRIPT_URL}?${params}`);
+    const data = await res.json();
+    if(data.error) { showToast(data.error,'error'); return; }
+    showToast('تمت إضافة الحجز','success');
+    closeAddModal();
+    loadBookings();
+  } catch(e) { showToast('حدث خطأ','error'); }
+}
+
+// ── TOAST ──
+function showToast(msg, type='') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `toast ${type} show`;
+  setTimeout(()=>el.classList.remove('show'), 3000);
+}
+
+// Close modal on overlay click
+document.getElementById('addModal').addEventListener('click', function(e) {
+  if(e.target === this) closeAddModal();
+});
+</script>
+</body>
+</html>
