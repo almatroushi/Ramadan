@@ -816,7 +816,6 @@ async function loadSlots() {
   if(!selectedDuration) return;
   const date = document.getElementById('dateInput').value;
   if(!date) return;
-  selectedSlot = null;
   const container = document.getElementById('slotsContainer');
   container.innerHTML = `<div class="slots-loading">${t('loading_slots')}</div>`;
 
@@ -866,9 +865,9 @@ function renderSlots(allSlots, bookedSlots) {
 
 function pickSlot(time) {
   selectedSlot = time;
-  // Re-render slots
-  const date = document.getElementById('dateInput').value;
-  loadSlots();
+  document.querySelectorAll('.slot').forEach(el => {
+    el.classList.toggle('selected', el.textContent.trim() === time);
+  });
 }
 
 // ═══════════════════════════════════════════════
