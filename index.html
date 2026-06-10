@@ -57,7 +57,7 @@ body.en .mclose{right:auto;left:24px;}
 .hbg-img{position:absolute;inset:0;background:url('hero.jpg') center/cover no-repeat;transform:scale(1.06);will-change:transform;}
 .hov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,4,2,.58) 0%,rgba(6,4,2,.36) 45%,rgba(6,4,2,.74) 100%),radial-gradient(ellipse at center,transparent 20%,rgba(6,4,2,.72) 100%);}
 .hcontent{position:relative;z-index:2;text-align:center;padding:130px 6% 90px;max-width:860px;}
-.hbadge{display:inline-flex;align-items:center;gap:12px;border:1px solid rgba(201,168,76,.22);color:var(--t3);font-size:.62rem;letter-spacing:5px;padding:7px 22px;margin-bottom:42px;font-family:'Inter','Tajawal',sans-serif;text-transform:uppercase;}
+.hbadge{display:inline-flex;align-items:center;gap:12px;border:1px solid rgba(201,168,76,.22);color:var(--t3);font-size:.62rem;letter-spacing:5px;padding:7px 22px;margin-bottom:42px;font-family:'Inter','Tajawal',sans-serif;text-transform:uppercase;animation:badgePulse 3.5s ease-in-out infinite;}
 .hbadge::before,.hbadge::after{content:'';display:block;width:18px;height:1px;background:var(--gold);opacity:.45;}
 .htitle{font-family:'Amiri',serif;font-size:clamp(3.2rem,9.5vw,7.8rem);font-weight:700;color:var(--t1);line-height:1.0;letter-spacing:-.02em;margin-bottom:12px;animation:titleGlow 5s ease-in-out infinite;}
 body.en .htitle{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,7vw,5.5rem);}
@@ -88,7 +88,6 @@ body.en .hsub{font-family:'Tajawal',sans-serif;font-size:.82rem;letter-spacing:2
 
 /* TITLE GLOW */
 @keyframes titleGlow{0%,100%{text-shadow:0 0 40px rgba(201,168,76,0);}50%{text-shadow:0 0 60px rgba(201,168,76,.18),0 0 100px rgba(201,168,76,.08);}}
-.htitle{animation:titleGlow 5s ease-in-out infinite;}
 
 /* BOOKING STEP TRANSITIONS */
 @keyframes slideInRight{from{opacity:0;transform:translateX(32px);}to{opacity:1;transform:none;}}
@@ -97,7 +96,6 @@ body.en .hsub{font-family:'Tajawal',sans-serif;font-size:.82rem;letter-spacing:2
 .bsec.slide-left{animation:slideInLeft .38s cubic-bezier(.4,0,.2,1);}
 
 /* BADGE PULSE */
-.hbadge{animation:badgePulse 3.5s ease-in-out infinite;}
 @keyframes badgePulse{0%,100%{border-color:rgba(201,168,76,.22);}50%{border-color:rgba(201,168,76,.55);box-shadow:0 0 18px rgba(201,168,76,.1);}}
 
 /* WABTN PULSE */
@@ -260,7 +258,7 @@ footer{background:var(--bg);border-top:1px solid var(--line);padding:60px 7%;tex
 .flinks a{color:var(--t3);text-decoration:none;font-size:.74rem;letter-spacing:.4px;transition:color .3s;}
 .flinks a:hover{color:var(--gold);}
 .fcopy{font-size:.62rem;color:rgba(237,229,212,.14);}
-.wabtn{position:fixed;bottom:30px;right:30px;z-index:900;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.33);transition:.35s;}
+.wabtn{position:fixed;bottom:30px;right:30px;z-index:900;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.35s;animation:waPulse 2.6s ease-in-out infinite;}
 body.en .wabtn{right:auto;left:30px;}
 .wabtn:hover{transform:scale(1.09);}
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(70px);background:var(--bg3);border:1px solid var(--line);padding:11px 26px;font-size:.8rem;z-index:9000;transition:.4s;opacity:0;pointer-events:none;max-width:290px;text-align:center;}
@@ -656,8 +654,7 @@ async function loadSlots(){
     try{const r=await fetch(`${APPS_SCRIPT_URL}?action=getSlots&date=${date}&duration=${selDur}`);booked=(await r.json()).bookedSlots||[];}catch(e){}
   }else{getLocalBks(date).forEach(b=>{let c=toMin(b.time);for(let i=0;i<Math.ceil(b.duration/30);i++)booked.push(toTime(c+i*30));});}
   const slots=genSlots(selDur);const bs=new Set(booked);
-  const makeGrid=(arr,lbl)=>{if(!arr.length)return'';return`<span class="slotlbl">${lbl}</span><div class="slotgrid">${arr.map(s=>{const occ=[];let c=toMin(s);for(let i=0;i<Math.ceil(selDur/30);i++)occ.push(toTime(c+i*30));const bkd=occ.some(o=>bs.has(o));return`<button class="slot${bkd?' booked':''}${selSlot===s?' selected':''}" onclick="${bkd?'':'pickSlot(\''+s+'\')'}">${s}</button>`;}).join('')}</div>`);};
-  const html=makeGrid(slots.am,t('slot_am'))+makeGrid(slots.pm,t('slot_pm'));
+  const makeGrid=(arr,lbl)=>{if(!arr.length)return'';return`<span class="slotlbl">${lbl}</span><div class="slotgrid">${arr.map(s=>{const occ=[];let c=toMin(s);for(let i=0;i<Math.ceil(selDur/30);i++)occ.push(toTime(c+i*30));const bkd=occ.some(o=>bs.has(o));return`<button class="slot${bkd?' booked':''}${selSlot===s?' selected':''}" onclick="${bkd?'':'pickSlot(\''+s+'\')'}">${s}</button>`;}).join('')}</div>`;};  const html=makeGrid(slots.am,t('slot_am'))+makeGrid(slots.pm,t('slot_pm'));
   w.innerHTML=html||`<div class="slotmsg">${t('no_slots')}</div>`;
 }
 function pickSlot(time){selSlot=time;document.querySelectorAll('.slot').forEach(el=>el.classList.toggle('selected',el.textContent.trim()===time));}
