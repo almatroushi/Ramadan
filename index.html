@@ -5,248 +5,436 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>المركز الملكي للمساج | ALMALAKI MASSAGE CENTRE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Tajawal:wght@300;400;500;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-:root{
-  --cream:#F5EDD8;--cream2:#EDE0C8;--cream3:#FBF5EA;
-  --white:#FFFFFF;
-  --brown:#4A2010;--brown2:#7A3F18;
-  --terra:#B85C38;--terra2:#D4785A;--terra3:#8C4020;
-  --text:#3D2211;--text2:#8B6040;--text3:#B89878;
-  --border:#D9C5A8;--border2:#C8B090;
-  --shadow:0 4px 24px rgba(74,32,16,.1);
-  --radius:14px;
+/* ═══════════ TOKENS ═══════════ */
+:root {
+  --gold:#C9A84C; --gold2:#E8C97A; --gold3:rgba(201,168,76,.15);
+  --dark:#06090F; --dark2:#0B1120;
+  --g1:rgba(255,255,255,.07); --g2:rgba(255,255,255,.12);
+  --gb:rgba(255,255,255,.10); --gbb:rgba(255,255,255,.18);
+  --t1:#F0EDE8; --t2:rgba(240,237,232,.6); --t3:rgba(240,237,232,.35);
+  --r:18px; --blur:blur(28px);
 }
+
+/* ═══════════ RESET ═══════════ */
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:'Tajawal',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;line-height:1.7;}
-body.en{font-family:'Montserrat',sans-serif;direction:ltr;}
+body{font-family:'Tajawal',sans-serif;background:var(--dark);color:var(--t1);overflow-x:hidden;line-height:1.7;}
+body.en{font-family:'Inter',sans-serif;direction:ltr;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:#0B1120;}
+::-webkit-scrollbar-thumb{background:var(--gold3);border-radius:2px;}
 
-::-webkit-scrollbar{width:5px;}
-::-webkit-scrollbar-track{background:var(--cream2);}
-::-webkit-scrollbar-thumb{background:var(--terra3);border-radius:3px;}
+/* ═══════════ BG ORBS ═══════════ */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 800px 600px at 15% 20%, rgba(201,168,76,.07) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 500px at 85% 80%, rgba(80,120,200,.06) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 400px at 50% 50%, rgba(150,70,40,.05) 0%, transparent 70%);
+}
+section,nav,footer,#hero{position:relative;z-index:1;}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;width:100%;z-index:1000;padding:18px 6%;display:flex;align-items:center;justify-content:space-between;transition:.35s;background:transparent;}
-nav.scrolled{background:rgba(245,237,216,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);box-shadow:0 2px 20px rgba(74,32,16,.07);}
-.nav-logo{text-decoration:none;display:flex;flex-direction:column;}
-.nav-logo .ar{font-family:'Scheherazade New',serif;font-size:1.2rem;font-weight:700;color:var(--brown);letter-spacing:.5px;line-height:1.1;}
-.nav-logo .en{font-family:'Cormorant Garamond',serif;font-size:.65rem;color:var(--text2);letter-spacing:3px;font-weight:500;}
+/* ═══════════ GLASS ═══════════ */
+.glass{
+  background:var(--g1);
+  backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+  border:1px solid var(--gb);
+  border-radius:var(--r);
+}
+.glass-md{
+  background:var(--g2);
+  backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);
+  border:1px solid var(--gbb);
+  border-radius:var(--r);
+}
+
+/* ═══════════ NAV ═══════════ */
+nav{
+  position:fixed;top:0;width:100%;z-index:1000;
+  padding:18px 6%;display:flex;align-items:center;justify-content:space-between;
+  transition:.4s;
+}
+nav.scrolled{
+  background:rgba(6,9,15,.7);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--gb);
+}
+.nav-logo{text-decoration:none;}
+.nav-logo .ar{font-size:1.05rem;font-weight:700;color:var(--gold);letter-spacing:.5px;display:block;line-height:1.1;}
+.nav-logo .en{font-size:.6rem;letter-spacing:3px;color:var(--t3);display:block;font-family:'Inter',sans-serif;}
 .nav-links{display:flex;gap:28px;list-style:none;align-items:center;}
-.nav-links a{color:var(--text2);text-decoration:none;font-size:.88rem;transition:.3s;letter-spacing:.3px;}
-.nav-links a:hover{color:var(--terra);}
-.lang-btn{background:transparent;border:1px solid var(--border2);color:var(--terra);padding:6px 16px;border-radius:20px;cursor:pointer;font-size:.78rem;letter-spacing:1px;transition:.3s;font-family:inherit;}
-.lang-btn:hover{background:var(--terra);color:var(--white);border-color:var(--terra);}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
-.hamburger span{width:22px;height:2px;background:var(--brown);transition:.3s;}
-.mobile-menu{display:none;position:fixed;top:0;left:0;width:100%;height:100vh;background:var(--cream3);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:36px;}
-.mobile-menu.open{display:flex;}
-.mobile-menu a{color:var(--text);text-decoration:none;font-size:1.4rem;font-family:'Scheherazade New',serif;}
-.mobile-menu a:hover{color:var(--terra);}
+.nav-links a{color:var(--t2);text-decoration:none;font-size:.85rem;transition:.3s;}
+.nav-links a:hover{color:var(--gold);}
+.lang-btn{
+  background:var(--gold3);border:1px solid rgba(201,168,76,.3);
+  color:var(--gold);padding:6px 16px;border-radius:20px;
+  cursor:pointer;font-size:.75rem;letter-spacing:1.5px;
+  transition:.3s;font-family:inherit;
+}
+.lang-btn:hover{background:var(--gold);color:var(--dark);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+.hamburger span{width:22px;height:1.5px;background:var(--gold);transition:.3s;}
+.mob-menu{
+  display:none;position:fixed;inset:0;z-index:999;
+  background:rgba(6,9,15,.96);backdrop-filter:blur(30px);
+  flex-direction:column;align-items:center;justify-content:center;gap:36px;
+}
+.mob-menu.open{display:flex;}
+.mob-menu a{color:var(--t1);text-decoration:none;font-size:1.5rem;font-weight:700;transition:.3s;}
+.mob-menu a:hover{color:var(--gold);}
+.mob-close{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--t2);font-size:1.6rem;cursor:pointer;}
 
-/* ── HERO ── */
-#hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;background:var(--cream3);overflow:hidden;padding:80px 5% 60px;}
-.botanical-left,.botanical-right{position:absolute;top:0;opacity:.85;pointer-events:none;}
-.botanical-left{right:0;transform:scaleX(-1);}
-.botanical-right{left:0;}
-@media(max-width:768px){.botanical-left,.botanical-right{opacity:.4;width:120px;}}
-.hero-content{position:relative;z-index:1;max-width:600px;}
-.hero-illustration{width:260px;height:auto;margin-bottom:32px;}
-.hero-logo{font-family:'Scheherazade New',serif;font-size:clamp(2rem,6vw,3.4rem);font-weight:700;color:var(--brown);line-height:1.2;margin-bottom:6px;}
-.hero-logo-en{font-family:'Cormorant Garamond',serif;font-size:clamp(.9rem,2vw,1.1rem);letter-spacing:4px;color:var(--text2);margin-bottom:20px;font-weight:500;}
-.hero-divider{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:20px;}
-.hero-divider::before,.hero-divider::after{content:'';flex:1;max-width:60px;height:1px;background:var(--border2);}
-.hero-location{font-size:.8rem;letter-spacing:3px;color:var(--text2);}
-.hero-sub{font-size:1rem;color:var(--text2);margin-bottom:36px;font-weight:300;}
-.hero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--terra);color:var(--white);padding:14px 40px;border-radius:40px;font-weight:600;font-size:.95rem;text-decoration:none;transition:.35s;letter-spacing:.5px;}
-.hero-cta:hover{background:var(--brown);transform:translateY(-2px);box-shadow:0 8px 28px rgba(184,92,56,.35);}
+/* ═══════════ HERO ═══════════ */
+#hero{
+  min-height:100vh;display:flex;align-items:center;
+  padding:100px 6% 60px;
+  background:url('hero.jpg') center/cover no-repeat;
+}
+#hero::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg, rgba(6,9,15,.82) 0%, rgba(6,9,15,.65) 50%, rgba(6,9,15,.88) 100%);
+  z-index:0;
+}
+.hero-inner{position:relative;z-index:1;display:flex;align-items:center;gap:60px;width:100%;max-width:1200px;margin:0 auto;}
+.hero-text{flex:1;}
+.hero-pill{
+  display:inline-block;
+  background:var(--gold3);border:1px solid rgba(201,168,76,.25);
+  color:var(--gold);font-size:.7rem;letter-spacing:3px;
+  padding:6px 18px;border-radius:20px;margin-bottom:24px;
+  font-family:'Inter',sans-serif;
+}
+.hero-title{
+  font-size:clamp(2.8rem,6vw,5rem);font-weight:900;
+  line-height:1.1;margin-bottom:16px;
+}
+.hero-title .line2{color:var(--gold);}
+.hero-sub{font-size:1rem;color:var(--t2);margin-bottom:40px;font-weight:300;max-width:460px;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-gold{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold);color:var(--dark);
+  padding:14px 36px;border-radius:40px;
+  font-weight:700;font-size:.92rem;text-decoration:none;
+  transition:.35s;border:2px solid var(--gold);cursor:pointer;font-family:inherit;
+}
+.btn-gold:hover{background:transparent;color:var(--gold);box-shadow:0 0 40px rgba(201,168,76,.3);}
+.btn-glass-outline{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--g1);backdrop-filter:var(--blur);
+  border:1px solid var(--gb);color:var(--t1);
+  padding:14px 32px;border-radius:40px;
+  font-weight:500;font-size:.92rem;text-decoration:none;
+  transition:.35s;cursor:pointer;font-family:inherit;
+}
+.btn-glass-outline:hover{border-color:var(--gold);color:var(--gold);}
+.hero-card{
+  width:300px;flex-shrink:0;
+  padding:32px 24px;text-align:center;
+}
+.hero-card-logo{font-size:.7rem;letter-spacing:3px;color:var(--t3);margin-bottom:20px;font-family:'Inter',sans-serif;}
+.hero-card-name{font-size:1.4rem;font-weight:900;color:var(--gold);margin-bottom:4px;}
+.hero-card-en{font-family:'Cormorant Garamond',serif;font-size:.85rem;color:var(--t3);letter-spacing:2px;margin-bottom:24px;}
+.hero-divider{width:40px;height:1px;background:var(--gold);margin:0 auto 20px;opacity:.5;}
+.hero-stat{display:flex;flex-direction:column;gap:12px;}
+.stat-row{display:flex;align-items:center;gap:10px;font-size:.82rem;color:var(--t2);}
+.stat-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;}
+@media(max-width:900px){
+  .hero-inner{flex-direction:column;text-align:center;}
+  .hero-btns{justify-content:center;}
+  .hero-sub{margin:0 auto 36px;}
+  .hero-card{width:100%;max-width:340px;}
+}
 
-/* ── SECTION BASE ── */
-section{padding:80px 6%;}
-.section-header{text-align:center;margin-bottom:56px;}
-.section-tag{font-size:.7rem;letter-spacing:4px;color:var(--terra);text-transform:uppercase;display:block;margin-bottom:10px;font-family:'Montserrat',sans-serif;}
-.section-title{font-family:'Scheherazade New',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--brown);}
-body.en .section-title{font-family:'Cormorant Garamond',serif;}
-.section-line{display:block;width:40px;height:2px;background:var(--terra);margin:14px auto 0;}
-.section-sub{color:var(--text2);margin-top:12px;font-size:.92rem;}
+/* ═══════════ SECTIONS ═══════════ */
+section{padding:90px 6%;}
+.sec-header{text-align:center;margin-bottom:64px;}
+.sec-tag{font-size:.65rem;letter-spacing:4px;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:12px;font-family:'Inter',sans-serif;}
+.sec-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:var(--t1);}
+.sec-line{display:block;width:36px;height:2px;background:var(--gold);margin:14px auto 0;}
+.sec-sub{color:var(--t2);margin-top:12px;font-size:.9rem;}
 
-/* ── SERVICES ── */
-#services{background:var(--cream);}
-.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
-.service-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:36px 28px;transition:.35s;position:relative;overflow:hidden;}
-.service-card::before{content:'';position:absolute;top:0;right:0;width:4px;height:0;background:var(--terra);transition:.4s;border-radius:0 var(--radius) var(--radius) 0;}
-body.en .service-card::before{right:auto;left:0;border-radius:var(--radius) 0 0 var(--radius);}
-.service-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:var(--border2);}
-.service-card:hover::before{height:100%;}
-.service-icon-wrap{width:56px;height:56px;background:var(--cream);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;}
-.service-icon-wrap svg{width:30px;height:30px;}
-.service-name{font-family:'Scheherazade New',serif;font-size:1.3rem;font-weight:700;margin-bottom:10px;color:var(--brown);}
-body.en .service-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem;}
-.service-desc{color:var(--text2);font-size:.88rem;margin-bottom:22px;line-height:1.9;}
-.service-prices{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
-.price-tag{background:var(--cream);border:1px solid var(--border2);color:var(--terra3);padding:5px 14px;border-radius:20px;font-size:.78rem;font-weight:600;}
-.btn-book{display:block;text-align:center;background:transparent;border:1px solid var(--terra3);color:var(--terra);padding:11px;border-radius:8px;cursor:pointer;font-size:.88rem;font-family:inherit;font-weight:600;transition:.3s;width:100%;}
-.btn-book:hover{background:var(--terra);color:var(--white);border-color:var(--terra);}
+/* ═══════════ SERVICES ═══════════ */
+#services{background:linear-gradient(180deg,var(--dark) 0%,var(--dark2) 100%);}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+.svc-card{
+  padding:36px 28px;transition:.4s;cursor:pointer;
+  position:relative;overflow:hidden;
+}
+.svc-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(201,168,76,.05),transparent);
+  opacity:0;transition:.4s;border-radius:var(--r);
+}
+.svc-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px rgba(201,168,76,.2);border-color:rgba(201,168,76,.25);}
+.svc-card:hover::after{opacity:1;}
+.svc-icon{
+  width:64px;height:64px;border-radius:14px;
+  background:var(--gold3);border:1px solid rgba(201,168,76,.2);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:22px;transition:.4s;
+}
+.svc-card:hover .svc-icon{background:rgba(201,168,76,.2);box-shadow:0 0 24px rgba(201,168,76,.25);}
+.svc-icon svg{width:34px;height:34px;}
+.svc-name{font-size:1.2rem;font-weight:700;margin-bottom:10px;color:var(--t1);}
+.svc-desc{color:var(--t2);font-size:.85rem;margin-bottom:22px;line-height:1.9;}
+.svc-prices{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;}
+.price-tag{
+  background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);
+  color:var(--gold2);padding:5px 14px;border-radius:20px;font-size:.75rem;font-weight:600;
+}
+.svc-book{
+  width:100%;background:transparent;border:1px solid var(--gb);
+  color:var(--t2);padding:11px;border-radius:10px;
+  cursor:pointer;font-size:.85rem;font-family:inherit;
+  transition:.3s;
+}
+.svc-book:hover{border-color:var(--gold);color:var(--gold);background:var(--gold3);}
 
-/* ── BOOKING ── */
-#booking{background:var(--cream2);}
-.booking-wrap{max-width:760px;margin:0 auto;}
-.steps{display:flex;gap:0;margin-bottom:40px;position:relative;}
-.steps::before{content:'';position:absolute;top:19px;right:24px;left:24px;height:1px;background:var(--border);z-index:0;}
-.step{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:1;}
-.step-num{width:38px;height:38px;border-radius:50%;background:var(--cream3);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;color:var(--text2);transition:.3s;}
-.step.active .step-num,.step.done .step-num{border-color:var(--terra);background:var(--terra);color:var(--white);}
-.step-label{font-size:.72rem;color:var(--text2);letter-spacing:.5px;}
-.step.active .step-label{color:var(--terra);}
+/* ═══════════ BOOKING ═══════════ */
+#booking{background:var(--dark);}
+.bk-wrap{max-width:740px;margin:0 auto;}
+.steps{display:flex;gap:0;margin-bottom:36px;position:relative;}
+.steps::before{content:'';position:absolute;top:17px;left:24px;right:24px;height:1px;background:rgba(255,255,255,.08);z-index:0;}
+.step{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:1;}
+.step-n{
+  width:34px;height:34px;border-radius:50%;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.78rem;font-weight:700;color:var(--t3);transition:.35s;
+}
+.step.active .step-n,.step.done .step-n{background:var(--gold);border-color:var(--gold);color:var(--dark);}
+.step-lbl{font-size:.68rem;color:var(--t3);letter-spacing:.5px;}
+.step.active .step-lbl{color:var(--gold);}
 
-.booking-panel{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:36px;box-shadow:0 2px 20px rgba(74,32,16,.06);}
-.booking-section{display:none;}
-.booking-section.active{display:block;animation:fadeUp .3s ease;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
-.panel-title{font-family:'Scheherazade New',serif;font-size:1.2rem;font-weight:700;margin-bottom:20px;color:var(--brown);}
-body.en .panel-title{font-family:'Cormorant Garamond',serif;}
+.bk-panel{padding:36px;}
+.bk-sec{display:none;}
+.bk-sec.active{display:block;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.bk-title{font-size:1.1rem;font-weight:700;margin-bottom:20px;color:var(--gold);}
 
-/* Service select */
-.service-select-list{display:flex;flex-direction:column;gap:10px;}
-.service-option{display:flex;align-items:center;gap:14px;padding:15px 18px;background:var(--cream3);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:.3s;}
-.service-option:hover,.service-option.selected{border-color:var(--terra);background:#FFF5EE;}
-.service-option .s-icon{width:40px;height:40px;background:var(--cream2);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.service-option .s-icon svg{width:22px;height:22px;}
-.service-option .s-info{flex:1;}
-.service-option .s-name{font-weight:700;font-size:.92rem;color:var(--text);}
-.service-option .s-price{color:var(--terra);font-size:.8rem;margin-top:2px;}
-.service-option .s-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border2);transition:.3s;flex-shrink:0;}
-.service-option.selected .s-check{background:var(--terra);border-color:var(--terra);}
+/* Service options */
+.svc-opts{display:flex;flex-direction:column;gap:10px;}
+.svc-opt{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 18px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;cursor:pointer;transition:.3s;
+}
+.svc-opt:hover,.svc-opt.sel{border-color:rgba(201,168,76,.3);background:rgba(201,168,76,.06);}
+.svc-opt-icon{
+  width:40px;height:40px;border-radius:10px;
+  background:var(--gold3);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.svc-opt-icon svg{width:22px;height:22px;}
+.svc-opt-name{font-weight:700;font-size:.9rem;}
+.svc-opt-price{color:var(--gold);font-size:.78rem;margin-top:2px;}
+.svc-opt-check{
+  width:20px;height:20px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.2);
+  margin-right:auto;flex-shrink:0;transition:.3s;
+}
+body.en .svc-opt-check{margin-right:0;margin-left:auto;}
+.svc-opt.sel .svc-opt-check{background:var(--gold);border-color:var(--gold);}
 
 /* Duration */
-.duration-list{display:flex;gap:10px;flex-wrap:wrap;}
-.dur-btn{padding:12px 22px;background:var(--cream3);border:1px solid var(--border);border-radius:8px;color:var(--text);cursor:pointer;font-size:.88rem;font-family:inherit;transition:.3s;}
-.dur-btn:hover,.dur-btn.selected{border-color:var(--terra);color:var(--terra);background:#FFF5EE;}
-.dur-price{font-size:.78rem;color:var(--terra);display:block;margin-top:2px;}
+.dur-list{display:flex;gap:10px;flex-wrap:wrap;}
+.dur-btn{
+  padding:11px 22px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;color:var(--t2);cursor:pointer;
+  font-size:.85rem;font-family:inherit;transition:.3s;
+}
+.dur-btn:hover,.dur-btn.sel{border-color:rgba(201,168,76,.35);color:var(--gold);background:var(--gold3);}
+.dur-price{font-size:.75rem;color:var(--gold);display:block;margin-top:2px;}
 
-/* Date */
-.date-input-wrap label{display:block;font-size:.82rem;color:var(--text2);margin-bottom:8px;}
-input[type=date]{width:100%;padding:13px 16px;background:var(--cream3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:.92rem;cursor:pointer;transition:.3s;}
-input[type=date]:focus{outline:none;border-color:var(--terra);}
-input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.3) sepia(1) saturate(3) hue-rotate(-20deg);}
+/* Date input */
+.date-lbl{display:block;font-size:.78rem;color:var(--t3);margin-bottom:8px;letter-spacing:.5px;}
+input[type=date]{
+  width:100%;padding:13px 16px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;color:var(--t1);font-family:inherit;font-size:.9rem;cursor:pointer;transition:.3s;
+}
+input[type=date]:focus{outline:none;border-color:rgba(201,168,76,.4);}
+input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.6);}
 
 /* Slots */
-.slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:8px;}
-.slot{padding:10px 4px;text-align:center;background:var(--cream3);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:.82rem;transition:.3s;font-family:inherit;color:var(--text);}
-.slot:hover:not(.booked){border-color:var(--terra);color:var(--terra);}
-.slot.selected{background:var(--terra);color:var(--white);border-color:var(--terra);font-weight:700;}
-.slot.booked{opacity:.3;cursor:not-allowed;text-decoration:line-through;}
-.slots-loading{text-align:center;color:var(--text2);padding:24px;font-size:.88rem;}
-.time-window-label{font-size:.72rem;color:var(--terra);letter-spacing:2px;margin:16px 0 8px;text-transform:uppercase;}
+.slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(76px,1fr));gap:8px;}
+.slot{
+  padding:10px 4px;text-align:center;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:9px;cursor:pointer;font-size:.8rem;
+  transition:.3s;font-family:inherit;color:var(--t1);
+}
+.slot:hover:not(.booked){border-color:rgba(201,168,76,.35);color:var(--gold);}
+.slot.selected{background:var(--gold);color:var(--dark);border-color:var(--gold);font-weight:700;}
+.slot.booked{opacity:.25;cursor:not-allowed;text-decoration:line-through;}
+.slots-lbl{font-size:.68rem;color:var(--gold);letter-spacing:2.5px;margin:16px 0 8px;text-transform:uppercase;font-family:'Inter',sans-serif;}
+.slots-loading{text-align:center;color:var(--t3);padding:28px;font-size:.85rem;}
 
 /* Form */
-.form-group{margin-bottom:18px;}
-.form-group label{display:block;font-size:.82rem;color:var(--text2);margin-bottom:7px;}
-.form-group input{width:100%;padding:13px 16px;background:var(--cream3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:.92rem;transition:.3s;}
-.form-group input:focus{outline:none;border-color:var(--terra);}
-.form-group input::placeholder{color:var(--text3);}
-.booking-summary{background:var(--cream3);border-radius:8px;padding:16px;margin-bottom:20px;font-size:.86rem;line-height:2;}
-.booking-summary .row{display:flex;justify-content:space-between;border-bottom:1px solid var(--border);}
-.booking-summary .row:last-child{border-bottom:none;}
-.booking-summary .val{color:var(--terra);font-weight:600;}
+.fg{margin-bottom:18px;}
+.fg label{display:block;font-size:.78rem;color:var(--t3);margin-bottom:7px;letter-spacing:.5px;}
+.fg input{
+  width:100%;padding:13px 16px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;color:var(--t1);font-family:inherit;font-size:.9rem;transition:.3s;
+}
+.fg input:focus{outline:none;border-color:rgba(201,168,76,.4);}
+.fg input::placeholder{color:var(--t3);}
+.bk-summary{
+  background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.15);
+  border-radius:10px;padding:16px;margin-bottom:20px;font-size:.84rem;line-height:2.2;
+}
+.bk-summary .row{display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.05);}
+.bk-summary .row:last-child{border-bottom:none;}
+.bk-summary .val{color:var(--gold);font-weight:600;}
 
-/* Buttons */
-.btn-terra{background:var(--terra);color:var(--white);border:2px solid var(--terra);padding:13px 32px;border-radius:40px;font-size:.92rem;font-weight:700;cursor:pointer;font-family:inherit;transition:.35s;width:100%;letter-spacing:.3px;}
-.btn-terra:hover{background:var(--brown);border-color:var(--brown);}
-.btn-terra:disabled{opacity:.5;cursor:not-allowed;}
-.btn-outline{background:transparent;color:var(--text2);border:1px solid var(--border2);padding:11px 24px;border-radius:40px;font-size:.88rem;cursor:pointer;font-family:inherit;transition:.3s;}
-.btn-outline:hover{border-color:var(--terra);color:var(--terra);}
-.btns-row{display:flex;gap:10px;margin-top:12px;}
-.btns-row .btn-outline{flex:0 0 auto;}
-.btns-row .btn-terra{flex:1;}
+/* Btn row */
+.btn-row{display:flex;gap:10px;margin-top:14px;}
+.btn-outline-sm{
+  background:transparent;border:1px solid rgba(255,255,255,.12);
+  color:var(--t2);padding:11px 24px;border-radius:40px;
+  font-size:.85rem;cursor:pointer;font-family:inherit;transition:.3s;
+}
+.btn-outline-sm:hover{border-color:var(--gold);color:var(--gold);}
+.btn-gold-full{
+  flex:1;background:var(--gold);color:var(--dark);border:2px solid var(--gold);
+  padding:12px;border-radius:40px;font-size:.9rem;font-weight:700;
+  cursor:pointer;font-family:inherit;transition:.35s;
+}
+.btn-gold-full:hover{background:transparent;color:var(--gold);}
+.btn-gold-full:disabled{opacity:.4;cursor:not-allowed;}
 
 /* Success */
-.booking-success{text-align:center;padding:48px 24px;display:none;}
-.booking-success.show{display:block;animation:fadeUp .4s ease;}
-.success-check{width:72px;height:72px;border-radius:50%;background:#FFF5EE;border:2px solid var(--terra);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;}
-.success-check svg{width:36px;height:36px;}
-.success-title{font-family:'Scheherazade New',serif;font-size:1.6rem;color:var(--brown);margin-bottom:8px;}
-body.en .success-title{font-family:'Cormorant Garamond',serif;}
-.success-sub{color:var(--text2);font-size:.9rem;}
-.booking-id{display:inline-block;background:var(--cream2);border:1px solid var(--border2);color:var(--terra3);padding:6px 20px;border-radius:20px;font-size:.82rem;margin:16px 0;letter-spacing:1px;}
+.bk-success{text-align:center;padding:52px 24px;display:none;}
+.bk-success.show{display:block;animation:fadeUp .4s ease;}
+.success-ring{
+  width:76px;height:76px;border-radius:50%;
+  background:var(--gold3);border:2px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 20px;
+}
+.success-ring svg{width:36px;height:36px;}
+.success-ttl{font-size:1.6rem;font-weight:800;color:var(--gold);margin-bottom:8px;}
+.success-sub{color:var(--t2);font-size:.88rem;}
+.bk-id{
+  display:inline-block;background:var(--gold3);border:1px solid rgba(201,168,76,.25);
+  color:var(--gold);padding:6px 20px;border-radius:20px;font-size:.78rem;
+  margin:14px 0;letter-spacing:1px;font-family:'Inter',sans-serif;
+}
 
-/* ── REVIEWS ── */
-#reviews{background:var(--cream3);}
-.rating-hero{text-align:center;margin-bottom:48px;}
-.rating-big{font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:700;color:var(--terra);line-height:1;}
-.stars{color:var(--terra);font-size:1rem;letter-spacing:2px;margin:4px 0;}
-.rating-count{color:var(--text2);font-size:.8rem;margin-top:4px;}
-.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;}
-.review-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:26px;}
-.review-text{color:var(--text2);font-size:.88rem;line-height:1.9;margin-bottom:18px;font-style:italic;}
-.review-author{display:flex;align-items:center;gap:12px;}
-.review-avatar{width:40px;height:40px;border-radius:50%;background:var(--terra);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--white);font-size:.9rem;flex-shrink:0;}
-.review-name{font-weight:700;font-size:.88rem;color:var(--text);}
-.review-date{color:var(--text3);font-size:.75rem;}
-.review-cta{text-align:center;margin-top:36px;}
-.btn-review{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--terra3);color:var(--terra);padding:12px 28px;border-radius:40px;text-decoration:none;font-size:.88rem;transition:.3s;}
-.btn-review:hover{background:var(--terra);color:var(--white);border-color:var(--terra);}
+/* ═══════════ REVIEWS ═══════════ */
+#reviews{background:var(--dark2);}
+.rating-big{
+  font-family:'Cormorant Garamond',serif;font-size:5.5rem;font-weight:700;
+  color:var(--gold);line-height:1;text-align:center;
+}
+.stars-row{color:var(--gold);font-size:1rem;letter-spacing:3px;text-align:center;margin:4px 0;}
+.rating-lbl{text-align:center;color:var(--t3);font-size:.78rem;margin-bottom:44px;}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}
+.rev-card{padding:26px;}
+.rev-stars{color:var(--gold);font-size:.85rem;letter-spacing:2px;margin-bottom:12px;}
+.rev-text{color:var(--t2);font-size:.86rem;line-height:1.9;margin-bottom:16px;font-style:italic;}
+.rev-author{display:flex;align-items:center;gap:12px;}
+.rev-av{
+  width:38px;height:38px;border-radius:50%;
+  background:var(--gold3);border:1px solid rgba(201,168,76,.25);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;color:var(--gold);font-size:.85rem;flex-shrink:0;
+}
+.rev-name{font-weight:700;font-size:.84rem;}
+.rev-date{color:var(--t3);font-size:.72rem;}
+.rev-cta{text-align:center;margin-top:36px;}
+.btn-review{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(201,168,76,.25);color:var(--gold);
+  padding:12px 28px;border-radius:40px;text-decoration:none;
+  font-size:.85rem;transition:.3s;background:var(--gold3);
+}
+.btn-review:hover{background:var(--gold);color:var(--dark);}
 
-/* ── CONTACT ── */
-#contact{background:var(--cream);}
+/* ═══════════ CONTACT ═══════════ */
+#contact{background:var(--dark);}
 .contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:48px;align-items:start;}
-.contact-items{display:flex;flex-direction:column;gap:22px;}
-.contact-item{display:flex;align-items:flex-start;gap:14px;}
-.contact-icon{width:46px;height:46px;background:var(--cream3);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.contact-icon svg{width:22px;height:22px;}
-.contact-label{font-size:.72rem;color:var(--text2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;}
-.contact-value{font-size:.92rem;font-weight:600;color:var(--text);}
-.contact-value a{color:var(--text);text-decoration:none;transition:.3s;}
-.contact-value a:hover{color:var(--terra);}
-.hours-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:.86rem;}
+.contact-items{display:flex;flex-direction:column;gap:20px;}
+.ci{display:flex;align-items:flex-start;gap:14px;}
+.ci-icon{
+  width:46px;height:46px;background:var(--gold3);
+  border:1px solid rgba(201,168,76,.2);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.ci-icon svg{width:20px;height:20px;}
+.ci-lbl{font-size:.68rem;color:var(--t3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;font-family:'Inter',sans-serif;}
+.ci-val{font-size:.9rem;font-weight:600;}
+.ci-val a{color:var(--t1);text-decoration:none;transition:.3s;}
+.ci-val a:hover{color:var(--gold);}
+.hours-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.84rem;}
 .hours-row:last-child{border-bottom:none;}
-.hours-row .time{color:var(--terra);font-weight:600;}
-.map-wrap{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);}
+.hours-row .time{color:var(--gold);font-weight:600;}
+.map-wrap{border-radius:var(--r);overflow:hidden;border:1px solid var(--gb);}
 .map-wrap iframe{display:block;width:100%;height:320px;border:none;}
 
-/* ── FOOTER ── */
-footer{background:var(--brown);color:rgba(245,237,216,.9);padding:48px 6%;text-align:center;}
-.footer-logo{font-family:'Scheherazade New',serif;font-size:1.4rem;color:var(--cream);margin-bottom:4px;}
-.footer-sub{font-size:.7rem;letter-spacing:3px;color:rgba(245,237,216,.5);margin-bottom:28px;font-family:'Montserrat',sans-serif;}
-.footer-links{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:24px;}
-.footer-links a{color:rgba(245,237,216,.6);text-decoration:none;font-size:.82rem;transition:.3s;}
-.footer-links a:hover{color:var(--cream);}
-.footer-copy{font-size:.72rem;color:rgba(245,237,216,.4);}
+/* ═══════════ FOOTER ═══════════ */
+footer{
+  background:var(--dark2);
+  border-top:1px solid var(--gb);
+  padding:44px 6%;text-align:center;
+}
+.ft-logo{font-size:1.2rem;font-weight:900;color:var(--gold);margin-bottom:4px;}
+.ft-en{font-family:'Cormorant Garamond',serif;font-size:.75rem;letter-spacing:3px;color:var(--t3);margin-bottom:24px;}
+.ft-links{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:22px;}
+.ft-links a{color:var(--t3);text-decoration:none;font-size:.8rem;transition:.3s;}
+.ft-links a:hover{color:var(--gold);}
+.ft-copy{font-size:.7rem;color:rgba(240,237,232,.2);}
 
-/* ── WHATSAPP ── */
-.wa-float{position:fixed;bottom:28px;right:28px;z-index:900;background:#25D366;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.45);transition:.3s;}
-body.en .wa-float{right:auto;left:28px;}
-.wa-float:hover{transform:scale(1.1);}
+/* ═══════════ WHATSAPP ═══════════ */
+.wa{
+  position:fixed;bottom:28px;right:28px;z-index:900;
+  background:#25D366;color:#fff;width:56px;height:56px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  text-decoration:none;box-shadow:0 4px 24px rgba(37,211,102,.4);transition:.35s;
+}
+body.en .wa{right:auto;left:28px;}
+.wa:hover{transform:scale(1.1);}
 
-/* ── TOAST ── */
-.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--white);border:1px solid var(--border);border-radius:10px;padding:13px 28px;font-size:.88rem;z-index:9999;transition:.4s;opacity:0;pointer-events:none;max-width:320px;text-align:center;box-shadow:var(--shadow);}
+/* ═══════════ TOAST ═══════════ */
+.toast{
+  position:fixed;bottom:32px;left:50%;
+  transform:translateX(-50%) translateY(80px);
+  background:rgba(11,17,32,.95);
+  backdrop-filter:blur(20px);
+  border:1px solid var(--gb);border-radius:12px;
+  padding:13px 28px;font-size:.86rem;z-index:9999;
+  transition:.4s;opacity:0;pointer-events:none;max-width:320px;text-align:center;
+}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-.toast.success{border-color:var(--terra);color:var(--terra);}
-.toast.error{border-color:#c0392b;color:#c0392b;}
+.toast.success{border-color:rgba(201,168,76,.4);color:var(--gold);}
+.toast.error{border-color:rgba(220,50,50,.4);color:#f87171;}
 
-/* ── RESPONSIVE ── */
+/* ═══════════ RESPONSIVE ═══════════ */
 @media(max-width:768px){
   nav .nav-links{display:none;}
   .hamburger{display:flex;}
   .contact-grid{grid-template-columns:1fr;}
-  .step-label{display:none;}
-  .booking-panel{padding:24px 16px;}
-  section{padding:60px 5%;}
-  .btns-row{flex-direction:column-reverse;}
-  .hero-illustration{width:190px;}
+  .step-lbl{display:none;}
+  .bk-panel{padding:22px 16px;}
+  section{padding:66px 5%;}
+  .btn-row{flex-direction:column-reverse;}
 }
 </style>
 </head>
 <body>
 
 <!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <button onclick="closeMobile()" style="position:absolute;top:24px;right:24px;background:none;border:none;color:var(--terra);font-size:1.8rem;cursor:pointer;">✕</button>
-  <a href="#services" onclick="closeMobile()" data-i18n="nav_services">خدماتنا</a>
-  <a href="#booking" onclick="closeMobile()" data-i18n="nav_book">احجز الآن</a>
-  <a href="#reviews" onclick="closeMobile()" data-i18n="nav_reviews">التقييمات</a>
-  <a href="#contact" onclick="closeMobile()" data-i18n="nav_contact">تواصل معنا</a>
-  <button class="lang-btn" onclick="toggleLang();closeMobile();" id="mobileLangBtn">EN</button>
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" onclick="closeMob()">✕</button>
+  <a href="#services" onclick="closeMob()" data-i18n="nav_services">خدماتنا</a>
+  <a href="#booking" onclick="closeMob()" data-i18n="nav_book">احجز الآن</a>
+  <a href="#reviews" onclick="closeMob()" data-i18n="nav_reviews">التقييمات</a>
+  <a href="#contact" onclick="closeMob()" data-i18n="nav_contact">تواصل معنا</a>
+  <button class="lang-btn" onclick="toggleLang();closeMob();" id="mobLang">EN</button>
 </div>
 
 <!-- NAV -->
@@ -263,223 +451,161 @@ body.en .wa-float{right:auto;left:28px;}
     <li><a href="admin.html" data-i18n="nav_admin">لوحة التحكم</a></li>
     <li><button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button></li>
   </ul>
-  <div class="hamburger" onclick="openMobile()"><span></span><span></span><span></span></div>
+  <div class="hamburger" onclick="openMob()"><span></span><span></span><span></span></div>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <!-- Botanical Left -->
-  <svg class="botanical-right" width="180" height="420" viewBox="0 0 180 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M90,420 Q75,340 55,260 Q40,190 30,110 Q22,60 18,20" stroke="#B85C38" stroke-width="1.5" fill="none" opacity=".5"/>
-    <path d="M55,260 Q15,240 5,205 Q30,215 55,260" fill="#B85C38" opacity=".55"/>
-    <path d="M42,195 Q8,180 2,148 Q25,160 42,195" fill="#B85C38" opacity=".45"/>
-    <path d="M68,310 Q28,300 18,268 Q45,275 68,310" fill="#B85C38" opacity=".5"/>
-    <path d="M38,140 Q60,105 65,72 Q45,100 38,140" fill="#9B6B3A" opacity=".4"/>
-    <path d="M30,110 Q55,85 65,55 Q42,78 30,110" fill="#9B6B3A" opacity=".35"/>
-    <path d="M22,65 Q44,42 50,18 Q30,38 22,65" fill="#9B6B3A" opacity=".3"/>
-    <path d="M55,260 Q90,235 100,200 Q75,222 55,260" fill="#C4785A" opacity=".35"/>
-    <path d="M68,310 Q105,290 115,258 Q88,278 68,310" fill="#C4785A" opacity=".3"/>
-  </svg>
-  <!-- Botanical Right (mirrored) -->
-  <svg class="botanical-left" width="180" height="420" viewBox="0 0 180 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M90,420 Q75,340 55,260 Q40,190 30,110 Q22,60 18,20" stroke="#B85C38" stroke-width="1.5" fill="none" opacity=".5"/>
-    <path d="M55,260 Q15,240 5,205 Q30,215 55,260" fill="#B85C38" opacity=".55"/>
-    <path d="M42,195 Q8,180 2,148 Q25,160 42,195" fill="#B85C38" opacity=".45"/>
-    <path d="M68,310 Q28,300 18,268 Q45,275 68,310" fill="#B85C38" opacity=".5"/>
-    <path d="M38,140 Q60,105 65,72 Q45,100 38,140" fill="#9B6B3A" opacity=".4"/>
-    <path d="M30,110 Q55,85 65,55 Q42,78 30,110" fill="#9B6B3A" opacity=".35"/>
-    <path d="M22,65 Q44,42 50,18 Q30,38 22,65" fill="#9B6B3A" opacity=".3"/>
-    <path d="M55,260 Q90,235 100,200 Q75,222 55,260" fill="#C4785A" opacity=".35"/>
-    <path d="M68,310 Q105,290 115,258 Q88,278 68,310" fill="#C4785A" opacity=".3"/>
-  </svg>
-
-  <div class="hero-content">
-    <!-- Massage Illustration -->
-    <svg class="hero-illustration" viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
-      <!-- Table legs -->
-      <line x1="70" y1="148" x2="58" y2="190" stroke="#3D2211" stroke-width="7" stroke-linecap="round"/>
-      <line x1="290" y1="148" x2="302" y2="190" stroke="#3D2211" stroke-width="7" stroke-linecap="round"/>
-      <line x1="110" y1="148" x2="100" y2="190" stroke="#3D2211" stroke-width="7" stroke-linecap="round"/>
-      <line x1="250" y1="148" x2="260" y2="190" stroke="#3D2211" stroke-width="7" stroke-linecap="round"/>
-      <!-- Table top -->
-      <rect x="50" y="132" width="260" height="20" rx="10" fill="#3D2211"/>
-      <rect x="50" y="142" width="260" height="10" fill="#B85C38"/>
-      <!-- Person lying - body -->
-      <ellipse cx="175" cy="118" rx="108" ry="16" fill="none" stroke="#3D2211" stroke-width="3"/>
-      <!-- Person head -->
-      <circle cx="67" cy="116" r="17" fill="none" stroke="#3D2211" stroke-width="3"/>
-      <!-- Person hair (simple line) -->
-      <path d="M54,105 Q67,96 80,105" stroke="#3D2211" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <!-- Therapist body -->
-      <line x1="295" y1="82" x2="295" y2="128" stroke="#3D2211" stroke-width="3.5" stroke-linecap="round"/>
-      <!-- Therapist head -->
-      <circle cx="295" cy="66" r="16" fill="none" stroke="#3D2211" stroke-width="3"/>
-      <!-- Therapist arms working on person -->
-      <path d="M295,98 Q275,110 260,120" stroke="#3D2211" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <path d="M295,98 Q305,108 310,120" stroke="#3D2211" stroke-width="3" fill="none" stroke-linecap="round"/>
-      <!-- Therapist legs -->
-      <line x1="295" y1="128" x2="280" y2="170" stroke="#3D2211" stroke-width="3" stroke-linecap="round"/>
-      <line x1="295" y1="128" x2="308" y2="170" stroke="#3D2211" stroke-width="3" stroke-linecap="round"/>
-      <!-- Red accent dot -->
-      <circle cx="295" cy="36" r="9" fill="#B85C38"/>
-    </svg>
-
-    <div class="hero-logo" data-i18n="hero_logo">المركز الملكي للمساج</div>
-    <div class="hero-logo-en">ALMALAKI MASSAGE CENTRE</div>
-    <div class="hero-divider">
-      <span class="hero-location" data-i18n="hero_badge">مرباح — فجيرة</span>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-pill" data-i18n="hero_badge">مربح — فجيرة</div>
+      <h1 class="hero-title">
+        <span data-i18n="hero_t1">المركز الملكي</span><br>
+        <span class="line2" data-i18n="hero_t2">للمساج</span>
+      </h1>
+      <p class="hero-sub" data-i18n="hero_sub">استرخِ، جدّد نشاطك، وعش لحظة راحة حقيقية في قلب مربح</p>
+      <div class="hero-btns">
+        <a href="#booking" class="btn-gold" data-i18n="hero_cta">احجز موعدك الآن</a>
+        <a href="#services" class="btn-glass-outline" data-i18n="our_services">خدماتنا</a>
+      </div>
     </div>
-    <p class="hero-sub" data-i18n="hero_sub">استرخِ، جدّد نشاطك، وعش لحظة راحة حقيقية</p>
-    <a href="#booking" class="hero-cta" data-i18n="hero_cta">احجز موعدك الآن</a>
+    <div class="hero-card glass-md">
+      <div class="hero-card-logo">ALMALAKI</div>
+      <div class="hero-card-name" data-i18n="hero_card_name">المركز الملكي</div>
+      <div class="hero-card-en">MASSAGE CENTRE</div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat">
+        <div class="stat-row"><div class="stat-dot"></div><span data-i18n="stat1">مساج كامل وتخصصي</span></div>
+        <div class="stat-row"><div class="stat-dot"></div><span data-i18n="stat2">جهاز نورماتيك للقدمين</span></div>
+        <div class="stat-row"><div class="stat-dot"></div><span data-i18n="stat3">10 ص — 1 م &nbsp;|&nbsp; 4 م — 11 م</span></div>
+        <div class="stat-row"><div class="stat-dot"></div><span>+971 56 484 8057</span></div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- SERVICES -->
 <section id="services">
-  <div class="section-header">
-    <span class="section-tag" data-i18n="tag_services">خدماتنا</span>
-    <h2 class="section-title" data-i18n="services_title">اختر خدمتك<span class="section-line"></span></h2>
-    <p class="section-sub" data-i18n="services_sub">تجربة مساج احترافية بأيدي متخصصة</p>
+  <div class="sec-header">
+    <span class="sec-tag" data-i18n="tag_services">خدماتنا</span>
+    <h2 class="sec-title" data-i18n="services_title">اختر خدمتك<span class="sec-line"></span></h2>
+    <p class="sec-sub" data-i18n="services_sub">تجربة مساج احترافية بأيدي متخصصة</p>
   </div>
   <div class="services-grid" id="servicesGrid"></div>
 </section>
 
 <!-- BOOKING -->
 <section id="booking">
-  <div class="section-header">
-    <span class="section-tag" data-i18n="tag_booking">الحجز</span>
-    <h2 class="section-title" data-i18n="booking_title">احجز موعدك<span class="section-line"></span></h2>
+  <div class="sec-header">
+    <span class="sec-tag" data-i18n="tag_booking">الحجز</span>
+    <h2 class="sec-title" data-i18n="booking_title">احجز موعدك<span class="sec-line"></span></h2>
   </div>
-  <div class="booking-wrap">
+  <div class="bk-wrap">
     <div class="steps">
-      <div class="step active" id="st1"><div class="step-num">1</div><div class="step-label" data-i18n="step1">الخدمة</div></div>
-      <div class="step" id="st2"><div class="step-num">2</div><div class="step-label" data-i18n="step2">الوقت</div></div>
-      <div class="step" id="st3"><div class="step-num">3</div><div class="step-label" data-i18n="step3">بياناتك</div></div>
+      <div class="step active" id="st1"><div class="step-n">1</div><div class="step-lbl" data-i18n="step1">الخدمة</div></div>
+      <div class="step" id="st2"><div class="step-n">2</div><div class="step-lbl" data-i18n="step2">الوقت</div></div>
+      <div class="step" id="st3"><div class="step-n">3</div><div class="step-lbl" data-i18n="step3">بياناتك</div></div>
     </div>
 
-    <div class="booking-panel" id="bookingPanel">
+    <div class="glass bk-panel" id="bkPanel">
       <!-- Step 1 -->
-      <div class="booking-section active" id="bs1">
-        <div class="panel-title" data-i18n="pick_service">اختر الخدمة والمدة</div>
-        <div class="service-select-list" id="serviceSelectList"></div>
-        <div id="durationWrap" style="margin-top:20px;display:none;">
-          <div class="panel-title" style="font-size:.92rem;margin-bottom:12px;" data-i18n="pick_duration">اختر المدة</div>
-          <div class="duration-list" id="durationList"></div>
+      <div class="bk-sec active" id="bs1">
+        <div class="bk-title" data-i18n="pick_service">اختر الخدمة والمدة</div>
+        <div class="svc-opts" id="svcOpts"></div>
+        <div id="durWrap" style="margin-top:20px;display:none;">
+          <div class="bk-title" style="font-size:.88rem;margin-bottom:10px;" data-i18n="pick_dur">اختر المدة</div>
+          <div class="dur-list" id="durList"></div>
         </div>
-        <div class="btns-row" style="margin-top:24px;">
-          <button class="btn-terra" onclick="goStep2()" data-i18n="next">التالي</button>
+        <div class="btn-row" style="margin-top:22px;">
+          <button class="btn-gold-full" onclick="goStep2()" data-i18n="next">التالي</button>
         </div>
       </div>
-
       <!-- Step 2 -->
-      <div class="booking-section" id="bs2">
-        <div class="panel-title" data-i18n="pick_datetime">اختر التاريخ والوقت</div>
-        <div class="date-input-wrap" style="margin-bottom:24px;">
-          <label data-i18n="date_label">التاريخ</label>
+      <div class="bk-sec" id="bs2">
+        <div class="bk-title" data-i18n="pick_dt">اختر التاريخ والوقت</div>
+        <div style="margin-bottom:22px;">
+          <label class="date-lbl" data-i18n="date_lbl">التاريخ</label>
           <input type="date" id="dateInput" onchange="loadSlots()">
         </div>
-        <div id="slotsContainer"></div>
-        <div class="btns-row" style="margin-top:24px;">
-          <button class="btn-outline" onclick="goToStep(1)" data-i18n="back">رجوع</button>
-          <button class="btn-terra" onclick="goStep3()" data-i18n="next">التالي</button>
+        <div id="slotsWrap"></div>
+        <div class="btn-row" style="margin-top:22px;">
+          <button class="btn-outline-sm" onclick="goToStep(1)" data-i18n="back">رجوع</button>
+          <button class="btn-gold-full" onclick="goStep3()" data-i18n="next">التالي</button>
         </div>
       </div>
-
       <!-- Step 3 -->
-      <div class="booking-section" id="bs3">
-        <div class="panel-title" data-i18n="your_info">بياناتك</div>
-        <div class="booking-summary" id="bookingSummary"></div>
-        <div class="form-group">
-          <label data-i18n="name_label">الاسم الكامل</label>
-          <input type="text" id="custName" data-i18n-placeholder="name_ph" placeholder="أدخل اسمك">
+      <div class="bk-sec" id="bs3">
+        <div class="bk-title" data-i18n="your_info">بياناتك</div>
+        <div class="bk-summary" id="bkSummary"></div>
+        <div class="fg">
+          <label data-i18n="name_lbl">الاسم الكامل</label>
+          <input type="text" id="custName" data-i18n-ph="name_ph" placeholder="أدخل اسمك">
         </div>
-        <div class="form-group">
-          <label data-i18n="phone_label">رقم الهاتف</label>
-          <input type="tel" id="custPhone" data-i18n-placeholder="phone_ph" placeholder="05xxxxxxxx">
+        <div class="fg">
+          <label data-i18n="phone_lbl">رقم الهاتف</label>
+          <input type="tel" id="custPhone" placeholder="05xxxxxxxx">
         </div>
-        <div class="btns-row">
-          <button class="btn-outline" onclick="goToStep(2)" data-i18n="back">رجوع</button>
-          <button class="btn-terra" onclick="submitBooking()" id="submitBtn" data-i18n="confirm_book">تأكيد الحجز</button>
+        <div class="btn-row">
+          <button class="btn-outline-sm" onclick="goToStep(2)" data-i18n="back">رجوع</button>
+          <button class="btn-gold-full" onclick="submitBk()" id="submitBtn" data-i18n="confirm_bk">تأكيد الحجز</button>
         </div>
       </div>
     </div>
 
     <!-- Success -->
-    <div class="booking-success" id="bookingSuccess">
-      <div class="success-check">
-        <svg viewBox="0 0 24 24" fill="none" stroke="#B85C38" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+    <div class="glass bk-success" id="bkSuccess">
+      <div class="success-ring">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
-      <div class="success-title" data-i18n="success_title">تم الحجز بنجاح!</div>
+      <div class="success-ttl" data-i18n="success_ttl">تم الحجز بنجاح!</div>
       <div class="success-sub" data-i18n="success_sub">سيتواصل معك فريقنا قريباً للتأكيد</div>
-      <div class="booking-id" id="bookingIdDisplay"></div>
-      <br>
-      <button class="btn-terra" style="max-width:220px;margin:0 auto;" onclick="resetBooking()" data-i18n="new_booking">حجز جديد</button>
+      <div class="bk-id" id="bkIdDisplay"></div><br>
+      <button class="btn-gold" style="max-width:210px;margin:0 auto;" onclick="resetBk()" data-i18n="new_bk">حجز جديد</button>
     </div>
   </div>
 </section>
 
 <!-- REVIEWS -->
 <section id="reviews">
-  <div class="section-header">
-    <span class="section-tag" data-i18n="tag_reviews">آراء عملائنا</span>
-    <h2 class="section-title" data-i18n="reviews_title">ماذا يقولون عنا<span class="section-line"></span></h2>
+  <div class="sec-header">
+    <span class="sec-tag" data-i18n="tag_reviews">آراء عملائنا</span>
+    <h2 class="sec-title" data-i18n="reviews_title">ماذا يقولون عنا<span class="sec-line"></span></h2>
   </div>
-  <div class="rating-hero">
-    <div class="rating-big">4.9</div>
-    <div class="stars">★ ★ ★ ★ ★</div>
-    <div class="rating-count" data-i18n="rating_count">بناءً على تقييمات عملائنا</div>
-  </div>
+  <div class="rating-big">4.9</div>
+  <div class="stars-row">★ ★ ★ ★ ★</div>
+  <div class="rating-lbl" data-i18n="rating_lbl">بناءً على تقييمات عملائنا</div>
   <div class="reviews-grid" id="reviewsGrid"></div>
-  <div class="review-cta">
-    <a href="https://www.google.com/maps/search/Al+Malaki+Massage+Centre+Mirbah+Fujairah" target="_blank" class="btn-review" data-i18n="leave_review">اترك تقييمك على Google</a>
+  <div class="rev-cta">
+    <a href="https://www.google.com/maps/search/Al+Malaki+Massage+Centre+Mirbah+Fujairah" target="_blank" class="btn-review" data-i18n="leave_rev">اترك تقييمك على Google</a>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="section-header">
-    <span class="section-tag" data-i18n="tag_contact">تواصل معنا</span>
-    <h2 class="section-title" data-i18n="contact_title">موقعنا وتواصل<span class="section-line"></span></h2>
+  <div class="sec-header">
+    <span class="sec-tag" data-i18n="tag_contact">تواصل معنا</span>
+    <h2 class="sec-title" data-i18n="contact_title">موقعنا وتواصل<span class="sec-line"></span></h2>
   </div>
   <div class="contact-grid">
     <div class="contact-items">
-      <div class="contact-item">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#B85C38" stroke-width="1.8" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-        </div>
-        <div>
-          <div class="contact-label" data-i18n="address_label">العنوان</div>
-          <div class="contact-value" data-i18n="address_val">طريق فجيرة - خورفكان، رقم 58، مرباح، فجيرة</div>
-        </div>
+      <div class="ci">
+        <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><div class="ci-lbl" data-i18n="addr_lbl">العنوان</div><div class="ci-val" data-i18n="addr_val">طريق فجيرة - خورفكان، رقم 58، مربح، فجيرة</div></div>
       </div>
-      <div class="contact-item">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#B85C38" stroke-width="1.8" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 9.8 19.79 19.79 0 01.07 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
-        </div>
-        <div>
-          <div class="contact-label" data-i18n="phone_lbl">هاتف</div>
-          <div class="contact-value"><a href="tel:+971564848057">+971 56 484 8057</a></div>
-        </div>
+      <div class="ci">
+        <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 9.8 19.79 19.79 0 01.07 1.18 2 2 0 012.03 0h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 14.92v2z"/></svg></div>
+        <div><div class="ci-lbl" data-i18n="phone_lbl2">هاتف</div><div class="ci-val"><a href="tel:+971564848057">+971 56 484 8057</a></div></div>
       </div>
-      <div class="contact-item">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#B85C38" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        </div>
-        <div>
-          <div class="contact-label">Instagram</div>
-          <div class="contact-value"><a href="https://instagram.com/almalaki_massage" target="_blank">@almalaki_massage</a></div>
-        </div>
+      <div class="ci">
+        <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div>
+        <div><div class="ci-lbl">Instagram</div><div class="ci-val"><a href="https://instagram.com/almalaki_massage" target="_blank">@almalaki_massage</a></div></div>
       </div>
-      <div class="contact-item">
-        <div class="contact-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#B85C38" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
+      <div class="ci">
+        <div class="ci-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
         <div>
-          <div class="contact-label" data-i18n="hours_lbl">ساعات العمل</div>
-          <div>
-            <div class="hours-row"><span data-i18n="morning_session">الجلسة الصباحية</span><span class="time">10:00 — 1:00 م</span></div>
-            <div class="hours-row"><span data-i18n="evening_session">الجلسة المسائية</span><span class="time">4:00 — 11:00 م</span></div>
-          </div>
+          <div class="ci-lbl" data-i18n="hours_lbl">ساعات العمل</div>
+          <div class="hours-row"><span data-i18n="morning_s">الجلسة الصباحية</span><span class="time">10:00 — 1:00 م</span></div>
+          <div class="hours-row"><span data-i18n="evening_s">الجلسة المسائية</span><span class="time">4:00 — 11:00 م</span></div>
         </div>
       </div>
     </div>
@@ -489,428 +615,287 @@ body.en .wa-float{right:auto;left:28px;}
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">المركز الملكي للمساج</div>
-  <div class="footer-sub">ALMALAKI MASSAGE CENTRE — MIRBAH, FUJAIRAH</div>
-  <div class="footer-links">
+  <div class="ft-logo">المركز الملكي للمساج</div>
+  <div class="ft-en">ALMALAKI MASSAGE CENTRE</div>
+  <div class="ft-links">
     <a href="#services" data-i18n="nav_services">خدماتنا</a>
     <a href="#booking" data-i18n="nav_book">احجز الآن</a>
     <a href="#reviews" data-i18n="nav_reviews">التقييمات</a>
     <a href="#contact" data-i18n="nav_contact">تواصل معنا</a>
     <a href="admin.html" data-i18n="nav_admin">لوحة التحكم</a>
   </div>
-  <div class="footer-copy">© 2025 المركز الملكي للمساج</div>
+  <div class="ft-copy">© 2025 المركز الملكي للمساج — مربح، فجيرة</div>
 </footer>
 
-<!-- WHATSAPP -->
-<a href="https://wa.me/97156484 8057" target="_blank" class="wa-float">
+<a href="https://wa.me/97156484 8057" target="_blank" class="wa">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
-
 <div class="toast" id="toast"></div>
 
 <script>
-const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
-const TG_TOKEN = '8817342240:AAGTetvyNVHXES_nvBY32XA49ghiWw7SOfc';
-const TG_CHAT  = '796643506';
+const APPS_SCRIPT_URL='YOUR_APPS_SCRIPT_URL_HERE';
+const TG_TOKEN='8817342240:AAGTetvyNVHXES_nvBY32XA49ghiWw7SOfc';
+const TG_CHAT='796643506';
 
-const SERVICES = [
-  {
-    id:'full_body',
-    ar:{name:'مساج كامل',desc:'تدليك شامل للجسم يريح العضلات ويجدد الطاقة'},
-    en:{name:'Full Body Massage',desc:'Complete body treatment to relieve tension and restore energy'},
-    durations:[{min:30,price:70},{min:60,price:120}]
-  },
-  {
-    id:'sports',
-    ar:{name:'مساج رياضي',desc:'تدليك متخصص للرياضيين يعالج إجهاد العضلات وآلامها'},
-    en:{name:'Sports Massage',desc:'Specialized massage targeting muscle fatigue and soreness'},
-    durations:[{min:30,price:70},{min:60,price:120}]
-  },
-  {
-    id:'foot_normatec',
-    ar:{name:'مساج قدمين — نورماتيك',desc:'جهاز نورماتيك المتطور للضغط الهوائي وراحة القدمين التامة'},
-    en:{name:'Foot Massage — Normatec',desc:'Advanced Normatec pneumatic compression for total foot relief'},
-    durations:[{min:60,price:80}]
-  }
+/* ── SERVICE ICONS (proper massage SVGs) ── */
+const ICONS = {
+  full_body:`<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="8" y="40" width="48" height="7" rx="3.5" stroke="#C9A84C" stroke-width="1.8"/>
+    <line x1="14" y1="47" x2="11" y2="57" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="50" y1="47" x2="53" y2="57" stroke="#C9A84C" stroke-width="1.8" stroke-linecap="round"/>
+    <ellipse cx="36" cy="38" rx="20" ry="5" stroke="white" stroke-width="1.6"/>
+    <circle cx="14" cy="37" r="7" fill="none" stroke="white" stroke-width="1.6"/>
+    <path d="M42 28 Q50 22 56 28 Q53 35 42 35" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+    <line x1="54" y1="28" x2="56" y2="16" stroke="white" stroke-width="1.6" stroke-linecap="round" opacity=".5"/>
+    <circle cx="56" cy="13" r="4" fill="none" stroke="white" stroke-width="1.6" opacity=".5"/>
+  </svg>`,
+  sports:`<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="46" cy="12" r="6" fill="none" stroke="white" stroke-width="1.8"/>
+    <path d="M46 18 L43 34 L32 50" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M43 34 L54 48" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M45 26 L33 31" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M45 26 L56 31" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <line x1="8" y1="26" x2="18" y2="26" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" opacity=".9"/>
+    <line x1="6" y1="34" x2="16" y2="34" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" opacity=".65"/>
+    <line x1="10" y1="42" x2="18" y2="42" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round" opacity=".4"/>
+  </svg>`,
+  foot_normatec:`<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M24 8 Q18 24 20 42 Q21 52 30 57 L38 57 Q44 54 44 46 Q46 38 42 28 Q40 16 35 8 Z" fill="none" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M22 24 Q33 20 44 24" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" opacity=".9"/>
+    <path d="M21 34 Q33 30 45 34" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" opacity=".7"/>
+    <path d="M21 44 Q32 40 44 44" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" opacity=".5"/>
+    <circle cx="54" cy="24" r="2.5" fill="#C9A84C" opacity=".9"/>
+    <circle cx="56" cy="34" r="2" fill="#C9A84C" opacity=".7"/>
+    <circle cx="54" cy="44" r="1.5" fill="#C9A84C" opacity=".5"/>
+    <path d="M44 28 Q50 28 54 24" stroke="#C9A84C" stroke-width="1.2" stroke-linecap="round" opacity=".6"/>
+  </svg>`
+};
+
+const SERVICES=[
+  {id:'full_body',ar:{name:'مساج كامل',desc:'تدليك شامل للجسم يزيل التوتر ويريح العضلات ويعيد الحيوية'},en:{name:'Full Body Massage',desc:'Complete body treatment that releases tension and restores full vitality'},durations:[{min:30,price:70},{min:60,price:120}]},
+  {id:'sports',ar:{name:'مساج رياضي',desc:'تدليك متخصص يستهدف العضلات المجهدة ويسرّع التعافي الرياضي'},en:{name:'Sports Massage',desc:'Specialized therapy targeting fatigued muscles to accelerate athletic recovery'},durations:[{min:30,price:70},{min:60,price:120}]},
+  {id:'foot_normatec',ar:{name:'مساج قدمين — نورماتيك',desc:'تقنية الضغط الهوائي المتطورة بجهاز نورماتيك لراحة القدمين التامة'},en:{name:'Foot Massage — Normatec',desc:'Advanced pneumatic compression technology for total foot and leg relief'},durations:[{min:60,price:80}]}
 ];
-
-const WORKING_HOURS = [{start:'10:00',end:'13:00'},{start:'16:00',end:'23:00'}];
-
-const REVIEWS_DATA = [
-  {ar:{text:'تجربة رائعة جداً، الأجواء هادئة ومريحة والمساج كان ممتاز. سأعود بالتأكيد.',name:'محمد العامري'},en:{text:'Amazing experience, calm atmosphere and excellent massage. Will definitely return.',name:'Mohammed Al Ameri'},stars:5},
-  {ar:{text:'أفضل مركز مساج في المنطقة، الخدمة احترافية وبسعر معقول جداً.',name:'سعيد الشحي'},en:{text:'Best massage center in the area, professional service at a very reasonable price.',name:'Saeed Al Shahi'},stars:5},
-  {ar:{text:'جهاز النورماتيك للقدمين خيال، حسيت بفرق كبير بعد الجلسة الأولى.',name:'فاطمة الزعابي'},en:{text:'The Normatec foot device is incredible, I felt a big difference after the first session.',name:'Fatima Al Zaabi'},stars:5},
-  {ar:{text:'موقع ممتاز وسهل الوصول إليه. طاقم العمل ودود ومتعاون.',name:'خالد المنصوري'},en:{text:'Great location and easy to access. The staff is friendly and cooperative.',name:'Khalid Al Mansoori'},stars:5}
+const WORKING_HOURS=[{start:'10:00',end:'13:00'},{start:'16:00',end:'23:00'}];
+const REVIEWS=[
+  {ar:{text:'تجربة رائعة جداً، الأجواء هادئة ومريحة والمساج كان ممتاز. سأعود بالتأكيد.',name:'محمد العامري'},en:{text:'Amazing experience. Calm atmosphere and excellent massage. Will definitely return.',name:'Mohammed Al Ameri'},s:5},
+  {ar:{text:'أفضل مركز مساج في المنطقة، الخدمة احترافية وبسعر معقول جداً.',name:'سعيد الشحي'},en:{text:'Best massage center in the area. Professional service at a very reasonable price.',name:'Saeed Al Shahi'},s:5},
+  {ar:{text:'جهاز النورماتيك للقدمين خيال، حسيت بفرق كبير بعد الجلسة الأولى.',name:'فاطمة الزعابي'},en:{text:'The Normatec device is incredible — I felt a huge difference after just one session.',name:'Fatima Al Zaabi'},s:5},
+  {ar:{text:'موقع ممتاز وسهل الوصول. طاقم العمل ودود ومحترف دائماً.',name:'خالد المنصوري'},en:{text:'Great location, easy access. Staff is always friendly and professional.',name:'Khalid Al Mansoori'},s:5}
 ];
-
-const I18N = {
-  ar:{
-    nav_services:'خدماتنا',nav_book:'احجز الآن',nav_reviews:'التقييمات',nav_contact:'تواصل معنا',nav_admin:'لوحة التحكم',
-    hero_logo:'المركز الملكي للمساج',hero_badge:'مرباح — فجيرة',
-    hero_sub:'استرخِ، جدّد نشاطك، وعش لحظة راحة حقيقية',hero_cta:'احجز موعدك الآن',
+const T={
+  ar:{nav_services:'خدماتنا',nav_book:'احجز الآن',nav_reviews:'التقييمات',nav_contact:'تواصل معنا',nav_admin:'لوحة التحكم',
+    hero_badge:'مربح — فجيرة',hero_t1:'المركز الملكي',hero_t2:'للمساج',
+    hero_sub:'استرخِ، جدّد نشاطك، وعش لحظة راحة حقيقية في قلب مربح',
+    hero_cta:'احجز موعدك الآن',our_services:'خدماتنا',
+    hero_card_name:'المركز الملكي',
+    stat1:'مساج كامل وتخصصي',stat2:'جهاز نورماتيك للقدمين',stat3:'10 ص — 1 م | 4 م — 11 م',
     tag_services:'خدماتنا',services_title:'اختر خدمتك',services_sub:'تجربة مساج احترافية بأيدي متخصصة',
     tag_booking:'الحجز',booking_title:'احجز موعدك',
     step1:'الخدمة',step2:'الوقت',step3:'بياناتك',
-    pick_service:'اختر الخدمة والمدة',pick_duration:'اختر المدة',pick_datetime:'اختر التاريخ والوقت',
-    date_label:'التاريخ',next:'التالي',back:'رجوع',
-    your_info:'بياناتك',name_label:'الاسم الكامل',phone_label:'رقم الهاتف',
-    name_ph:'أدخل اسمك',phone_ph:'05xxxxxxxx',confirm_book:'تأكيد الحجز',
-    tag_reviews:'آراء عملائنا',reviews_title:'ماذا يقولون عنا',rating_count:'بناءً على تقييمات عملائنا',leave_review:'اترك تقييمك على Google',
+    pick_service:'اختر الخدمة والمدة',pick_dur:'اختر المدة',pick_dt:'اختر التاريخ والوقت',
+    date_lbl:'التاريخ',next:'التالي',back:'رجوع',
+    your_info:'بياناتك',name_lbl:'الاسم الكامل',phone_lbl:'رقم الهاتف',phone_lbl2:'هاتف',
+    name_ph:'أدخل اسمك',confirm_bk:'تأكيد الحجز',
+    tag_reviews:'آراء عملائنا',reviews_title:'ماذا يقولون عنا',rating_lbl:'بناءً على تقييمات عملائنا',leave_rev:'اترك تقييمك على Google',
     tag_contact:'تواصل معنا',contact_title:'موقعنا وتواصل',
-    address_label:'العنوان',address_val:'طريق فجيرة - خورفكان، رقم 58، مرباح، فجيرة',
-    phone_lbl:'هاتف',hours_lbl:'ساعات العمل',morning_session:'الجلسة الصباحية',evening_session:'الجلسة المسائية',
-    success_title:'تم الحجز بنجاح!',success_sub:'سيتواصل معك فريقنا قريباً للتأكيد',new_booking:'حجز جديد',
-    min_label:'دقيقة',aed:'د.إ',slot_morning:'الصباح',slot_evening:'المساء',
-    loading_slots:'جاري تحميل المواعيد...',no_slots:'لا توجد مواعيد متاحة',
-    select_slot_first:'الرجاء اختيار وقت',fill_fields:'الرجاء ملء جميع البيانات',
-    select_service_first:'الرجاء اختيار الخدمة',select_duration_first:'الرجاء اختيار المدة',
-    booking_error:'حدث خطأ، الرجاء المحاولة مرة أخرى',
-    summary_service:'الخدمة',summary_duration:'المدة',summary_date:'التاريخ',summary_time:'الوقت',summary_price:'السعر',
-  },
-  en:{
-    nav_services:'Services',nav_book:'Book Now',nav_reviews:'Reviews',nav_contact:'Contact',nav_admin:'Admin',
-    hero_logo:'ALMALAKI MASSAGE CENTRE',hero_badge:'MIRBAH, FUJAIRAH',
-    hero_sub:'Relax, rejuvenate, and experience true wellness',hero_cta:'Book Your Session',
+    addr_lbl:'العنوان',addr_val:'طريق فجيرة - خورفكان، رقم 58، مربح، فجيرة',
+    hours_lbl:'ساعات العمل',morning_s:'الجلسة الصباحية',evening_s:'الجلسة المسائية',
+    success_ttl:'تم الحجز بنجاح!',success_sub:'سيتواصل معك فريقنا قريباً للتأكيد',new_bk:'حجز جديد',
+    m:'دقيقة',aed:'د.إ',slot_am:'الصباح',slot_pm:'المساء',
+    loading:'جاري التحميل...',no_slots:'لا توجد مواعيد متاحة',
+    err_svc:'الرجاء اختيار الخدمة',err_dur:'الرجاء اختيار المدة',err_slot:'الرجاء اختيار وقت',err_fill:'الرجاء ملء جميع البيانات',err_gen:'حدث خطأ، حاول مرة أخرى',
+    sum_svc:'الخدمة',sum_dur:'المدة',sum_date:'التاريخ',sum_time:'الوقت',sum_price:'السعر'},
+  en:{nav_services:'Services',nav_book:'Book Now',nav_reviews:'Reviews',nav_contact:'Contact',nav_admin:'Admin',
+    hero_badge:'MIRBAH, FUJAIRAH',hero_t1:'ALMALAKI',hero_t2:'MASSAGE CENTRE',
+    hero_sub:'Relax, rejuvenate, and experience true wellness in the heart of Mirbah',
+    hero_cta:'Book Your Session',our_services:'Our Services',
+    hero_card_name:'AL MALAKI',
+    stat1:'Full & Specialized Massage',stat2:'Normatec Foot Device',stat3:'10 AM — 1 PM | 4 PM — 11 PM',
     tag_services:'OUR SERVICES',services_title:'Choose Your Service',services_sub:'Professional massage by expert therapists',
     tag_booking:'BOOKING',booking_title:'Book Your Session',
     step1:'Service',step2:'Time',step3:'Details',
-    pick_service:'Select Service & Duration',pick_duration:'Select Duration',pick_datetime:'Select Date & Time',
-    date_label:'Date',next:'Next',back:'Back',
-    your_info:'Your Details',name_label:'Full Name',phone_label:'Phone Number',
-    name_ph:'Enter your name',phone_ph:'05xxxxxxxx',confirm_book:'Confirm Booking',
-    tag_reviews:'CLIENT REVIEWS',reviews_title:'What They Say',rating_count:'Based on client reviews',leave_review:'Leave a Google Review',
+    pick_service:'Select Service & Duration',pick_dur:'Select Duration',pick_dt:'Select Date & Time',
+    date_lbl:'Date',next:'Next',back:'Back',
+    your_info:'Your Details',name_lbl:'Full Name',phone_lbl:'Phone Number',phone_lbl2:'Phone',
+    name_ph:'Enter your name',confirm_bk:'Confirm Booking',
+    tag_reviews:'CLIENT REVIEWS',reviews_title:'What They Say',rating_lbl:'Based on client reviews',leave_rev:'Leave a Google Review',
     tag_contact:'CONTACT US',contact_title:'Location & Contact',
-    address_label:'Address',address_val:'Fujairah–Khor Fakkan Road, No. 58, Mirbah, Fujairah',
-    phone_lbl:'Phone',hours_lbl:'Working Hours',morning_session:'Morning Session',evening_session:'Evening Session',
-    success_title:'Booking Confirmed!',success_sub:'Our team will contact you shortly to confirm',new_booking:'New Booking',
-    min_label:'min',aed:'AED',slot_morning:'Morning',slot_evening:'Evening',
-    loading_slots:'Loading available times...',no_slots:'No available slots',
-    select_slot_first:'Please select a time slot',fill_fields:'Please fill in all details',
-    select_service_first:'Please select a service',select_duration_first:'Please select a duration',
-    booking_error:'An error occurred, please try again',
-    summary_service:'Service',summary_duration:'Duration',summary_date:'Date',summary_time:'Time',summary_price:'Price',
-  }
+    addr_lbl:'Address',addr_val:'Fujairah–Khor Fakkan Road, No. 58, Mirbah, Fujairah',
+    hours_lbl:'Working Hours',morning_s:'Morning Session',evening_s:'Evening Session',
+    success_ttl:'Booking Confirmed!',success_sub:'Our team will contact you shortly to confirm',new_bk:'New Booking',
+    m:'min',aed:'AED',slot_am:'Morning',slot_pm:'Evening',
+    loading:'Loading...',no_slots:'No available slots',
+    err_svc:'Please select a service',err_dur:'Please select a duration',err_slot:'Please select a time',err_fill:'Please fill in all fields',err_gen:'An error occurred, please try again',
+    sum_svc:'Service',sum_dur:'Duration',sum_date:'Date',sum_time:'Time',sum_price:'Price'}
 };
 
-// SVG icons for services
-const SERVICE_ICONS = {
-  full_body:`<svg viewBox="0 0 24 24" fill="none" stroke="#B85C38" stroke-width="1.8" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>`,
-  sports:`<svg viewBox="0 0 24 24" fill="none" stroke="#B85C38" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>`,
-  foot_normatec:`<svg viewBox="0 0 24 24" fill="none" stroke="#B85C38" stroke-width="1.8" stroke-linecap="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>`
-};
+let lang=localStorage.getItem('lang')||'ar';
+let selSvc=null,selDur=null,selSlot=null;
 
-let lang = localStorage.getItem('lang') || 'ar';
-let currentStep = 1;
-let selectedService = null;
-let selectedDuration = null;
-let selectedSlot = null;
-
-document.addEventListener('DOMContentLoaded', () => {
-  applyLang(lang);
-  renderServices();
-  renderServiceSelectList();
-  renderReviews();
-  setMinDate();
-  window.addEventListener('scroll', () => {
-    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
-  });
+document.addEventListener('DOMContentLoaded',()=>{
+  applyLang(lang);renderSvcs();renderSvcOpts();renderRevs();setMinDate();
+  window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>50));
 });
 
-function toggleLang() {
-  lang = lang === 'ar' ? 'en' : 'ar';
-  localStorage.setItem('lang', lang);
-  applyLang(lang);
+function toggleLang(){lang=lang==='ar'?'en':'ar';localStorage.setItem('lang',lang);applyLang(lang);}
+function applyLang(l){
+  document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';
+  document.body.classList.toggle('en',l==='en');
+  document.getElementById('langBtn').textContent=l==='ar'?'EN':'عر';
+  const ml=document.getElementById('mobLang');if(ml)ml.textContent=l==='ar'?'EN':'عر';
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(T[l][k])el.textContent=T[l][k];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.dataset.i18nPh;if(T[l][k])el.placeholder=T[l][k];});
+  renderSvcs();renderSvcOpts();renderRevs();if(selSvc)updateSummary();
+}
+function t(k){return T[lang][k]||k;}
+
+function renderSvcs(){
+  const g=document.getElementById('servicesGrid');if(!g)return;
+  g.innerHTML=SERVICES.map(s=>`
+    <div class="glass svc-card">
+      <div class="svc-icon">${ICONS[s.id]}</div>
+      <div class="svc-name">${s[lang].name}</div>
+      <div class="svc-desc">${s[lang].desc}</div>
+      <div class="svc-prices">${s.durations.map(d=>`<span class="price-tag">${d.min} ${t('m')} — ${d.price} ${t('aed')}</span>`).join('')}</div>
+      <button class="svc-book" onclick="selectAndBook('${s.id}')">${t('nav_book')}</button>
+    </div>`).join('');
 }
 
-function applyLang(l) {
-  document.documentElement.lang = l;
-  document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
-  document.body.classList.toggle('en', l === 'en');
-  document.getElementById('langBtn').textContent = l === 'ar' ? 'EN' : 'عر';
-  const mb = document.getElementById('mobileLangBtn');
-  if(mb) mb.textContent = l === 'ar' ? 'EN' : 'عر';
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.dataset.i18n;
-    if(I18N[l][key]) el.textContent = I18N[l][key];
-  });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    const key = el.dataset.i18nPlaceholder;
-    if(I18N[l][key]) el.placeholder = I18N[l][key];
-  });
-  renderServices();
-  renderServiceSelectList();
-  renderReviews();
-  if(selectedService) updateBookingSummary();
+function renderSvcOpts(){
+  const l=document.getElementById('svcOpts');if(!l)return;
+  l.innerHTML=SERVICES.map(s=>`
+    <div class="svc-opt ${selSvc===s.id?'sel':''}" onclick="pickSvc('${s.id}')">
+      <div class="svc-opt-icon">${ICONS[s.id]}</div>
+      <div><div class="svc-opt-name">${s[lang].name}</div>
+      <div class="svc-opt-price">${s.durations.map(d=>`${d.min} ${t('m')} — ${d.price} ${t('aed')}`).join(' | ')}</div></div>
+      <div class="svc-opt-check"></div>
+    </div>`).join('');
 }
 
-function t(key) { return I18N[lang][key] || key; }
-
-function renderServices() {
-  const grid = document.getElementById('servicesGrid');
-  if(!grid) return;
-  grid.innerHTML = SERVICES.map(s => `
-    <div class="service-card">
-      <div class="service-icon-wrap">${SERVICE_ICONS[s.id]}</div>
-      <div class="service-name">${s[lang].name}</div>
-      <div class="service-desc">${s[lang].desc}</div>
-      <div class="service-prices">
-        ${s.durations.map(d=>`<span class="price-tag">${d.min} ${t('min_label')} — ${d.price} ${t('aed')}</span>`).join('')}
+function renderRevs(){
+  const g=document.getElementById('reviewsGrid');if(!g)return;
+  g.innerHTML=REVIEWS.map(r=>`
+    <div class="glass rev-card">
+      <div class="rev-stars">${'★'.repeat(r.s)}</div>
+      <div class="rev-text">"${r[lang].text}"</div>
+      <div class="rev-author">
+        <div class="rev-av">${r[lang].name.charAt(0)}</div>
+        <div><div class="rev-name">${r[lang].name}</div><div class="rev-date">2025</div></div>
       </div>
-      <button class="btn-book" onclick="selectAndGoBook('${s.id}')">${t('nav_book')}</button>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-function renderServiceSelectList() {
-  const list = document.getElementById('serviceSelectList');
-  if(!list) return;
-  list.innerHTML = SERVICES.map(s => `
-    <div class="service-option ${selectedService===s.id?'selected':''}" onclick="pickService('${s.id}')">
-      <div class="s-icon">${SERVICE_ICONS[s.id]}</div>
-      <div class="s-info">
-        <div class="s-name">${s[lang].name}</div>
-        <div class="s-price">${s.durations.map(d=>`${d.min} ${t('min_label')} — ${d.price} ${t('aed')}`).join(' | ')}</div>
-      </div>
-      <div class="s-check"></div>
-    </div>
-  `).join('');
+function selectAndBook(id){pickSvc(id);document.getElementById('booking').scrollIntoView({behavior:'smooth'});const s=SERVICES.find(x=>x.id===id);if(s&&s.durations.length===1)pickDur(s.durations[0].min);}
+
+function pickSvc(id){
+  selSvc=id;selDur=null;selSlot=null;renderSvcOpts();
+  const s=SERVICES.find(x=>x.id===id);
+  const w=document.getElementById('durWrap'),l=document.getElementById('durList');
+  if(s.durations.length>1){
+    w.style.display='block';
+    l.innerHTML=s.durations.map(d=>`<button class="dur-btn ${selDur===d.min?'sel':''}" onclick="pickDur(${d.min})">${d.min} ${t('m')}<span class="dur-price">${d.price} ${t('aed')}</span></button>`).join('');
+  }else{w.style.display='none';selDur=s.durations[0].min;}
 }
 
-function renderReviews() {
-  const grid = document.getElementById('reviewsGrid');
-  if(!grid) return;
-  grid.innerHTML = REVIEWS_DATA.map(r => `
-    <div class="review-card">
-      <div class="stars">${'★'.repeat(r.stars)}</div>
-      <div class="review-text">"${r[lang].text}"</div>
-      <div class="review-author">
-        <div class="review-avatar">${r[lang].name.charAt(0)}</div>
-        <div><div class="review-name">${r[lang].name}</div><div class="review-date">2025</div></div>
-      </div>
-    </div>
-  `).join('');
+function pickDur(m){
+  selDur=m;
+  const s=SERVICES.find(x=>x.id===selSvc);if(!s)return;
+  document.getElementById('durList').innerHTML=s.durations.map(d=>`<button class="dur-btn ${selDur===d.min?'sel':''}" onclick="pickDur(${d.min})">${d.min} ${t('m')}<span class="dur-price">${d.price} ${t('aed')}</span></button>`).join('');
 }
 
-function selectAndGoBook(serviceId) {
-  pickService(serviceId);
-  document.getElementById('booking').scrollIntoView({behavior:'smooth'});
-  const svc = SERVICES.find(s=>s.id===serviceId);
-  if(svc && svc.durations.length===1) pickDuration(svc.durations[0].min, svc.durations[0].price);
+function setMinDate(){
+  const i=document.getElementById('dateInput');if(!i)return;
+  i.min=new Date().toISOString().split('T')[0];
+  const tom=new Date();tom.setDate(tom.getDate()+1);i.value=tom.toISOString().split('T')[0];
 }
 
-function pickService(id) {
-  selectedService = id; selectedDuration = null; selectedSlot = null;
-  renderServiceSelectList();
-  const svc = SERVICES.find(s=>s.id===id);
-  const wrap = document.getElementById('durationWrap');
-  const list = document.getElementById('durationList');
-  if(svc.durations.length > 1) {
-    wrap.style.display='block';
-    list.innerHTML = svc.durations.map(d=>`
-      <button class="dur-btn ${selectedDuration===d.min?'selected':''}" onclick="pickDuration(${d.min},${d.price})">
-        ${d.min} ${t('min_label')}<span class="dur-price">${d.price} ${t('aed')}</span>
-      </button>`).join('');
-  } else {
-    wrap.style.display='none';
-    selectedDuration = svc.durations[0].min;
+function goStep2(){if(!selSvc){showToast(t('err_svc'),'error');return;}if(!selDur){showToast(t('err_dur'),'error');return;}goToStep(2);loadSlots();}
+function goStep3(){if(!selSlot){showToast(t('err_slot'),'error');return;}goToStep(3);updateSummary();}
+function goToStep(n){[1,2,3].forEach(i=>{document.getElementById('bs'+i).classList.toggle('active',i===n);const s=document.getElementById('st'+i);s.classList.toggle('active',i===n);s.classList.toggle('done',i<n);});}
+
+function updateSummary(){
+  const s=SERVICES.find(x=>x.id===selSvc);if(!s)return;
+  const d=s.durations.find(x=>x.min===selDur);
+  const date=document.getElementById('dateInput').value;
+  document.getElementById('bkSummary').innerHTML=`
+    <div class="row"><span>${t('sum_svc')}</span><span class="val">${s[lang].name}</span></div>
+    <div class="row"><span>${t('sum_dur')}</span><span class="val">${selDur} ${t('m')}</span></div>
+    <div class="row"><span>${t('sum_date')}</span><span class="val">${date}</span></div>
+    <div class="row"><span>${t('sum_time')}</span><span class="val">${selSlot}</span></div>
+    <div class="row"><span>${t('sum_price')}</span><span class="val">${d?d.price:''} ${t('aed')}</span></div>`;
+}
+
+const toMin=s=>{const[h,m]=s.split(':').map(Number);return h*60+m;};
+const toTime=m=>`${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;
+
+function genSlots(dur){
+  const r={am:[],pm:[]};
+  WORKING_HOURS.forEach((w,i)=>{let c=toMin(w.start);const e=toMin(w.end);while(c+dur<=e){i===0?r.am.push(toTime(c)):r.pm.push(toTime(c));c+=30;}});
+  return r;
+}
+
+async function loadSlots(){
+  if(!selDur)return;const date=document.getElementById('dateInput').value;if(!date)return;
+  const w=document.getElementById('slotsWrap');w.innerHTML=`<div class="slots-loading">${t('loading')}</div>`;
+  let booked=[];
+  if(APPS_SCRIPT_URL!=='YOUR_APPS_SCRIPT_URL_HERE'){
+    try{const r=await fetch(`${APPS_SCRIPT_URL}?action=getSlots&date=${date}&duration=${selDur}`);booked=(await r.json()).bookedSlots||[];}catch(e){}
+  }else{
+    getLocalBks(date).forEach(b=>{let c=toMin(b.time);for(let i=0;i<Math.ceil(b.duration/30);i++)booked.push(toTime(c+i*30));});
   }
-}
-
-function pickDuration(minutes) {
-  selectedDuration = minutes;
-  const svc = SERVICES.find(s=>s.id===selectedService);
-  if(!svc) return;
-  document.getElementById('durationList').innerHTML = svc.durations.map(d=>`
-    <button class="dur-btn ${selectedDuration===d.min?'selected':''}" onclick="pickDuration(${d.min},${d.price})">
-      ${d.min} ${t('min_label')}<span class="dur-price">${d.price} ${t('aed')}</span>
-    </button>`).join('');
-}
-
-function setMinDate() {
-  const input = document.getElementById('dateInput');
-  if(!input) return;
-  const today = new Date().toISOString().split('T')[0];
-  input.min = today;
-  const tom = new Date(); tom.setDate(tom.getDate()+1);
-  input.value = tom.toISOString().split('T')[0];
-}
-
-function goStep2() {
-  if(!selectedService) { showToast(t('select_service_first'),'error'); return; }
-  if(!selectedDuration) { showToast(t('select_duration_first'),'error'); return; }
-  goToStep(2); loadSlots();
-}
-
-function goStep3() {
-  if(!selectedSlot) { showToast(t('select_slot_first'),'error'); return; }
-  goToStep(3); updateBookingSummary();
-}
-
-function goToStep(n) {
-  currentStep = n;
-  [1,2,3].forEach(i => {
-    document.getElementById('bs'+i).classList.toggle('active', i===n);
-    const st = document.getElementById('st'+i);
-    st.classList.toggle('active', i===n);
-    st.classList.toggle('done', i<n);
-  });
-}
-
-function updateBookingSummary() {
-  const svc = SERVICES.find(s=>s.id===selectedService);
-  if(!svc) return;
-  const dur = svc.durations.find(d=>d.min===selectedDuration);
-  const date = document.getElementById('dateInput').value;
-  document.getElementById('bookingSummary').innerHTML = `
-    <div class="row"><span>${t('summary_service')}</span><span class="val">${svc[lang].name}</span></div>
-    <div class="row"><span>${t('summary_duration')}</span><span class="val">${selectedDuration} ${t('min_label')}</span></div>
-    <div class="row"><span>${t('summary_date')}</span><span class="val">${date}</span></div>
-    <div class="row"><span>${t('summary_time')}</span><span class="val">${selectedSlot}</span></div>
-    <div class="row"><span>${t('summary_price')}</span><span class="val">${dur?dur.price:''} ${t('aed')}</span></div>`;
-}
-
-function timeToMin(t) { const[h,m]=t.split(':').map(Number); return h*60+m; }
-function minToTime(m) { return `${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`; }
-
-function generateAllSlots(duration) {
-  const slots = {morning:[],evening:[]};
-  WORKING_HOURS.forEach((w,idx) => {
-    let cur = timeToMin(w.start);
-    const end = timeToMin(w.end);
-    while(cur+duration<=end){ idx===0?slots.morning.push(minToTime(cur)):slots.evening.push(minToTime(cur)); cur+=30; }
-  });
-  return slots;
-}
-
-function getSlotsOccupied(startTime, duration) {
-  const slots=[]; let cur=timeToMin(startTime); const count=Math.ceil(duration/30);
-  for(let i=0;i<count;i++) slots.push(minToTime(cur+i*30));
-  return slots;
-}
-
-async function loadSlots() {
-  if(!selectedDuration) return;
-  const date = document.getElementById('dateInput').value;
-  if(!date) return;
-  const container = document.getElementById('slotsContainer');
-  container.innerHTML = `<div class="slots-loading">${t('loading_slots')}</div>`;
-  let bookedSlots = [];
-  if(APPS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL_HERE') {
-    try {
-      const res = await fetch(`${APPS_SCRIPT_URL}?action=getSlots&date=${date}&duration=${selectedDuration}`);
-      const data = await res.json();
-      bookedSlots = data.bookedSlots || [];
-    } catch(e) {}
-  } else {
-    const local = getLocalBookings(date);
-    local.forEach(b => {
-      let cur = timeToMin(b.time); const count = Math.ceil(b.duration/30);
-      for(let i=0;i<count;i++) bookedSlots.push(minToTime(cur+i*30));
-    });
-  }
-  const allSlots = generateAllSlots(selectedDuration);
-  renderSlots(allSlots, bookedSlots);
-}
-
-function renderSlots(allSlots, bookedSlots) {
-  const container = document.getElementById('slotsContainer');
-  const bookedSet = new Set(bookedSlots);
-  const makeGrid = (slots, label) => {
-    if(!slots.length) return '';
-    return `<div class="time-window-label">${label}</div><div class="slots-grid">${
-      slots.map(s => {
-        const occupied = getSlotsOccupied(s, selectedDuration);
-        const isBooked = occupied.some(o => bookedSet.has(o));
-        return `<button class="slot ${isBooked?'booked':''} ${selectedSlot===s?'selected':''}"
-          onclick="${isBooked?'':'pickSlot(\''+s+'\')'}">${s}</button>`;
-      }).join('')
-    }</div>`;
+  const slots=genSlots(selDur);const bs=new Set(booked);
+  const makeGrid=(arr,lbl)=>{
+    if(!arr.length)return'';
+    return`<div class="slots-lbl">${lbl}</div><div class="slots-grid">${arr.map(s=>{
+      const occ=[];let c=toMin(s);for(let i=0;i<Math.ceil(selDur/30);i++)occ.push(toTime(c+i*30));
+      const bkd=occ.some(o=>bs.has(o));
+      return`<button class="slot ${bkd?'booked':''} ${selSlot===s?'selected':''}" onclick="${bkd?'':'pickSlot(\''+s+'\')'}">${s}</button>`;
+    }).join('')}</div>`;
   };
-  const html = makeGrid(allSlots.morning, t('slot_morning')) + makeGrid(allSlots.evening, t('slot_evening'));
-  container.innerHTML = html || `<div class="slots-loading">${t('no_slots')}</div>`;
+  w.innerHTML=makeGrid(slots.am,t('slot_am'))+makeGrid(slots.pm,t('slot_pm'))||`<div class="slots-loading">${t('no_slots')}</div>`;
 }
 
-function pickSlot(time) {
-  selectedSlot = time;
-  document.querySelectorAll('.slot').forEach(el => {
-    el.classList.toggle('selected', el.textContent.trim() === time);
-  });
+function pickSlot(time){
+  selSlot=time;
+  document.querySelectorAll('.slot').forEach(el=>el.classList.toggle('selected',el.textContent.trim()===time));
 }
 
-async function submitBooking() {
-  const name = document.getElementById('custName').value.trim();
-  const phone = document.getElementById('custPhone').value.trim();
-  if(!name||!phone) { showToast(t('fill_fields'),'error'); return; }
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  const svc = SERVICES.find(s=>s.id===selectedService);
-  const dur = svc.durations.find(d=>d.min===selectedDuration);
-  const date = document.getElementById('dateInput').value;
-  const id = 'BK' + Date.now();
-  const price = dur ? dur.price : 0;
-  const booking = {id,service:selectedService,date,time:selectedSlot,duration:selectedDuration,name,phone,price,status:'confirmed'};
-  try {
-    if(APPS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL_HERE') {
-      const params = new URLSearchParams({action:'book',...booking});
-      const res = await fetch(`${APPS_SCRIPT_URL}?${params}`);
-      const data = await res.json();
-      if(data.error) { showToast(data.error,'error'); btn.disabled=false; return; }
+async function submitBk(){
+  const name=document.getElementById('custName').value.trim();
+  const phone=document.getElementById('custPhone').value.trim();
+  if(!name||!phone){showToast(t('err_fill'),'error');return;}
+  const btn=document.getElementById('submitBtn');btn.disabled=true;
+  const s=SERVICES.find(x=>x.id===selSvc);const d=s.durations.find(x=>x.min===selDur);
+  const date=document.getElementById('dateInput').value;
+  const id='BK'+Date.now();const price=d?d.price:0;
+  const bk={id,service:selSvc,date,time:selSlot,duration:selDur,name,phone,price,status:'confirmed'};
+  try{
+    if(APPS_SCRIPT_URL!=='YOUR_APPS_SCRIPT_URL_HERE'){
+      const r=await fetch(`${APPS_SCRIPT_URL}?${new URLSearchParams({action:'book',...bk})}`);
+      const data=await r.json();if(data.error){showToast(data.error,'error');btn.disabled=false;return;}
       showSuccess(data.id);
-    } else {
-      saveLocalBooking(booking);
-      await sendTelegramDirect(booking);
-      showSuccess(id);
-    }
-  } catch(e) { showToast(t('booking_error'),'error'); btn.disabled=false; }
+    }else{saveLocalBk(bk);await sendTg(bk);showSuccess(id);}
+  }catch(e){showToast(t('err_gen'),'error');btn.disabled=false;}
 }
 
-async function sendTelegramDirect(b) {
-  const svcName = {full_body:'مساج كامل',sports:'مساج رياضي',foot_normatec:'مساج قدمين — نورماتيك'};
-  const msg = `🔔 *حجز جديد*\n──────────────\n📌 \`${b.id}\`\n💆 ${svcName[b.service]}\n📅 ${b.date}\n⏰ ${b.time}\n⌛ ${b.duration} دقيقة\n💰 ${b.price} د.إ\n👤 ${b.name}\n📱 ${b.phone}\n──────────────`;
-  await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{
-    method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({chat_id:TG_CHAT,text:msg,parse_mode:'Markdown'})
-  });
+async function sendTg(b){
+  const n={full_body:'مساج كامل',sports:'مساج رياضي',foot_normatec:'مساج قدمين — نورماتيك'};
+  const msg=`🔔 *حجز جديد*\n──────────────\n📌 \`${b.id}\`\n💆 ${n[b.service]}\n📅 ${b.date}\n⏰ ${b.time}\n⌛ ${b.duration} دقيقة\n💰 ${b.price} د.إ\n👤 ${b.name}\n📱 ${b.phone}\n──────────────`;
+  await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:TG_CHAT,text:msg,parse_mode:'Markdown'})});
 }
 
-function saveLocalBooking(b) {
-  const all = JSON.parse(localStorage.getItem('bookings')||'[]');
-  all.push(b); localStorage.setItem('bookings',JSON.stringify(all));
-}
+function saveLocalBk(b){const a=JSON.parse(localStorage.getItem('bks')||'[]');a.push(b);localStorage.setItem('bks',JSON.stringify(a));}
+function getLocalBks(date){const a=JSON.parse(localStorage.getItem('bks')||'[]');return date?a.filter(b=>b.date===date&&b.status!=='cancelled'):a.filter(b=>b.status!=='cancelled');}
 
-function getLocalBookings(date) {
-  const all = JSON.parse(localStorage.getItem('bookings')||'[]');
-  return date ? all.filter(b=>b.date===date&&b.status!=='cancelled') : all.filter(b=>b.status!=='cancelled');
-}
+function showSuccess(id){document.getElementById('bkPanel').style.display='none';const s=document.getElementById('bkSuccess');s.classList.add('show');document.getElementById('bkIdDisplay').textContent='# '+id;}
+function resetBk(){selSvc=null;selDur=null;selSlot=null;document.getElementById('bkPanel').style.display='block';document.getElementById('bkSuccess').classList.remove('show');document.getElementById('custName').value='';document.getElementById('custPhone').value='';document.getElementById('submitBtn').disabled=false;renderSvcOpts();goToStep(1);}
 
-function showSuccess(id) {
-  document.getElementById('bookingPanel').style.display='none';
-  const s = document.getElementById('bookingSuccess');
-  s.classList.add('show');
-  document.getElementById('bookingIdDisplay').textContent = '# ' + id;
-}
+function openMob(){document.getElementById('mobMenu').classList.add('open');}
+function closeMob(){document.getElementById('mobMenu').classList.remove('open');}
 
-function resetBooking() {
-  selectedService=null;selectedDuration=null;selectedSlot=null;
-  document.getElementById('bookingPanel').style.display='block';
-  document.getElementById('bookingSuccess').classList.remove('show');
-  document.getElementById('custName').value='';
-  document.getElementById('custPhone').value='';
-  document.getElementById('submitBtn').disabled=false;
-  renderServiceSelectList();
-  goToStep(1);
-}
-
-function openMobile() { document.getElementById('mobileMenu').classList.add('open'); }
-function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
-
-function showToast(msg, type='') {
-  const el = document.getElementById('toast');
-  el.textContent = msg; el.className = `toast ${type} show`;
-  setTimeout(()=>el.classList.remove('show'),3200);
-}
+function showToast(msg,type=''){const el=document.getElementById('toast');el.textContent=msg;el.className=`toast ${type} show`;setTimeout(()=>el.classList.remove('show'),3200);}
 </script>
 </body>
 </html>
