@@ -3,938 +3,645 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="المركز الملكي للمساج — مربح، فجيرة. خدمات مساج احترافية. احجز موعدك الآن.">
 <title>المركز الملكي للمساج | ALMALAKI MASSAGE CENTRE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#080808;--bg2:#111;--bg3:#1a1a1a;--bg4:#222;
-  --gold:#C8A84E;--gold2:#E5C97A;--gold3:#9a7a2e;
-  --white:#F5F5F5;--muted:#888;--border:#2a2a2a;
-  --success:#4caf50;--error:#f44336;
-  --radius:12px;--shadow:0 8px 32px rgba(0,0,0,.6);
+  --bg:#060402; --bg2:#0D0A07; --bg3:#141009;
+  --gold:#C9A84C; --gold2:#E8D07A;
+  --t1:#EDE5D4; --t2:rgba(237,229,212,.52); --t3:rgba(237,229,212,.26);
+  --line:rgba(255,255,255,.07);
+  --ease:cubic-bezier(.4,0,.2,1);
 }
-*{margin:0;padding:0;box-sizing:border-box;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--white);overflow-x:hidden;line-height:1.7;}
-body.en{font-family:'Montserrat',sans-serif;direction:ltr;}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);overflow-x:hidden;line-height:1.8;}
+body.en{font-family:'Inter',sans-serif;direction:ltr;}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:rgba(201,168,76,.25);}
+body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px;}
+#prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));z-index:3000;width:0;}
+.r{opacity:0;transform:translateY(28px);transition:opacity .85s var(--ease),transform .85s var(--ease);}
+.r.vis{opacity:1;transform:none;}
+.rd1{transition-delay:.1s;}.rd2{transition-delay:.2s;}.rd3{transition-delay:.3s;}.rd4{transition-delay:.45s;}
 
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:6px;}
-::-webkit-scrollbar-track{background:var(--bg2);}
-::-webkit-scrollbar-thumb{background:var(--gold3);border-radius:3px;}
+/* NAV */
+#nav{position:fixed;top:0;width:100%;z-index:1000;padding:24px 7%;display:flex;align-items:center;justify-content:space-between;transition:.4s var(--ease);}
+#nav.sc{background:rgba(6,4,2,.9);backdrop-filter:blur(18px);padding:14px 7%;border-bottom:1px solid var(--line);}
+.nlogo{text-decoration:none;}
+.nlogo .nar{font-family:'Amiri',serif;font-size:1.1rem;color:var(--gold);display:block;line-height:1.15;}
+.nlogo .nen{font-family:'Cormorant Garamond',serif;font-size:.58rem;letter-spacing:4px;color:var(--t3);display:block;text-transform:uppercase;}
+.nlinks{display:flex;gap:30px;list-style:none;align-items:center;}
+.nlinks a{color:var(--t2);text-decoration:none;font-size:.8rem;letter-spacing:.3px;transition:color .3s;position:relative;}
+.nlinks a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .3s;transform-origin:center;}
+.nlinks a:hover{color:var(--gold);}.nlinks a:hover::after{transform:scaleX(1);}
+.langb{border:1px solid rgba(201,168,76,.3);background:transparent;color:var(--gold);padding:5px 18px;cursor:pointer;font-size:.68rem;letter-spacing:2px;font-family:inherit;text-transform:uppercase;transition:.3s;}
+.langb:hover{background:var(--gold);color:var(--bg);}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hbg span{width:22px;height:1px;background:var(--t1);display:block;}
+.mmenu{display:none;position:fixed;inset:0;z-index:999;background:rgba(6,4,2,.97);flex-direction:column;align-items:center;justify-content:center;gap:44px;}
+.mmenu.open{display:flex;}
+.mmenu a{font-family:'Amiri',serif;font-size:2.2rem;color:var(--t2);text-decoration:none;transition:color .3s;}
+.mmenu a:hover{color:var(--gold);}
+.mclose{position:absolute;top:24px;right:24px;background:none;border:none;color:var(--t3);font-size:1.5rem;cursor:pointer;}
+body.en .mclose{right:auto;left:24px;}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;width:100%;z-index:1000;padding:16px 5%;display:flex;align-items:center;justify-content:space-between;transition:.3s;background:transparent;}
-nav.scrolled{background:rgba(8,8,8,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
-.nav-logo{font-size:1.1rem;font-weight:700;color:var(--gold);letter-spacing:1px;text-decoration:none;}
-.nav-logo span{display:block;font-size:.65rem;color:var(--muted);font-weight:400;letter-spacing:3px;}
-.nav-links{display:flex;gap:28px;list-style:none;align-items:center;}
-.nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;transition:.3s;letter-spacing:.5px;}
-.nav-links a:hover{color:var(--gold);}
-.lang-btn{background:transparent;border:1px solid var(--gold3);color:var(--gold);padding:6px 14px;border-radius:20px;cursor:pointer;font-size:.8rem;letter-spacing:1px;transition:.3s;font-family:inherit;}
-.lang-btn:hover{background:var(--gold);color:var(--bg);}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;}
-.hamburger span{width:24px;height:2px;background:var(--gold);transition:.3s;}
-.mobile-menu{display:none;position:fixed;top:0;left:0;width:100%;height:100vh;background:var(--bg);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:32px;}
-.mobile-menu.open{display:flex;}
-.mobile-menu a{color:var(--white);text-decoration:none;font-size:1.4rem;}
-.mobile-menu a:hover{color:var(--gold);}
+/* HERO */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.hbg-img{position:absolute;inset:0;background:url('hero.jpg') center/cover no-repeat;transform:scale(1.06);will-change:transform;}
+.hov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,4,2,.58) 0%,rgba(6,4,2,.36) 45%,rgba(6,4,2,.74) 100%),radial-gradient(ellipse at center,transparent 20%,rgba(6,4,2,.72) 100%);}
+.hcontent{position:relative;z-index:2;text-align:center;padding:130px 6% 90px;max-width:860px;}
+.hbadge{display:inline-flex;align-items:center;gap:12px;border:1px solid rgba(201,168,76,.22);color:var(--t3);font-size:.62rem;letter-spacing:5px;padding:7px 22px;margin-bottom:42px;font-family:'Inter','Tajawal',sans-serif;text-transform:uppercase;}
+.hbadge::before,.hbadge::after{content:'';display:block;width:18px;height:1px;background:var(--gold);opacity:.45;}
+.htitle{font-family:'Amiri',serif;font-size:clamp(3.2rem,9.5vw,7.8rem);font-weight:700;color:var(--t1);line-height:1.0;letter-spacing:-.02em;margin-bottom:12px;}
+body.en .htitle{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,7vw,5.5rem);}
+.hsub{font-family:'Cormorant Garamond',serif;font-size:clamp(.8rem,1.6vw,1rem);letter-spacing:6px;color:var(--t3);text-transform:uppercase;margin-bottom:36px;}
+body.en .hsub{font-family:'Tajawal',sans-serif;font-size:.82rem;letter-spacing:2px;}
+.hdiv{width:70px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 40px;}
+.hbtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.bgold{background:var(--gold);color:var(--bg);padding:14px 44px;font-family:inherit;font-weight:700;font-size:.86rem;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;letter-spacing:.5px;transition:.35s var(--ease);}
+.bgold:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,168,76,.28);}
+.boutline{background:transparent;color:var(--t1);border:1px solid rgba(255,255,255,.22);padding:13px 38px;font-family:inherit;font-size:.86rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:.35s var(--ease);}
+.boutline:hover{border-color:var(--gold);color:var(--gold);}
+.hscroll{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--t3);font-size:.58rem;letter-spacing:4px;text-transform:uppercase;animation:bob 2.2s ease-in-out infinite;}
+.hscroll-line{width:1px;height:42px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(7px);}}
 
-/* ── HERO ── */
-#hero{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at center,#1a1205 0%,#080808 70%);z-index:0;}
-.hero-bg::after{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8a84e' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
-.hero-content{position:relative;z-index:1;max-width:700px;padding:0 24px;}
-.hero-badge{display:inline-block;border:1px solid var(--gold3);color:var(--gold);font-size:.75rem;letter-spacing:3px;padding:6px 20px;border-radius:20px;margin-bottom:28px;}
-.hero-title{font-size:clamp(2.2rem,6vw,4rem);font-weight:900;line-height:1.2;margin-bottom:16px;}
-.hero-title .gold{color:var(--gold);}
-.hero-sub{color:var(--muted);font-size:1.05rem;margin-bottom:40px;font-weight:300;}
-.hero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--gold);color:var(--bg);padding:14px 36px;border-radius:40px;font-weight:700;font-size:1rem;text-decoration:none;transition:.3s;border:2px solid var(--gold);}
-.hero-cta:hover{background:transparent;color:var(--gold);}
-.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--muted);font-size:.75rem;letter-spacing:2px;animation:bounce 2s infinite;}
-.hero-scroll::after{content:'';width:1px;height:40px;background:linear-gradient(to bottom,var(--gold3),transparent);}
-@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(8px);}}
+/* STATS */
+#stats{background:var(--bg3);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:56px 7%;}
+.stats-row{display:flex;max-width:900px;margin:0 auto;}
+.stat{flex:1;text-align:center;padding:0 32px;border-left:1px solid var(--line);}
+.stat:first-child{border-left:none;}
+body.en .stat{border-left:none;border-right:1px solid var(--line);}
+body.en .stat:first-child{border-right:none;}
+.snum{font-family:'Cormorant Garamond',serif;font-size:2.8rem;color:var(--gold);line-height:1;font-weight:600;display:block;}
+.sdesc{font-size:.68rem;color:var(--t3);letter-spacing:1.5px;margin-top:5px;display:block;}
 
-/* ── SECTIONS ── */
-section{padding:80px 5%;}
-.section-header{text-align:center;margin-bottom:60px;}
-.section-tag{font-size:.7rem;letter-spacing:4px;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:12px;}
-.section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;}
-.section-title .line{display:block;width:50px;height:2px;background:var(--gold);margin:16px auto 0;}
-.section-sub{color:var(--muted);margin-top:12px;font-size:.95rem;}
+/* SECTIONS */
+section{padding:104px 7%;position:relative;}
+.slabel{font-family:'Inter','Tajawal',sans-serif;font-size:.58rem;letter-spacing:5px;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:16px;}
+.stitle{font-family:'Amiri',serif;font-size:clamp(2rem,5vw,3.4rem);font-weight:700;color:var(--t1);line-height:1.1;margin-bottom:12px;}
+body.en .stitle{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4.5vw,3rem);}
+.sline{width:38px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:14px;}
+.ssub{color:var(--t2);font-size:.86rem;max-width:480px;}
+.shdr{margin-bottom:68px;}
+.shdr.center{text-align:center;}
+.shdr.center .sline{margin-inline:auto;}
+.shdr.center .ssub{margin-inline:auto;}
 
-/* ── SERVICES ── */
+/* SERVICES */
 #services{background:var(--bg2);}
-.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
-.service-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:36px 28px;transition:.4s;cursor:pointer;position:relative;overflow:hidden;}
-.service-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gold3),transparent);opacity:0;transition:.4s;}
-.service-card:hover{border-color:var(--gold3);transform:translateY(-6px);box-shadow:var(--shadow);}
-.service-card:hover::before{opacity:.06;}
-.service-icon{font-size:2.5rem;margin-bottom:20px;display:block;}
-.service-name{font-size:1.25rem;font-weight:700;margin-bottom:10px;color:var(--white);}
-.service-desc{color:var(--muted);font-size:.9rem;margin-bottom:24px;line-height:1.8;}
-.service-prices{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
-.price-tag{background:var(--bg4);border:1px solid var(--gold3);color:var(--gold);padding:5px 14px;border-radius:20px;font-size:.8rem;font-weight:600;}
-.btn-book{display:block;text-align:center;background:transparent;border:1px solid var(--gold);color:var(--gold);padding:11px;border-radius:8px;cursor:pointer;font-size:.9rem;font-family:inherit;font-weight:600;transition:.3s;width:100%;}
-.btn-book:hover,.btn-book.active{background:var(--gold);color:var(--bg);}
+.svgrid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);}
+.svcard{padding:56px 44px;border-right:1px solid var(--line);position:relative;overflow:hidden;cursor:pointer;transition:background .4s var(--ease);}
+.svcard:last-child{border-right:none;}
+body.en .svcard{border-right:none;border-left:1px solid var(--line);}
+body.en .svcard:last-child{border-left:none;}
+.svcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));transform:scaleX(0);transform-origin:right;transition:transform .55s var(--ease);}
+body.en .svcard::before{transform-origin:left;}
+.svcard:hover{background:var(--bg3);}
+.svcard:hover::before{transform:scaleX(1);}
+.svnum{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.72rem;color:var(--gold);letter-spacing:3px;display:block;margin-bottom:30px;opacity:.65;}
+.svname{font-family:'Amiri',serif;font-size:1.65rem;color:var(--t1);margin-bottom:14px;line-height:1.25;}
+body.en .svname{font-family:'Cormorant Garamond',serif;font-size:1.5rem;}
+.svdesc{color:var(--t2);font-size:.83rem;line-height:1.95;margin-bottom:30px;}
+.svprices{display:flex;flex-direction:column;margin-bottom:36px;}
+.svpr{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;padding:8px 0;border-bottom:1px solid var(--line);}
+.svpr:last-child{border-bottom:none;}
+.svpr-d{color:var(--t3);}
+.svpr-p{color:var(--gold);font-weight:600;}
+.svbk{background:none;border:1px solid var(--line);color:var(--t3);padding:10px 22px;width:100%;font-family:inherit;font-size:.78rem;cursor:pointer;letter-spacing:.5px;transition:.3s;}
+.svbk:hover{border-color:var(--gold);color:var(--gold);}
 
-/* ── BOOKING ── */
+/* BOOKING */
 #booking{background:var(--bg);}
-.booking-wrap{max-width:780px;margin:0 auto;}
-.steps{display:flex;gap:0;margin-bottom:48px;position:relative;}
-.steps::before{content:'';position:absolute;top:20px;right:24px;left:24px;height:1px;background:var(--border);z-index:0;}
-body.en .steps::before{right:24px;left:24px;}
-.step{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative;z-index:1;}
-.step-num{width:40px;height:40px;border-radius:50%;background:var(--bg3);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:var(--muted);transition:.3s;}
-.step.active .step-num,.step.done .step-num{border-color:var(--gold);background:var(--gold);color:var(--bg);}
-.step-label{font-size:.72rem;color:var(--muted);letter-spacing:.5px;text-align:center;}
-.step.active .step-label{color:var(--gold);}
-
-.booking-panel{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:36px;}
-.booking-section{display:none;}
-.booking-section.active{display:block;animation:fadeIn .3s ease;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
-.panel-title{font-size:1.1rem;font-weight:700;margin-bottom:24px;color:var(--gold);}
-
-/* Service selector */
-.service-select-list{display:flex;flex-direction:column;gap:12px;}
-.service-option{display:flex;align-items:center;gap:16px;padding:16px 20px;background:var(--bg4);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:.3s;}
-.service-option:hover,.service-option.selected{border-color:var(--gold);background:rgba(200,168,78,.06);}
-.service-option .s-icon{font-size:1.6rem;min-width:36px;text-align:center;}
-.service-option .s-info{flex:1;}
-.service-option .s-name{font-weight:700;font-size:.95rem;}
-.service-option .s-price{color:var(--gold);font-size:.82rem;margin-top:2px;}
-.service-option .s-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);transition:.3s;}
-.service-option.selected .s-check{background:var(--gold);border-color:var(--gold);}
-
-/* Duration selector */
-.duration-list{display:flex;gap:12px;flex-wrap:wrap;}
-.dur-btn{padding:12px 24px;background:var(--bg4);border:1px solid var(--border);border-radius:8px;color:var(--white);cursor:pointer;font-size:.9rem;font-family:inherit;transition:.3s;}
-.dur-btn:hover,.dur-btn.selected{border-color:var(--gold);color:var(--gold);background:rgba(200,168,78,.06);}
-.dur-price{font-size:.8rem;color:var(--gold);display:block;margin-top:2px;}
-
-/* Date picker */
-.date-input-wrap{position:relative;}
-.date-input-wrap label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:8px;}
-input[type=date]{width:100%;padding:14px 16px;background:var(--bg4);border:1px solid var(--border);border-radius:8px;color:var(--white);font-family:inherit;font-size:.95rem;cursor:pointer;transition:.3s;}
-input[type=date]:focus{outline:none;border-color:var(--gold);}
-input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.5);}
-
-/* Time slots */
-.slots-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:10px;margin-top:8px;}
-.slot{padding:10px 6px;text-align:center;background:var(--bg4);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:.82rem;transition:.3s;font-family:inherit;color:var(--white);}
+.bwrap{max-width:660px;margin:0 auto;}
+.steps{display:flex;align-items:center;margin-bottom:52px;}
+.stpi{flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;position:relative;z-index:1;}
+.stpi::before{content:'';position:absolute;top:15px;right:50%;left:-50%;height:1px;background:var(--line);}
+body.en .stpi::before{right:-50%;left:50%;}
+.stpi:first-child::before{display:none;}
+.stpdot{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:600;color:var(--t3);transition:.35s;z-index:1;}
+.stpi.active .stpdot{border-color:var(--gold);color:var(--gold);}
+.stpi.done .stpdot{background:var(--gold);border-color:var(--gold);color:var(--bg);}
+.stplbl{font-size:.6rem;color:var(--t3);letter-spacing:1px;}
+.stpi.active .stplbl{color:var(--gold);}
+.bsec{display:none;}
+.bsec.active{display:block;animation:fu .4s ease;}
+@keyframes fu{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+.bhead{font-family:'Inter','Tajawal',sans-serif;font-size:.62rem;letter-spacing:3.5px;color:var(--gold);text-transform:uppercase;margin-bottom:28px;display:block;}
+.sopts{display:flex;flex-direction:column;gap:1px;background:var(--line);}
+.sopt{display:flex;align-items:center;gap:18px;padding:18px 22px;background:var(--bg3);cursor:pointer;transition:.3s;position:relative;}
+.sopt::before{content:'';position:absolute;right:0;top:0;bottom:0;width:2px;background:var(--gold);transform:scaleY(0);transition:.3s;}
+body.en .sopt::before{right:auto;left:0;}
+.sopt:hover::before,.sopt.sel::before{transform:scaleY(1);}
+.sopt:hover,.sopt.sel{background:var(--bg2);}
+.sonum{width:40px;height:40px;flex-shrink:0;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--gold);}
+.soname{font-weight:700;font-size:.9rem;}
+.soprice{font-size:.74rem;color:var(--t3);margin-top:2px;}
+.soradio{width:18px;height:18px;border-radius:50%;border:1px solid var(--line);margin-right:auto;flex-shrink:0;transition:.3s;display:flex;align-items:center;justify-content:center;}
+body.en .soradio{margin-right:0;margin-left:auto;}
+.soradio::after{content:'';width:8px;height:8px;border-radius:50%;background:var(--gold);opacity:0;transition:.2s;}
+.sopt.sel .soradio{border-color:var(--gold);}
+.sopt.sel .soradio::after{opacity:1;}
+.durwrap{margin-top:14px;}
+.durlbl{font-size:.6rem;letter-spacing:2.5px;color:var(--t3);text-transform:uppercase;margin-bottom:11px;display:block;font-family:'Inter','Tajawal',sans-serif;}
+.durrow{display:flex;gap:8px;flex-wrap:wrap;}
+.durb{padding:9px 22px;background:var(--bg3);border:1px solid var(--line);color:var(--t2);font-family:inherit;font-size:.82rem;cursor:pointer;transition:.3s;}
+.durb:hover,.durb.sel{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.06);}
+.durp{font-size:.66rem;color:var(--gold);opacity:.65;display:block;margin-top:2px;}
+.fld{margin-bottom:24px;}
+.fld label{display:block;font-size:.6rem;letter-spacing:2.5px;color:var(--t3);text-transform:uppercase;margin-bottom:10px;font-family:'Inter','Tajawal',sans-serif;}
+.fld input{width:100%;background:transparent;border:none;border-bottom:1px solid var(--line);color:var(--t1);font-family:inherit;font-size:.9rem;padding:10px 0;transition:border-color .3s;outline:none;}
+.fld input:focus{border-color:var(--gold);}
+.fld input::-webkit-calendar-picker-indicator{filter:invert(.45);}
+.fld input::placeholder{color:var(--t3);}
+.slotlbl{font-size:.58rem;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin:22px 0 10px;display:block;font-family:'Inter','Tajawal',sans-serif;}
+.slotgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:6px;}
+.slot{padding:9px 4px;text-align:center;background:var(--bg3);border:1px solid var(--line);color:var(--t2);font-family:inherit;font-size:.78rem;cursor:pointer;transition:.3s;}
 .slot:hover:not(.booked){border-color:var(--gold);color:var(--gold);}
 .slot.selected{background:var(--gold);color:var(--bg);border-color:var(--gold);font-weight:700;}
-.slot.booked{opacity:.35;cursor:not-allowed;text-decoration:line-through;}
-.slots-loading{text-align:center;color:var(--muted);padding:24px;font-size:.9rem;}
-.time-window-label{font-size:.78rem;color:var(--gold);letter-spacing:2px;margin:16px 0 8px;text-transform:uppercase;}
+.slot.booked{opacity:.2;cursor:not-allowed;text-decoration:line-through;}
+.slotmsg{color:var(--t3);font-size:.82rem;padding:20px 0;}
+.bsum{border:1px solid var(--line);padding:20px 24px;margin-bottom:24px;}
+.bsumrow{display:flex;justify-content:space-between;font-size:.82rem;padding:7px 0;border-bottom:1px solid var(--line);}
+.bsumrow:last-child{border-bottom:none;}
+.bsumk{color:var(--t3);}
+.bsumv{color:var(--gold);font-weight:600;}
+.brow{display:flex;gap:10px;margin-top:30px;}
+.bback{background:none;border:1px solid var(--line);color:var(--t2);padding:12px 22px;font-family:inherit;font-size:.82rem;cursor:pointer;transition:.3s;}
+.bback:hover{border-color:var(--t2);color:var(--t1);}
+.bnext{flex:1;background:var(--gold);color:var(--bg);border:none;padding:13px;font-family:inherit;font-size:.88rem;font-weight:700;cursor:pointer;transition:.3s;}
+.bnext:hover{background:var(--gold2);}
+.bnext:disabled{opacity:.32;cursor:not-allowed;}
+.bsuccess{display:none;text-align:center;padding:64px 24px;}
+.bsuccess.show{display:block;animation:fu .5s ease;}
+.sring{width:62px;height:62px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;}
+.stitle2{font-family:'Amiri',serif;font-size:2.2rem;color:var(--gold);margin-bottom:8px;}
+body.en .stitle2{font-family:'Cormorant Garamond',serif;}
+.ssub2{color:var(--t2);font-size:.84rem;margin-bottom:22px;}
+.sbkid{display:inline-block;border:1px solid rgba(201,168,76,.25);color:var(--gold);padding:6px 24px;font-size:.7rem;letter-spacing:2px;font-family:'Inter',sans-serif;margin-bottom:28px;}
 
-/* Customer form */
-.form-group{margin-bottom:20px;}
-.form-group label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:8px;}
-.form-group input{width:100%;padding:13px 16px;background:var(--bg4);border:1px solid var(--border);border-radius:8px;color:var(--white);font-family:inherit;font-size:.95rem;transition:.3s;}
-.form-group input:focus{outline:none;border-color:var(--gold);}
-.form-group input::placeholder{color:var(--muted);}
-.booking-summary{background:var(--bg4);border-radius:8px;padding:16px;margin-bottom:20px;font-size:.88rem;line-height:2;}
-.booking-summary .row{display:flex;justify-content:space-between;}
-.booking-summary .val{color:var(--gold);font-weight:600;}
+/* REVIEWS */
+#reviews{background:var(--bg3);}
+.ratinghero{text-align:center;margin-bottom:64px;}
+.rnum{font-family:'Cormorant Garamond',serif;font-size:6rem;color:var(--gold);line-height:1;font-weight:600;}
+.rstars{color:var(--gold);font-size:1rem;letter-spacing:7px;margin:6px 0;}
+.rlbl{color:var(--t3);font-size:.66rem;letter-spacing:2px;}
+.revgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);}
+.revc{background:var(--bg3);padding:44px 38px;}
+.revq{font-family:'Cormorant Garamond',serif;font-size:5rem;color:var(--gold);opacity:.1;line-height:.8;margin-bottom:6px;}
+.revtext{color:var(--t2);font-size:.85rem;line-height:2;margin-bottom:22px;font-style:italic;}
+.revbot{display:flex;align-items:center;justify-content:space-between;}
+.revname{font-weight:700;font-size:.83rem;}
+.revs2{color:var(--gold);font-size:.72rem;letter-spacing:3px;}
+.revcta{text-align:center;margin-top:48px;}
+.bghost{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(201,168,76,.28);color:var(--gold);padding:13px 32px;font-family:inherit;font-size:.8rem;cursor:pointer;text-decoration:none;transition:.35s;letter-spacing:.5px;}
+.bghost:hover{background:var(--gold);color:var(--bg);}
 
-/* Buttons */
-.btn-gold{background:var(--gold);color:var(--bg);border:2px solid var(--gold);padding:13px 32px;border-radius:8px;font-size:.95rem;font-weight:700;cursor:pointer;font-family:inherit;transition:.3s;width:100%;}
-.btn-gold:hover{background:transparent;color:var(--gold);}
-.btn-gold:disabled{opacity:.5;cursor:not-allowed;}
-.btn-outline{background:transparent;color:var(--gold);border:1px solid var(--gold3);padding:11px 28px;border-radius:8px;font-size:.9rem;cursor:pointer;font-family:inherit;transition:.3s;}
-.btn-outline:hover{border-color:var(--gold);background:rgba(200,168,78,.06);}
-.btns-row{display:flex;gap:12px;margin-top:8px;}
-.btns-row .btn-outline{flex:0 0 auto;}
-.btns-row .btn-gold{flex:1;}
+/* CONTACT */
+#contact{background:var(--bg2);}
+.clayout{display:grid;grid-template-columns:1fr 1.45fr;gap:64px;align-items:start;}
+.cblock{display:flex;flex-direction:column;gap:38px;}
+.crow{display:flex;gap:20px;align-items:flex-start;}
+.cmark{width:1px;background:linear-gradient(to bottom,var(--gold),transparent);min-height:52px;flex-shrink:0;opacity:.45;}
+.clabel{font-size:.58rem;letter-spacing:3px;color:var(--t3);text-transform:uppercase;margin-bottom:5px;font-family:'Inter','Tajawal',sans-serif;}
+.cval{font-size:.9rem;color:var(--t1);font-weight:500;}
+.cval a{color:var(--t1);text-decoration:none;transition:color .3s;}
+.cval a:hover{color:var(--gold);}
+.hlist{margin-top:4px;display:flex;flex-direction:column;gap:7px;}
+.hitem{display:flex;justify-content:space-between;font-size:.82rem;color:var(--t2);}
+.htime{color:var(--gold);}
+.mapbox{overflow:hidden;border:1px solid var(--line);height:380px;}
+.mapbox iframe{width:100%;height:100%;border:none;display:block;}
 
-/* Success */
-.booking-success{text-align:center;padding:40px 20px;display:none;}
-.booking-success.show{display:block;animation:fadeIn .4s ease;}
-.success-icon{font-size:4rem;margin-bottom:16px;}
-.success-title{font-size:1.4rem;font-weight:700;color:var(--gold);margin-bottom:8px;}
-.success-sub{color:var(--muted);font-size:.9rem;}
-.booking-id{display:inline-block;background:var(--bg4);border:1px solid var(--gold3);color:var(--gold);padding:6px 20px;border-radius:20px;font-size:.85rem;margin:16px 0;}
-
-/* ── REVIEWS ── */
-#reviews{background:var(--bg2);}
-.stars{color:var(--gold);font-size:1.1rem;margin-bottom:6px;}
-.rating-hero{text-align:center;margin-bottom:48px;}
-.rating-big{font-size:4rem;font-weight:900;color:var(--gold);line-height:1;}
-.rating-count{color:var(--muted);font-size:.85rem;margin-top:4px;}
-.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
-.review-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:24px;}
-.review-text{color:var(--muted);font-size:.9rem;line-height:1.8;margin-bottom:16px;}
-.review-author{display:flex;align-items:center;gap:12px;}
-.review-avatar{width:40px;height:40px;border-radius:50%;background:var(--gold3);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--bg);}
-.review-name{font-weight:600;font-size:.9rem;}
-.review-date{color:var(--muted);font-size:.75rem;}
-.review-cta{text-align:center;margin-top:36px;}
-.btn-review{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--gold3);color:var(--gold);padding:12px 28px;border-radius:8px;text-decoration:none;font-size:.9rem;transition:.3s;}
-.btn-review:hover{background:var(--gold);color:var(--bg);border-color:var(--gold);}
-
-/* ── CONTACT ── */
-#contact{background:var(--bg);}
-.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:48px;align-items:start;}
-.contact-items{display:flex;flex-direction:column;gap:24px;}
-.contact-item{display:flex;align-items:flex-start;gap:16px;}
-.contact-icon{width:48px;height:48px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;}
-.contact-label{font-size:.75rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;}
-.contact-value{font-size:.95rem;font-weight:600;}
-.contact-value a{color:var(--white);text-decoration:none;transition:.3s;}
-.contact-value a:hover{color:var(--gold);}
-.hours-row{display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding:8px 0;font-size:.88rem;}
-.hours-row .time{color:var(--gold);}
-.map-wrap{border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);}
-.map-wrap iframe{display:block;width:100%;height:320px;border:none;}
-
-/* ── FOOTER ── */
-footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 5%;text-align:center;}
-.footer-logo{font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:8px;}
-.footer-sub{font-size:.75rem;color:var(--muted);letter-spacing:2px;margin-bottom:24px;}
-.footer-links{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:24px;}
-.footer-links a{color:var(--muted);text-decoration:none;font-size:.85rem;transition:.3s;}
-.footer-links a:hover{color:var(--gold);}
-.footer-copy{font-size:.75rem;color:var(--muted);}
-
-/* ── WHATSAPP FLOAT ── */
-.wa-float{position:fixed;bottom:28px;right:28px;z-index:900;background:#25D366;color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.5);transition:.3s;}
-body.en .wa-float{right:auto;left:28px;}
-.wa-float:hover{transform:scale(1.12);box-shadow:0 6px 28px rgba(37,211,102,.6);}
-
-/* ── TOAST ── */
-.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:14px 28px;font-size:.9rem;z-index:9999;transition:.4s;opacity:0;pointer-events:none;max-width:340px;text-align:center;}
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--line);padding:60px 7%;text-align:center;}
+.fname{font-family:'Amiri',serif;font-size:1.5rem;color:var(--gold);}
+.fen{font-family:'Cormorant Garamond',serif;font-size:.62rem;letter-spacing:5px;color:var(--t3);text-transform:uppercase;margin:5px 0 30px;}
+.fdiv{width:56px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 28px;}
+.flinks{display:flex;justify-content:center;gap:26px;flex-wrap:wrap;margin-bottom:28px;}
+.flinks a{color:var(--t3);text-decoration:none;font-size:.74rem;letter-spacing:.4px;transition:color .3s;}
+.flinks a:hover{color:var(--gold);}
+.fcopy{font-size:.62rem;color:rgba(237,229,212,.14);}
+.wabtn{position:fixed;bottom:30px;right:30px;z-index:900;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.33);transition:.35s;}
+body.en .wabtn{right:auto;left:30px;}
+.wabtn:hover{transform:scale(1.09);}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(70px);background:var(--bg3);border:1px solid var(--line);padding:11px 26px;font-size:.8rem;z-index:9000;transition:.4s;opacity:0;pointer-events:none;max-width:290px;text-align:center;}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-.toast.success{border-color:var(--success);color:var(--success);}
-.toast.error{border-color:var(--error);color:var(--error);}
+.toast.success{border-color:rgba(201,168,76,.35);color:var(--gold);}
+.toast.error{border-color:rgba(220,60,60,.28);color:#f87171;}
+#btop{position:fixed;bottom:30px;left:30px;z-index:900;width:38px;height:38px;border:1px solid var(--line);background:var(--bg3);color:var(--t2);display:none;align-items:center;justify-content:center;cursor:pointer;font-size:.9rem;transition:.3s;}
+body.en #btop{left:auto;right:30px;}
+#btop.show{display:flex;}
+#btop:hover{border-color:var(--gold);color:var(--gold);}
 
-/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .svgrid{grid-template-columns:1fr;}
+  .svcard{border-right:none;border-bottom:1px solid var(--line);}
+  body.en .svcard{border-left:none;}
+  .svcard:last-child{border-bottom:none;}
+  .revgrid{grid-template-columns:1fr;}
+  .clayout{grid-template-columns:1fr;}
+  .stats-row{flex-wrap:wrap;}
+  .stat{min-width:45%;border-left:none;padding:20px;border-bottom:1px solid var(--line);}
+  body.en .stat{border-right:none;}
+}
 @media(max-width:768px){
-  nav .nav-links{display:none;}
-  .hamburger{display:flex;}
-  .contact-grid{grid-template-columns:1fr;}
-  .steps{gap:4px;}
-  .step-label{display:none;}
-  .booking-panel{padding:24px 18px;}
-  section{padding:60px 5%;}
-  .btns-row{flex-direction:column-reverse;}
+  #nav .nlinks{display:none;} .hbg{display:flex;}
+  section{padding:72px 5%;} #stats{padding:40px 5%;}
+  .stplbl{display:none;}
+  .htitle{font-size:clamp(2.6rem,12vw,4.5rem);}
+}
+@media(max-width:480px){
+  .hcontent{padding:110px 5% 80px;} .revc{padding:32px 24px;} .svcard{padding:40px 28px;}
+  .stat{min-width:100%;}
 }
 </style>
 </head>
 <body>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <button onclick="closeMobile()" style="position:absolute;top:24px;right:24px;background:none;border:none;color:var(--gold);font-size:1.8rem;cursor:pointer;">✕</button>
-  <a href="#services" onclick="closeMobile()" data-i18n="nav_services">خدماتنا</a>
-  <a href="#booking" onclick="closeMobile()" data-i18n="nav_book">احجز الآن</a>
-  <a href="#reviews" onclick="closeMobile()" data-i18n="nav_reviews">التقييمات</a>
-  <a href="#contact" onclick="closeMobile()" data-i18n="nav_contact">تواصل معنا</a>
-  <button class="lang-btn" onclick="toggleLang();closeMobile();" id="mobileLangBtn">EN</button>
+<div id="prog"></div>
+<div class="mmenu" id="mobMenu">
+  <button class="mclose" onclick="closeMob()">✕</button>
+  <a href="#services" onclick="closeMob()" data-i18n="nav_services">خدماتنا</a>
+  <a href="#booking" onclick="closeMob()" data-i18n="nav_book">احجز الآن</a>
+  <a href="#reviews" onclick="closeMob()" data-i18n="nav_reviews">التقييمات</a>
+  <a href="#contact" onclick="closeMob()" data-i18n="nav_contact">تواصل معنا</a>
+  <button class="langb" onclick="toggleLang();closeMob();" id="mobLang">EN</button>
 </div>
-
-<!-- NAV -->
 <nav id="nav">
-  <a href="#hero" class="nav-logo">
-    المركز الملكي
-    <span>ALMALAKI MASSAGE CENTRE</span>
+  <a href="#hero" class="nlogo">
+    <span class="nar">المركز الملكي للمساج</span>
+    <span class="nen">ALMALAKI MASSAGE CENTRE</span>
   </a>
-  <ul class="nav-links">
+  <ul class="nlinks">
     <li><a href="#services" data-i18n="nav_services">خدماتنا</a></li>
     <li><a href="#booking" data-i18n="nav_book">احجز الآن</a></li>
     <li><a href="#reviews" data-i18n="nav_reviews">التقييمات</a></li>
     <li><a href="#contact" data-i18n="nav_contact">تواصل معنا</a></li>
     <li><a href="admin.html" data-i18n="nav_admin">لوحة التحكم</a></li>
-    <li><button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button></li>
+    <li><button class="langb" onclick="toggleLang()" id="langBtn">EN</button></li>
   </ul>
-  <div class="hamburger" onclick="openMobile()"><span></span><span></span><span></span></div>
+  <button class="hbg" onclick="openMob()"><span></span><span></span><span></span></button>
 </nav>
-
-<!-- HERO -->
 <section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <span class="hero-badge" data-i18n="hero_badge">مرباح — فجيرة | MIRBAH, FUJAIRAH</span>
-    <h1 class="hero-title">
-      <span class="gold" data-i18n="hero_title_1">المركز الملكي</span><br>
-      <span data-i18n="hero_title_2">للمساج</span>
-    </h1>
-    <p class="hero-sub" data-i18n="hero_sub">استرخِ، جدّد نشاطك، وعش لحظة راحة حقيقية</p>
-    <a href="#booking" class="hero-cta" data-i18n="hero_cta">احجز موعدك الآن ←</a>
-  </div>
-  <div class="hero-scroll" data-i18n="scroll">مرر للأسفل</div>
-</section>
-
-<!-- SERVICES -->
-<section id="services">
-  <div class="section-header">
-    <span class="section-tag" data-i18n="tag_services">خدماتنا</span>
-    <h2 class="section-title" data-i18n="services_title">اختر خدمتك<span class="line"></span></h2>
-    <p class="section-sub" data-i18n="services_sub">تجربة مساج احترافية بأيدي متخصصة</p>
-  </div>
-  <div class="services-grid" id="servicesGrid"></div>
-</section>
-
-<!-- BOOKING -->
-<section id="booking">
-  <div class="section-header">
-    <span class="section-tag" data-i18n="tag_booking">الحجز</span>
-    <h2 class="section-title" data-i18n="booking_title">احجز موعدك<span class="line"></span></h2>
-  </div>
-  <div class="booking-wrap">
-
-    <!-- Steps -->
-    <div class="steps">
-      <div class="step active" id="st1">
-        <div class="step-num">1</div>
-        <div class="step-label" data-i18n="step1">الخدمة</div>
-      </div>
-      <div class="step" id="st2">
-        <div class="step-num">2</div>
-        <div class="step-label" data-i18n="step2">الوقت</div>
-      </div>
-      <div class="step" id="st3">
-        <div class="step-num">3</div>
-        <div class="step-label" data-i18n="step3">بياناتك</div>
-      </div>
+  <div class="hbg-img" id="heroBgImg"></div>
+  <div class="hov"></div>
+  <div class="hcontent">
+    <div class="hbadge" data-i18n="hero_badge">مربح · فجيرة</div>
+    <h1 class="htitle" data-i18n="hero_title">المركز الملكي للمساج</h1>
+    <p class="hsub" data-i18n="hero_sub_small">ALMALAKI MASSAGE CENTRE</p>
+    <div class="hdiv"></div>
+    <div class="hbtns">
+      <a href="#booking" class="bgold" data-i18n="hero_cta">احجز موعدك الآن</a>
+      <a href="#services" class="boutline" data-i18n="our_services">خدماتنا</a>
     </div>
-
-    <div class="booking-panel" id="bookingPanel">
-
-      <!-- Step 1: Service & Duration -->
-      <div class="booking-section active" id="bs1">
-        <div class="panel-title" data-i18n="pick_service">اختر الخدمة والمدة</div>
-        <div class="service-select-list" id="serviceSelectList"></div>
-        <div id="durationWrap" style="margin-top:20px;display:none;">
-          <div class="panel-title" style="font-size:.9rem;margin-bottom:12px;" data-i18n="pick_duration">اختر المدة</div>
-          <div class="duration-list" id="durationList"></div>
+  </div>
+  <div class="hscroll">
+    <span data-i18n="scroll_lbl">تصفّح</span>
+    <div class="hscroll-line"></div>
+  </div>
+</section>
+<div id="stats">
+  <div class="stats-row">
+    <div class="stat r"><span class="snum">3</span><span class="sdesc" data-i18n="stat1">خدمات متخصصة</span></div>
+    <div class="stat r rd1"><span class="snum">4.9</span><span class="sdesc" data-i18n="stat2">تقييم العملاء ★</span></div>
+    <div class="stat r rd2"><span class="snum">7</span><span class="sdesc" data-i18n="stat3">أيام في الأسبوع</span></div>
+    <div class="stat r rd3"><span class="snum">10+</span><span class="sdesc" data-i18n="stat4">ساعات عمل يومياً</span></div>
+  </div>
+</div>
+<section id="services">
+  <div class="shdr r">
+    <span class="slabel" data-i18n="tag_services">خدماتنا</span>
+    <h2 class="stitle" data-i18n="services_title">اختر تجربتك</h2>
+    <div class="sline"></div>
+    <p class="ssub" data-i18n="services_sub">تجربة مساج احترافية بأيدي متخصصة</p>
+  </div>
+  <div class="svgrid" id="servicesGrid"></div>
+</section>
+<section id="booking">
+  <div class="shdr center r">
+    <span class="slabel" data-i18n="tag_booking">الحجز</span>
+    <h2 class="stitle" data-i18n="booking_title">احجز موعدك</h2>
+    <div class="sline"></div>
+  </div>
+  <div class="bwrap">
+    <div class="steps">
+      <div class="stpi active" id="st1"><div class="stpdot">1</div><div class="stplbl" data-i18n="step1">الخدمة</div></div>
+      <div class="stpi" id="st2"><div class="stpdot">2</div><div class="stplbl" data-i18n="step2">الوقت</div></div>
+      <div class="stpi" id="st3"><div class="stpdot">3</div><div class="stplbl" data-i18n="step3">بياناتك</div></div>
+    </div>
+    <div id="bkPanel">
+      <div class="bsec active" id="bs1">
+        <span class="bhead" data-i18n="pick_service">اختر الخدمة والمدة</span>
+        <div class="sopts" id="svcOpts"></div>
+        <div id="durWrap" style="display:none;margin-top:14px;">
+          <span class="durlbl" data-i18n="pick_dur">اختر المدة</span>
+          <div class="durrow" id="durList"></div>
         </div>
-        <div class="btns-row" style="margin-top:24px;">
-          <button class="btn-gold" onclick="goStep2()" data-i18n="next">التالي →</button>
-        </div>
+        <div class="brow"><button class="bnext" onclick="goStep2()" data-i18n="next">التالي</button></div>
       </div>
-
-      <!-- Step 2: Date & Time -->
-      <div class="booking-section" id="bs2">
-        <div class="panel-title" data-i18n="pick_datetime">اختر التاريخ والوقت</div>
-        <div class="date-input-wrap" style="margin-bottom:24px;">
-          <label data-i18n="date_label">التاريخ</label>
+      <div class="bsec" id="bs2">
+        <span class="bhead" data-i18n="pick_dt">اختر التاريخ والوقت</span>
+        <div class="fld">
+          <label data-i18n="date_lbl">التاريخ</label>
           <input type="date" id="dateInput" onchange="loadSlots()">
         </div>
-        <div id="slotsContainer"></div>
-        <div class="btns-row" style="margin-top:24px;">
-          <button class="btn-outline" onclick="goToStep(1)" data-i18n="back">← رجوع</button>
-          <button class="btn-gold" onclick="goStep3()" data-i18n="next">التالي →</button>
+        <div id="slotsWrap"></div>
+        <div class="brow">
+          <button class="bback" onclick="goToStep(1)" data-i18n="back">رجوع</button>
+          <button class="bnext" onclick="goStep3()" data-i18n="next">التالي</button>
         </div>
       </div>
-
-      <!-- Step 3: Customer Info -->
-      <div class="booking-section" id="bs3">
-        <div class="panel-title" data-i18n="your_info">بياناتك</div>
-        <div class="booking-summary" id="bookingSummary"></div>
-        <div class="form-group">
-          <label data-i18n="name_label">الاسم الكامل</label>
-          <input type="text" id="custName" data-i18n-placeholder="name_ph" placeholder="أدخل اسمك">
+      <div class="bsec" id="bs3">
+        <span class="bhead" data-i18n="your_info">بياناتك</span>
+        <div class="bsum" id="bkSummary"></div>
+        <div class="fld">
+          <label data-i18n="name_lbl">الاسم الكامل</label>
+          <input type="text" id="custName" data-i18n-ph="name_ph" placeholder="أدخل اسمك">
         </div>
-        <div class="form-group">
-          <label data-i18n="phone_label">رقم الهاتف</label>
-          <input type="tel" id="custPhone" data-i18n-placeholder="phone_ph" placeholder="05xxxxxxxx">
+        <div class="fld">
+          <label data-i18n="phone_lbl">رقم الهاتف</label>
+          <input type="tel" id="custPhone" placeholder="05xxxxxxxx">
         </div>
-        <div class="btns-row">
-          <button class="btn-outline" onclick="goToStep(2)" data-i18n="back">← رجوع</button>
-          <button class="btn-gold" onclick="submitBooking()" id="submitBtn" data-i18n="confirm_book">تأكيد الحجز</button>
+        <div class="brow">
+          <button class="bback" onclick="goToStep(2)" data-i18n="back">رجوع</button>
+          <button class="bnext" onclick="submitBk()" id="submitBtn" data-i18n="confirm_bk">تأكيد الحجز</button>
         </div>
       </div>
-
     </div>
-
-    <!-- Success Screen -->
-    <div class="booking-success" id="bookingSuccess">
-      <div class="success-icon">✅</div>
-      <div class="success-title" data-i18n="success_title">تم الحجز بنجاح!</div>
-      <div class="success-sub" data-i18n="success_sub">سيتواصل معك فريقنا قريباً للتأكيد</div>
-      <div class="booking-id" id="bookingIdDisplay"></div>
-      <br>
-      <button class="btn-gold" style="max-width:240px;margin:0 auto;" onclick="resetBooking()" data-i18n="new_booking">حجز جديد</button>
+    <div class="bsuccess" id="bkSuccess">
+      <div class="sring"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="stitle2" data-i18n="success_ttl">تم الحجز بنجاح!</div>
+      <div class="ssub2" data-i18n="success_sub">سيتواصل معك فريقنا قريباً للتأكيد</div>
+      <div class="sbkid" id="bkIdDisplay"></div><br>
+      <button class="bgold" style="margin:0 auto;" onclick="resetBk()" data-i18n="new_bk">حجز جديد</button>
     </div>
-
   </div>
 </section>
-
-<!-- REVIEWS -->
 <section id="reviews">
-  <div class="section-header">
-    <span class="section-tag" data-i18n="tag_reviews">آراء عملائنا</span>
-    <h2 class="section-title" data-i18n="reviews_title">ماذا يقولون عنا<span class="line"></span></h2>
+  <div class="shdr center r">
+    <span class="slabel" data-i18n="tag_reviews">آراء عملائنا</span>
+    <h2 class="stitle" data-i18n="reviews_title">ماذا يقولون عنا</h2>
+    <div class="sline"></div>
   </div>
-  <div class="rating-hero">
-    <div class="rating-big">4.9</div>
-    <div class="stars">★★★★★</div>
-    <div class="rating-count" data-i18n="rating_count">بناءً على تقييمات عملائنا</div>
+  <div class="ratinghero r">
+    <div class="rnum">4.9</div>
+    <div class="rstars">★ ★ ★ ★ ★</div>
+    <div class="rlbl" data-i18n="rating_lbl">بناءً على تقييمات عملائنا</div>
   </div>
-  <div class="reviews-grid" id="reviewsGrid"></div>
-  <div class="review-cta">
-    <a href="https://www.google.com/maps/search/Al+Malaki+Massage+Centre+Mirbah+Fujairah" target="_blank" class="btn-review" data-i18n="leave_review">⭐ اترك تقييمك على Google</a>
+  <div class="revgrid" id="reviewsGrid"></div>
+  <div class="revcta">
+    <a href="https://www.google.com/maps/search/Al+Malaki+Massage+Centre+Mirbah+Fujairah" target="_blank" class="bghost" data-i18n="leave_rev">اترك تقييمك على Google</a>
   </div>
 </section>
-
-<!-- CONTACT -->
 <section id="contact">
-  <div class="section-header">
-    <span class="section-tag" data-i18n="tag_contact">تواصل معنا</span>
-    <h2 class="section-title" data-i18n="contact_title">موقعنا وتواصل<span class="line"></span></h2>
+  <div class="shdr r">
+    <span class="slabel" data-i18n="tag_contact">تواصل معنا</span>
+    <h2 class="stitle" data-i18n="contact_title">موقعنا وتواصل</h2>
+    <div class="sline"></div>
   </div>
-  <div class="contact-grid">
-    <div class="contact-items">
-
-      <div class="contact-item">
-        <div class="contact-icon">📍</div>
-        <div>
-          <div class="contact-label" data-i18n="address_label">العنوان</div>
-          <div class="contact-value" data-i18n="address_val">طريق فجيرة - خورفكان، رقم 58، مرباح، فجيرة</div>
+  <div class="clayout">
+    <div class="cblock">
+      <div class="crow r"><div class="cmark"></div><div><div class="clabel" data-i18n="addr_lbl">العنوان</div><div class="cval" data-i18n="addr_val">طريق فجيرة - خورفكان، رقم 58، مربح، فجيرة</div></div></div>
+      <div class="crow r rd1"><div class="cmark"></div><div><div class="clabel" data-i18n="phone_lbl2">هاتف</div><div class="cval"><a href="tel:+971564848057">+971 56 484 8057</a></div></div></div>
+      <div class="crow r rd2"><div class="cmark"></div><div><div class="clabel">Instagram</div><div class="cval"><a href="https://instagram.com/almalaki_massage" target="_blank">@almalaki_massage</a></div></div></div>
+      <div class="crow r rd3"><div class="cmark"></div><div>
+        <div class="clabel" data-i18n="hours_lbl">ساعات العمل</div>
+        <div class="hlist">
+          <div class="hitem"><span data-i18n="morning_s">الجلسة الصباحية</span><span class="htime">10:00 — 1:00 م</span></div>
+          <div class="hitem"><span data-i18n="evening_s">الجلسة المسائية</span><span class="htime">4:00 — 11:00 م</span></div>
         </div>
-      </div>
-
-      <div class="contact-item">
-        <div class="contact-icon">📞</div>
-        <div>
-          <div class="contact-label" data-i18n="phone_lbl">هاتف</div>
-          <div class="contact-value"><a href="tel:+97156484 8057">+971 56 484 8057</a></div>
-        </div>
-      </div>
-
-      <div class="contact-item">
-        <div class="contact-icon">📸</div>
-        <div>
-          <div class="contact-label">Instagram</div>
-          <div class="contact-value"><a href="https://instagram.com/almalaki_massage" target="_blank">@almalaki_massage</a></div>
-        </div>
-      </div>
-
-      <div class="contact-item">
-        <div class="contact-icon">🕐</div>
-        <div>
-          <div class="contact-label" data-i18n="hours_lbl">ساعات العمل</div>
-          <div style="font-size:.88rem;">
-            <div class="hours-row"><span data-i18n="morning_session">الجلسة الصباحية</span><span class="time">10:00 ص — 1:00 م</span></div>
-            <div class="hours-row"><span data-i18n="evening_session">الجلسة المسائية</span><span class="time">4:00 م — 11:00 م</span></div>
-          </div>
-        </div>
-      </div>
-
+      </div></div>
     </div>
-    <div class="map-wrap">
-      <iframe src="https://maps.google.com/maps?q=Al+Malaki+Massage+Centre+Mirbah+Fujairah&output=embed" allowfullscreen loading="lazy"></iframe>
-    </div>
+    <div class="mapbox r"><iframe src="https://maps.google.com/maps?q=Al+Malaki+Massage+Centre+Mirbah+Fujairah&output=embed" allowfullscreen loading="lazy"></iframe></div>
   </div>
 </section>
-
-<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">المركز الملكي للمساج</div>
-  <div class="footer-sub">ALMALAKI MASSAGE CENTRE</div>
-  <div class="footer-links">
+  <div class="fname">المركز الملكي للمساج</div>
+  <div class="fen">ALMALAKI MASSAGE CENTRE</div>
+  <div class="fdiv"></div>
+  <div class="flinks">
     <a href="#services" data-i18n="nav_services">خدماتنا</a>
     <a href="#booking" data-i18n="nav_book">احجز الآن</a>
     <a href="#reviews" data-i18n="nav_reviews">التقييمات</a>
     <a href="#contact" data-i18n="nav_contact">تواصل معنا</a>
     <a href="admin.html" data-i18n="nav_admin">لوحة التحكم</a>
   </div>
-  <div class="footer-copy">© 2025 المركز الملكي للمساج — مرباح، فجيرة</div>
+  <div class="fcopy">© 2025 المركز الملكي للمساج · مربح، فجيرة</div>
 </footer>
-
-<!-- WHATSAPP FLOAT -->
-<a href="https://wa.me/97156484 8057" target="_blank" class="wa-float" title="WhatsApp">
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<a href="https://wa.me/971564848057" target="_blank" class="wabtn" aria-label="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
-
-<!-- TOAST -->
+<button id="btop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <div class="toast" id="toast"></div>
-
 <script>
-// ═══════════════════════════════════════════════
-// CONFIG — replace with your Google Apps Script URL
-// ═══════════════════════════════════════════════
-const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
-
-// ═══════════════════════════════════════════════
-// DATA
-// ═══════════════════════════════════════════════
-const SERVICES = [
-  {
-    id:'full_body',
-    icon:'♾️',
-    ar:{name:'مساج كامل',desc:'تدليك شامل للجسم يريح العضلات ويجدد الطاقة'},
-    en:{name:'Full Body Massage',desc:'Complete body treatment to relieve tension and restore energy'},
-    durations:[{min:30,price:70},{min:60,price:120}]
-  },
-  {
-    id:'sports',
-    icon:'⚡',
-    ar:{name:'مساج رياضي',desc:'تدليك متخصص للرياضيين يعالج إجهاد العضلات وآلامها'},
-    en:{name:'Sports Massage',desc:'Specialized massage targeting muscle fatigue and soreness'},
-    durations:[{min:30,price:70},{min:60,price:120}]
-  },
-  {
-    id:'foot_normatec',
-    icon:'🦶',
-    ar:{name:'مساج قدمين — نورماتيك',desc:'جهاز نورماتيك المتطور للضغط الهوائي وراحة القدمين التامة'},
-    en:{name:'Foot Massage — Normatec',desc:'Advanced Normatec pneumatic compression for total foot relief'},
-    durations:[{min:60,price:80}]
-  }
+const APPS_SCRIPT_URL='YOUR_APPS_SCRIPT_URL_HERE';
+const TG_TOKEN='8817342240:AAGTetvyNVHXES_nvBY32XA49ghiWw7SOfc';
+const TG_CHAT='796643506';
+const ROMAN=['I','II','III'];
+const SERVICES=[
+  {id:'full_body',ar:{name:'مساج كامل',desc:'تدليك شامل للجسم يزيل التوتر ويريح العضلات ويعيد الحيوية والنشاط'},en:{name:'Full Body Massage',desc:'Complete body treatment that releases deep tension and restores full vitality'},durations:[{min:30,price:70},{min:60,price:120}]},
+  {id:'sports',ar:{name:'مساج رياضي',desc:'تدليك متخصص يستهدف العضلات المجهدة ويسرّع التعافي بعد النشاط الرياضي'},en:{name:'Sports Massage',desc:'Specialized therapy targeting fatigued muscles to accelerate athletic recovery'},durations:[{min:30,price:70},{min:60,price:120}]},
+  {id:'foot_normatec',ar:{name:'مساج قدمين — نورماتيك',desc:'تقنية الضغط الهوائي المتطورة بجهاز نورماتيك لراحة القدمين والساقين التامة'},en:{name:'Foot Massage — Normatec',desc:'Advanced pneumatic compression technology for total foot and leg relief'},durations:[{min:60,price:80}]}
 ];
-
-const WORKING_HOURS = [
-  {start:'10:00',end:'13:00'},
-  {start:'16:00',end:'23:00'}
+const WORKING_HOURS=[{start:'10:00',end:'13:00'},{start:'16:00',end:'23:00'}];
+const REVIEWS=[
+  {ar:{text:'تجربة رائعة جداً، الأجواء هادئة ومريحة والمساج كان ممتاز. سأعود بالتأكيد.',name:'محمد العامري'},en:{text:'Amazing experience. Calm atmosphere and excellent massage. Will definitely return.',name:'Mohammed Al Ameri'},s:5},
+  {ar:{text:'أفضل مركز مساج في المنطقة، الخدمة احترافية وبسعر معقول جداً.',name:'سعيد الشحي'},en:{text:'Best massage center in the area. Professional service at a very reasonable price.',name:'Saeed Al Shahi'},s:5},
+  {ar:{text:'جهاز النورماتيك للقدمين خيال، حسيت بفرق كبير بعد الجلسة الأولى.',name:'فاطمة الزعابي'},en:{text:'The Normatec device is incredible — felt a huge difference after the very first session.',name:'Fatima Al Zaabi'},s:5},
+  {ar:{text:'موقع ممتاز وسهل الوصول. طاقم العمل ودود ومحترف دائماً.',name:'خالد المنصوري'},en:{text:'Great location, easy access. Staff is always friendly and professional.',name:'Khalid Al Mansoori'},s:5}
 ];
-
-const REVIEWS_DATA = [
-  {ar:{text:'تجربة رائعة جداً، الأجواء هادئة ومريحة والمساج كان ممتاز. سأعود بالتأكيد.',name:'محمد العامري'},en:{text:'Amazing experience, calm atmosphere and excellent massage. Will definitely return.',name:'Mohammed Al Ameri'},stars:5},
-  {ar:{text:'أفضل مركز مساج في المنطقة، الخدمة احترافية وبسعر معقول جداً.',name:'سعيد الشحي'},en:{text:'Best massage center in the area, professional service at a very reasonable price.',name:'Saeed Al Shahi'},stars:5},
-  {ar:{text:'جهاز النورماتيك للقدمين خيال، حسيت بفرق كبير بعد الجلسة الأولى.',name:'فاطمة الزعابي'},en:{text:'The Normatec foot device is incredible, I felt a big difference after the first session.',name:'Fatima Al Zaabi'},stars:5},
-  {ar:{text:'موقع ممتاز وسهل الوصول إليه. طاقم العمل ودود ومتعاون.',name:'خالد المنصوري'},en:{text:'Great location and easy to access. The staff is friendly and cooperative.',name:'Khalid Al Mansoori'},stars:5}
-];
-
-const I18N = {
-  ar:{
-    nav_services:'خدماتنا',nav_book:'احجز الآن',nav_reviews:'التقييمات',
-    nav_contact:'تواصل معنا',nav_admin:'لوحة التحكم',
-    hero_badge:'مرباح — فجيرة',
-    hero_title_1:'المركز الملكي',hero_title_2:'للمساج',
-    hero_sub:'استرخِ، جدّد نشاطك، وعش لحظة راحة حقيقية',
-    hero_cta:'احجز موعدك الآن ←',scroll:'مرر للأسفل',
-    tag_services:'خدماتنا',services_title:'اختر خدمتك',services_sub:'تجربة مساج احترافية بأيدي متخصصة',
+const T={
+  ar:{nav_services:'خدماتنا',nav_book:'احجز الآن',nav_reviews:'التقييمات',nav_contact:'تواصل معنا',nav_admin:'لوحة التحكم',
+    hero_badge:'مربح · فجيرة',hero_title:'المركز الملكي للمساج',hero_sub_small:'ALMALAKI MASSAGE CENTRE',
+    hero_cta:'احجز موعدك الآن',our_services:'خدماتنا',scroll_lbl:'تصفّح',
+    stat1:'خدمات متخصصة',stat2:'تقييم العملاء ★',stat3:'أيام في الأسبوع',stat4:'ساعات عمل يومياً',
+    tag_services:'خدماتنا',services_title:'اختر تجربتك',services_sub:'تجربة مساج احترافية بأيدي متخصصة',
     tag_booking:'الحجز',booking_title:'احجز موعدك',
     step1:'الخدمة',step2:'الوقت',step3:'بياناتك',
-    pick_service:'اختر الخدمة والمدة',pick_duration:'اختر المدة',
-    pick_datetime:'اختر التاريخ والوقت',
-    date_label:'التاريخ',next:'التالي →',back:'← رجوع',
-    your_info:'بياناتك',name_label:'الاسم الكامل',phone_label:'رقم الهاتف',
-    name_ph:'أدخل اسمك',phone_ph:'05xxxxxxxx',
-    confirm_book:'تأكيد الحجز',
-    tag_reviews:'آراء عملائنا',reviews_title:'ماذا يقولون عنا',
-    rating_count:'بناءً على تقييمات عملائنا',leave_review:'⭐ اترك تقييمك على Google',
+    pick_service:'اختر الخدمة والمدة',pick_dur:'اختر المدة',pick_dt:'اختر التاريخ والوقت',
+    date_lbl:'التاريخ',next:'التالي',back:'رجوع',
+    your_info:'بياناتك',name_lbl:'الاسم الكامل',phone_lbl:'رقم الهاتف',phone_lbl2:'هاتف',
+    name_ph:'أدخل اسمك',confirm_bk:'تأكيد الحجز',
+    tag_reviews:'آراء عملائنا',reviews_title:'ماذا يقولون عنا',rating_lbl:'بناءً على تقييمات عملائنا',leave_rev:'اترك تقييمك على Google',
     tag_contact:'تواصل معنا',contact_title:'موقعنا وتواصل',
-    address_label:'العنوان',address_val:'طريق فجيرة - خورفكان، رقم 58، مرباح، فجيرة',
-    phone_lbl:'هاتف',hours_lbl:'ساعات العمل',
-    morning_session:'الجلسة الصباحية',evening_session:'الجلسة المسائية',
-    success_title:'تم الحجز بنجاح!',success_sub:'سيتواصل معك فريقنا قريباً للتأكيد',
-    new_booking:'حجز جديد',
-    min_label:'دقيقة',aed:'د.إ',
-    slot_morning:'الصباح',slot_evening:'المساء',
-    loading_slots:'جاري تحميل المواعيد...',no_slots:'لا توجد مواعيد متاحة في هذا اليوم',
-    select_slot_first:'الرجاء اختيار وقت',fill_fields:'الرجاء ملء جميع البيانات',
-    select_service_first:'الرجاء اختيار الخدمة',select_duration_first:'الرجاء اختيار المدة',
-    select_date_first:'الرجاء اختيار التاريخ',
-    booking_error:'حدث خطأ، الرجاء المحاولة مرة أخرى',
-    demo_mode:'وضع العرض — الحجز غير مفعّل بعد',
-    summary_service:'الخدمة',summary_duration:'المدة',summary_date:'التاريخ',
-    summary_time:'الوقت',summary_price:'السعر',
-  },
-  en:{
-    nav_services:'Services',nav_book:'Book Now',nav_reviews:'Reviews',
-    nav_contact:'Contact',nav_admin:'Admin',
-    hero_badge:'MIRBAH, FUJAIRAH',
-    hero_title_1:'ALMALAKI',hero_title_2:'MASSAGE CENTRE',
-    hero_sub:'Relax, rejuvenate, and experience true wellness',
-    hero_cta:'Book Your Session →',scroll:'Scroll Down',
-    tag_services:'OUR SERVICES',services_title:'Choose Your Service',services_sub:'Professional massage by expert therapists',
+    addr_lbl:'العنوان',addr_val:'طريق فجيرة - خورفكان، رقم 58، مربح، فجيرة',
+    hours_lbl:'ساعات العمل',morning_s:'الجلسة الصباحية',evening_s:'الجلسة المسائية',
+    success_ttl:'تم الحجز بنجاح!',success_sub:'سيتواصل معك فريقنا قريباً للتأكيد',new_bk:'حجز جديد',
+    m:'دقيقة',aed:'د.إ',slot_am:'صباحاً',slot_pm:'مساءً',
+    loading:'جاري التحميل...',no_slots:'لا توجد مواعيد متاحة',
+    err_svc:'الرجاء اختيار الخدمة',err_dur:'الرجاء اختيار المدة',err_slot:'الرجاء اختيار وقت',
+    err_fill:'الرجاء ملء جميع البيانات',err_gen:'حدث خطأ، حاول مرة أخرى',
+    sum_svc:'الخدمة',sum_dur:'المدة',sum_date:'التاريخ',sum_time:'الوقت',sum_price:'السعر'},
+  en:{nav_services:'Services',nav_book:'Book Now',nav_reviews:'Reviews',nav_contact:'Contact',nav_admin:'Admin',
+    hero_badge:'MIRBAH · FUJAIRAH',hero_title:'ALMALAKI MASSAGE CENTRE',hero_sub_small:'المركز الملكي للمساج',
+    hero_cta:'Book Your Session',our_services:'Our Services',scroll_lbl:'Scroll',
+    stat1:'Specialist Services',stat2:'Client Rating ★',stat3:'Days a Week',stat4:'Daily Hours',
+    tag_services:'OUR SERVICES',services_title:'Choose Your Experience',services_sub:'Professional massage by specialist therapists',
     tag_booking:'BOOKING',booking_title:'Book Your Session',
     step1:'Service',step2:'Time',step3:'Details',
-    pick_service:'Select Service & Duration',pick_duration:'Select Duration',
-    pick_datetime:'Select Date & Time',
-    date_label:'Date',next:'Next →',back:'← Back',
-    your_info:'Your Details',name_label:'Full Name',phone_label:'Phone Number',
-    name_ph:'Enter your name',phone_ph:'05xxxxxxxx',
-    confirm_book:'Confirm Booking',
-    tag_reviews:'CLIENT REVIEWS',reviews_title:'What They Say',
-    rating_count:'Based on client reviews',leave_review:'⭐ Leave a Google Review',
-    tag_contact:'CONTACT US',contact_title:'Location & Contact',
-    address_label:'Address',address_val:'Fujairah–Khor Fakkan Road, No. 58, Mirbah, Fujairah',
-    phone_lbl:'Phone',hours_lbl:'Working Hours',
-    morning_session:'Morning Session',evening_session:'Evening Session',
-    success_title:'Booking Confirmed!',success_sub:'Our team will contact you shortly to confirm',
-    new_booking:'New Booking',
-    min_label:'min',aed:'AED',
-    slot_morning:'Morning',slot_evening:'Evening',
-    loading_slots:'Loading available times...',no_slots:'No available slots on this day',
-    select_slot_first:'Please select a time slot',fill_fields:'Please fill in all details',
-    select_service_first:'Please select a service',select_duration_first:'Please select a duration',
-    select_date_first:'Please select a date',
-    booking_error:'An error occurred, please try again',
-    demo_mode:'Demo Mode — Booking not yet configured',
-    summary_service:'Service',summary_duration:'Duration',summary_date:'Date',
-    summary_time:'Time',summary_price:'Price',
-  }
+    pick_service:'Select Service & Duration',pick_dur:'Select Duration',pick_dt:'Select Date & Time',
+    date_lbl:'Date',next:'Next',back:'Back',
+    your_info:'Your Details',name_lbl:'Full Name',phone_lbl:'Phone Number',phone_lbl2:'Phone',
+    name_ph:'Enter your name',confirm_bk:'Confirm Booking',
+    tag_reviews:'CLIENT REVIEWS',reviews_title:'What They Say',rating_lbl:'Based on client reviews',leave_rev:'Leave a Google Review',
+    tag_contact:'CONTACT',contact_title:'Location & Contact',
+    addr_lbl:'Address',addr_val:'Fujairah–Khor Fakkan Road, No. 58, Mirbah, Fujairah',
+    hours_lbl:'Working Hours',morning_s:'Morning Session',evening_s:'Evening Session',
+    success_ttl:'Booking Confirmed!',success_sub:'Our team will contact you shortly to confirm',new_bk:'New Booking',
+    m:'min',aed:'AED',slot_am:'Morning',slot_pm:'Evening',
+    loading:'Loading...',no_slots:'No available slots',
+    err_svc:'Please select a service',err_dur:'Please select a duration',err_slot:'Please select a time',
+    err_fill:'Please fill in all fields',err_gen:'An error occurred, please try again',
+    sum_svc:'Service',sum_dur:'Duration',sum_date:'Date',sum_time:'Time',sum_price:'Price'}
 };
-
-// ═══════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════
-let lang = localStorage.getItem('lang') || 'ar';
-let currentStep = 1;
-let selectedService = null;
-let selectedDuration = null;
-let selectedSlot = null;
-
-// ═══════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', () => {
-  applyLang(lang);
-  renderServices();
-  renderServiceSelectList();
-  renderReviews();
-  setMinDate();
-  // Nav scroll
-  window.addEventListener('scroll', () => {
-    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
-  });
+let lang=localStorage.getItem('lang')||'ar';
+let selSvc=null,selDur=null,selSlot=null;
+document.addEventListener('DOMContentLoaded',()=>{
+  applyLang(lang);renderSvcs();renderSvcOpts();renderRevs();setMinDate();initScroll();initReveal();
 });
-
-// ═══════════════════════════════════════════════
-// LANGUAGE
-// ═══════════════════════════════════════════════
-function toggleLang() {
-  lang = lang === 'ar' ? 'en' : 'ar';
-  localStorage.setItem('lang', lang);
-  applyLang(lang);
+function initScroll(){
+  const prog=document.getElementById('prog'),nav=document.getElementById('nav'),btop=document.getElementById('btop');
+  window.addEventListener('scroll',()=>{
+    prog.style.width=(scrollY/(document.body.scrollHeight-innerHeight)*100)+'%';
+    nav.classList.toggle('sc',scrollY>60);
+    btop.classList.toggle('show',scrollY>400);
+    const bg=document.getElementById('heroBgImg');
+    if(bg)bg.style.transform=`scale(1.06) translateY(${scrollY*.16}px)`;
+  },{passive:true});
 }
-
-function applyLang(l) {
-  document.documentElement.lang = l;
-  document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
-  document.body.classList.toggle('en', l === 'en');
-  document.getElementById('langBtn').textContent = l === 'ar' ? 'EN' : 'عر';
-  const mb = document.getElementById('mobileLangBtn');
-  if(mb) mb.textContent = l === 'ar' ? 'EN' : 'عر';
-  // Apply text
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.dataset.i18n;
-    if(I18N[l][key]) el.textContent = I18N[l][key];
-  });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    const key = el.dataset.i18nPlaceholder;
-    if(I18N[l][key]) el.placeholder = I18N[l][key];
-  });
-  // Re-render dynamic content
-  renderServices();
-  renderServiceSelectList();
-  renderReviews();
-  if(selectedService) updateBookingSummary();
+function initReveal(){
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});},{threshold:.1});
+  document.querySelectorAll('.r').forEach(el=>obs.observe(el));
 }
-
-function t(key) { return I18N[lang][key] || key; }
-
-// ═══════════════════════════════════════════════
-// RENDER SERVICES (cards section)
-// ═══════════════════════════════════════════════
-function renderServices() {
-  const grid = document.getElementById('servicesGrid');
-  if(!grid) return;
-  grid.innerHTML = SERVICES.map(s => `
-    <div class="service-card">
-      <span class="service-icon">${s.icon}</span>
-      <div class="service-name">${s[lang].name}</div>
-      <div class="service-desc">${s[lang].desc}</div>
-      <div class="service-prices">
-        ${s.durations.map(d=>`<span class="price-tag">${d.min} ${t('min_label')} — ${d.price} ${t('aed')}</span>`).join('')}
-      </div>
-      <button class="btn-book" onclick="selectAndGoBook('${s.id}')">${t('nav_book')}</button>
-    </div>
-  `).join('');
+function toggleLang(){lang=lang==='ar'?'en':'ar';localStorage.setItem('lang',lang);applyLang(lang);}
+function applyLang(l){
+  document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';
+  document.body.classList.toggle('en',l==='en');
+  document.getElementById('langBtn').textContent=l==='ar'?'EN':'عر';
+  const ml=document.getElementById('mobLang');if(ml)ml.textContent=l==='ar'?'EN':'عر';
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(T[l][k]!==undefined)el.textContent=T[l][k];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.dataset.i18nPh;if(T[l][k])el.placeholder=T[l][k];});
+  renderSvcs();renderSvcOpts();renderRevs();if(selSvc)updateSummary();
 }
-
-// ═══════════════════════════════════════════════
-// RENDER SERVICE SELECT LIST (booking step 1)
-// ═══════════════════════════════════════════════
-function renderServiceSelectList() {
-  const list = document.getElementById('serviceSelectList');
-  if(!list) return;
-  list.innerHTML = SERVICES.map(s => `
-    <div class="service-option ${selectedService===s.id?'selected':''}" onclick="pickService('${s.id}')">
-      <div class="s-icon">${s.icon}</div>
-      <div class="s-info">
-        <div class="s-name">${s[lang].name}</div>
-        <div class="s-price">${s.durations.map(d=>`${d.min} ${t('min_label')} — ${d.price} ${t('aed')}`).join(' &nbsp;|&nbsp; ')}</div>
-      </div>
-      <div class="s-check"></div>
-    </div>
-  `).join('');
+function t(k){return T[lang][k]||k;}
+function renderSvcs(){
+  const g=document.getElementById('servicesGrid');if(!g)return;
+  g.innerHTML=SERVICES.map((s,i)=>`
+    <div class="svcard r rd${i}">
+      <span class="svnum">${String(i+1).padStart(2,'0')}</span>
+      <div class="svname">${s[lang].name}</div>
+      <div class="svdesc">${s[lang].desc}</div>
+      <div class="svprices">${s.durations.map(d=>`<div class="svpr"><span class="svpr-d">${d.min} ${t('m')}</span><span class="svpr-p">${d.price} ${t('aed')}</span></div>`).join('')}</div>
+      <button class="svbk" onclick="selectAndBook('${s.id}')">${t('nav_book')}</button>
+    </div>`).join('');
+  initReveal();
 }
-
-// ═══════════════════════════════════════════════
-// REVIEWS
-// ═══════════════════════════════════════════════
-function renderReviews() {
-  const grid = document.getElementById('reviewsGrid');
-  if(!grid) return;
-  grid.innerHTML = REVIEWS_DATA.map(r => `
-    <div class="review-card">
-      <div class="stars">${'★'.repeat(r.stars)}</div>
-      <div class="review-text">"${r[lang].text}"</div>
-      <div class="review-author">
-        <div class="review-avatar">${r[lang].name.charAt(0)}</div>
-        <div><div class="review-name">${r[lang].name}</div><div class="review-date">2025</div></div>
-      </div>
-    </div>
-  `).join('');
+function renderSvcOpts(){
+  const l=document.getElementById('svcOpts');if(!l)return;
+  l.innerHTML=SERVICES.map((s,i)=>`
+    <div class="sopt ${selSvc===s.id?'sel':''}" onclick="pickSvc('${s.id}')">
+      <div class="sonum">${ROMAN[i]}</div>
+      <div><div class="soname">${s[lang].name}</div><div class="soprice">${s.durations.map(d=>`${d.min} ${t('m')} — ${d.price} ${t('aed')}`).join(' | ')}</div></div>
+      <div class="soradio"></div>
+    </div>`).join('');
 }
-
-// ═══════════════════════════════════════════════
-// BOOKING LOGIC
-// ═══════════════════════════════════════════════
-function selectAndGoBook(serviceId) {
-  pickService(serviceId);
-  document.getElementById('booking').scrollIntoView({behavior:'smooth'});
-  // If only 1 duration, auto-select it
-  const svc = SERVICES.find(s=>s.id===serviceId);
-  if(svc && svc.durations.length===1) {
-    pickDuration(svc.durations[0].min, svc.durations[0].price);
-  }
+function renderRevs(){
+  const g=document.getElementById('reviewsGrid');if(!g)return;
+  g.innerHTML=REVIEWS.map((r,i)=>`
+    <div class="revc r rd${i%2}">
+      <div class="revq">"</div>
+      <div class="revtext">${r[lang].text}</div>
+      <div class="revbot"><div class="revname">${r[lang].name}</div><div class="revs2">${'★'.repeat(r.s)}</div></div>
+    </div>`).join('');
+  initReveal();
 }
-
-function pickService(id) {
-  selectedService = id;
-  selectedDuration = null;
-  selectedSlot = null;
-  renderServiceSelectList();
-  // Render duration options
-  const svc = SERVICES.find(s=>s.id===id);
-  const wrap = document.getElementById('durationWrap');
-  const list = document.getElementById('durationList');
-  if(svc.durations.length > 1) {
-    wrap.style.display='block';
-    list.innerHTML = svc.durations.map(d=>`
-      <button class="dur-btn ${selectedDuration===d.min?'selected':''}" onclick="pickDuration(${d.min},${d.price})">
-        ${d.min} ${t('min_label')}
-        <span class="dur-price">${d.price} ${t('aed')}</span>
-      </button>
-    `).join('');
-  } else {
-    wrap.style.display='none';
-    selectedDuration = svc.durations[0].min;
-  }
+function selectAndBook(id){
+  pickSvc(id);document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+  const s=SERVICES.find(x=>x.id===id);if(s&&s.durations.length===1)pickDur(s.durations[0].min);
 }
-
-function pickDuration(minutes, price) {
-  selectedDuration = minutes;
-  // Re-render duration buttons
-  const svc = SERVICES.find(s=>s.id===selectedService);
-  if(!svc) return;
-  document.getElementById('durationList').innerHTML = svc.durations.map(d=>`
-    <button class="dur-btn ${selectedDuration===d.min?'selected':''}" onclick="pickDuration(${d.min},${d.price})">
-      ${d.min} ${t('min_label')}
-      <span class="dur-price">${d.price} ${t('aed')}</span>
-    </button>
-  `).join('');
+function pickSvc(id){
+  selSvc=id;selDur=null;selSlot=null;renderSvcOpts();
+  const s=SERVICES.find(x=>x.id===id);
+  const w=document.getElementById('durWrap'),l=document.getElementById('durList');
+  if(s.durations.length>1){w.style.display='block';l.innerHTML=s.durations.map(d=>`<button class="durb ${selDur===d.min?'sel':''}" onclick="pickDur(${d.min})">${d.min} ${t('m')}<span class="durp">${d.price} ${t('aed')}</span></button>`).join('');}
+  else{w.style.display='none';selDur=s.durations[0].min;}
 }
-
-function setMinDate() {
-  const input = document.getElementById('dateInput');
-  if(!input) return;
-  const today = new Date();
-  today.setDate(today.getDate());
-  input.min = today.toISOString().split('T')[0];
-  // Default to tomorrow
-  const tom = new Date();
-  tom.setDate(tom.getDate()+1);
-  input.value = tom.toISOString().split('T')[0];
+function pickDur(m){
+  selDur=m;const s=SERVICES.find(x=>x.id===selSvc);if(!s)return;
+  document.getElementById('durList').innerHTML=s.durations.map(d=>`<button class="durb ${selDur===d.min?'sel':''}" onclick="pickDur(${d.min})">${d.min} ${t('m')}<span class="durp">${d.price} ${t('aed')}</span></button>`).join('');
 }
-
-function goStep2() {
-  if(!selectedService) { showToast(t('select_service_first'),'error'); return; }
-  if(!selectedDuration) { showToast(t('select_duration_first'),'error'); return; }
-  goToStep(2);
-  loadSlots();
+function setMinDate(){
+  const i=document.getElementById('dateInput');if(!i)return;
+  i.min=new Date().toISOString().split('T')[0];
+  const tom=new Date();tom.setDate(tom.getDate()+1);i.value=tom.toISOString().split('T')[0];
 }
-
-function goStep3() {
-  if(!selectedSlot) { showToast(t('select_slot_first'),'error'); return; }
-  goToStep(3);
-  updateBookingSummary();
+function goStep2(){if(!selSvc){showToast(t('err_svc'),'error');return;}if(!selDur){showToast(t('err_dur'),'error');return;}goToStep(2);loadSlots();}
+function goStep3(){if(!selSlot){showToast(t('err_slot'),'error');return;}goToStep(3);updateSummary();}
+function goToStep(n){[1,2,3].forEach(i=>{document.getElementById('bs'+i).classList.toggle('active',i===n);const s=document.getElementById('st'+i);s.classList.toggle('active',i===n);s.classList.toggle('done',i<n);});}
+function updateSummary(){
+  const s=SERVICES.find(x=>x.id===selSvc);if(!s)return;
+  const d=s.durations.find(x=>x.min===selDur);
+  const date=document.getElementById('dateInput').value;
+  document.getElementById('bkSummary').innerHTML=`
+    <div class="bsumrow"><span class="bsumk">${t('sum_svc')}</span><span class="bsumv">${s[lang].name}</span></div>
+    <div class="bsumrow"><span class="bsumk">${t('sum_dur')}</span><span class="bsumv">${selDur} ${t('m')}</span></div>
+    <div class="bsumrow"><span class="bsumk">${t('sum_date')}</span><span class="bsumv">${date}</span></div>
+    <div class="bsumrow"><span class="bsumk">${t('sum_time')}</span><span class="bsumv">${selSlot}</span></div>
+    <div class="bsumrow"><span class="bsumk">${t('sum_price')}</span><span class="bsumv">${d?d.price:''} ${t('aed')}</span></div>`;
 }
-
-function goToStep(n) {
-  currentStep = n;
-  [1,2,3].forEach(i => {
-    document.getElementById('bs'+i).classList.toggle('active', i===n);
-    const st = document.getElementById('st'+i);
-    st.classList.toggle('active', i===n);
-    st.classList.toggle('done', i<n);
-  });
+const toMin=s=>{const[h,m]=s.split(':').map(Number);return h*60+m;};
+const toTime=m=>`${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;
+function genSlots(dur){
+  const r={am:[],pm:[]};
+  WORKING_HOURS.forEach((w,i)=>{let c=toMin(w.start);const e=toMin(w.end);while(c+dur<=e){i===0?r.am.push(toTime(c)):r.pm.push(toTime(c));c+=30;}});
+  return r;
 }
-
-function updateBookingSummary() {
-  const svc = SERVICES.find(s=>s.id===selectedService);
-  if(!svc) return;
-  const dur = svc.durations.find(d=>d.min===selectedDuration);
-  const date = document.getElementById('dateInput').value;
-  document.getElementById('bookingSummary').innerHTML = `
-    <div class="row"><span>${t('summary_service')}</span><span class="val">${svc[lang].name}</span></div>
-    <div class="row"><span>${t('summary_duration')}</span><span class="val">${selectedDuration} ${t('min_label')}</span></div>
-    <div class="row"><span>${t('summary_date')}</span><span class="val">${date}</span></div>
-    <div class="row"><span>${t('summary_time')}</span><span class="val">${selectedSlot}</span></div>
-    <div class="row"><span>${t('summary_price')}</span><span class="val">${dur?dur.price:''} ${t('aed')}</span></div>
-  `;
+async function loadSlots(){
+  if(!selDur)return;const date=document.getElementById('dateInput').value;if(!date)return;
+  const w=document.getElementById('slotsWrap');w.innerHTML=`<div class="slotmsg">${t('loading')}</div>`;
+  let booked=[];
+  if(APPS_SCRIPT_URL!=='YOUR_APPS_SCRIPT_URL_HERE'){
+    try{const r=await fetch(`${APPS_SCRIPT_URL}?action=getSlots&date=${date}&duration=${selDur}`);booked=(await r.json()).bookedSlots||[];}catch(e){}
+  }else{getLocalBks(date).forEach(b=>{let c=toMin(b.time);for(let i=0;i<Math.ceil(b.duration/30);i++)booked.push(toTime(c+i*30));});}
+  const slots=genSlots(selDur);const bs=new Set(booked);
+  const makeGrid=(arr,lbl)=>{if(!arr.length)return'';return`<span class="slotlbl">${lbl}</span><div class="slotgrid">${arr.map(s=>{const occ=[];let c=toMin(s);for(let i=0;i<Math.ceil(selDur/30);i++)occ.push(toTime(c+i*30));const bkd=occ.some(o=>bs.has(o));return`<button class="slot${bkd?' booked':''}${selSlot===s?' selected':''}" onclick="${bkd?'':'pickSlot(\''+s+'\')'}">${s}</button>`;}).join('')}</div>`;};
+  const html=makeGrid(slots.am,t('slot_am'))+makeGrid(slots.pm,t('slot_pm'));
+  w.innerHTML=html||`<div class="slotmsg">${t('no_slots')}</div>`;
 }
-
-// ═══════════════════════════════════════════════
-// TIME SLOTS
-// ═══════════════════════════════════════════════
-function timeToMin(t) { const [h,m]=t.split(':').map(Number); return h*60+m; }
-function minToTime(m) { return `${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`; }
-
-function generateAllSlots(duration) {
-  const slots = {morning:[], evening:[]};
-  WORKING_HOURS.forEach((w, idx) => {
-    let cur = timeToMin(w.start);
-    const end = timeToMin(w.end);
-    while(cur + duration <= end) {
-      if(idx===0) slots.morning.push(minToTime(cur));
-      else slots.evening.push(minToTime(cur));
-      cur += 30;
-    }
-  });
-  return slots;
+function pickSlot(time){selSlot=time;document.querySelectorAll('.slot').forEach(el=>el.classList.toggle('selected',el.textContent.trim()===time));}
+async function submitBk(){
+  const name=document.getElementById('custName').value.trim();const phone=document.getElementById('custPhone').value.trim();
+  if(!name||!phone){showToast(t('err_fill'),'error');return;}
+  const btn=document.getElementById('submitBtn');btn.disabled=true;
+  const s=SERVICES.find(x=>x.id===selSvc);const d=s.durations.find(x=>x.min===selDur);
+  const date=document.getElementById('dateInput').value;const id='BK'+Date.now();const price=d?d.price:0;
+  const bk={id,service:selSvc,date,time:selSlot,duration:selDur,name,phone,price,status:'confirmed'};
+  try{
+    if(APPS_SCRIPT_URL!=='YOUR_APPS_SCRIPT_URL_HERE'){
+      const r=await fetch(`${APPS_SCRIPT_URL}?${new URLSearchParams({action:'book',...bk})}`);const data=await r.json();
+      if(data.error){showToast(data.error,'error');btn.disabled=false;return;}showSuccess(data.id);
+    }else{saveLocalBk(bk);await sendTg(bk);showSuccess(id);}
+  }catch(e){showToast(t('err_gen'),'error');btn.disabled=false;}
 }
-
-function getSlotsOccupied(startTime, duration) {
-  const slots = [];
-  let cur = timeToMin(startTime);
-  const count = Math.ceil(duration/30);
-  for(let i=0;i<count;i++) slots.push(minToTime(cur + i*30));
-  return slots;
+async function sendTg(b){
+  const n={full_body:'مساج كامل',sports:'مساج رياضي',foot_normatec:'مساج قدمين — نورماتيك'};
+  const msg=`🔔 *حجز جديد*\n──────────────\n📌 \`${b.id}\`\n💆 ${n[b.service]}\n📅 ${b.date}\n⏰ ${b.time}\n⌛ ${b.duration} دقيقة\n💰 ${b.price} د.إ\n👤 ${b.name}\n📱 ${b.phone}\n──────────────`;
+  await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:TG_CHAT,text:msg,parse_mode:'Markdown'})});
 }
-
-async function loadSlots() {
-  if(!selectedDuration) return;
-  const date = document.getElementById('dateInput').value;
-  if(!date) return;
-  selectedSlot = null;
-  const container = document.getElementById('slotsContainer');
-  container.innerHTML = `<div class="slots-loading">${t('loading_slots')}</div>`;
-
-  let bookedSlots = [];
-  if(APPS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL_HERE') {
-    try {
-      const res = await fetch(`${APPS_SCRIPT_URL}?action=getSlots&date=${date}&duration=${selectedDuration}`);
-      const data = await res.json();
-      bookedSlots = data.bookedSlots || [];
-    } catch(e) { console.warn('Could not fetch slots:', e); }
-  } else {
-    // Demo mode: simulate some booked slots
-    bookedSlots = ['10:00','10:30','16:00'];
-  }
-
-  const allSlots = generateAllSlots(selectedDuration);
-  renderSlots(allSlots, bookedSlots);
-}
-
-function renderSlots(allSlots, bookedSlots) {
-  const container = document.getElementById('slotsContainer');
-  const bookedSet = new Set(bookedSlots);
-
-  const makeGrid = (slots, label) => {
-    if(!slots.length) return '';
-    return `
-      <div class="time-window-label">${label}</div>
-      <div class="slots-grid">
-        ${slots.map(s => {
-          const occupied = getSlotsOccupied(s, selectedDuration);
-          const isBooked = occupied.some(o => bookedSet.has(o));
-          return `<button class="slot ${isBooked?'booked':''} ${selectedSlot===s?'selected':''}"
-            onclick="${isBooked?'':'pickSlot(\''+s+'\')'}">${s}</button>`;
-        }).join('')}
-      </div>
-    `;
-  };
-
-  const html = makeGrid(allSlots.morning, t('slot_morning')) + makeGrid(allSlots.evening, t('slot_evening'));
-  container.innerHTML = html || `<div class="slots-loading">${t('no_slots')}</div>`;
-}
-
-function pickSlot(time) {
-  selectedSlot = time;
-  // Re-render slots
-  const date = document.getElementById('dateInput').value;
-  loadSlots();
-}
-
-// ═══════════════════════════════════════════════
-// SUBMIT BOOKING
-// ═══════════════════════════════════════════════
-async function submitBooking() {
-  const name = document.getElementById('custName').value.trim();
-  const phone = document.getElementById('custPhone').value.trim();
-  if(!name || !phone) { showToast(t('fill_fields'), 'error'); return; }
-
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-
-  const svc = SERVICES.find(s=>s.id===selectedService);
-  const dur = svc.durations.find(d=>d.min===selectedDuration);
-  const date = document.getElementById('dateInput').value;
-
-  const params = new URLSearchParams({
-    action:'book', service:selectedService,
-    date, time:selectedSlot, duration:selectedDuration,
-    name, phone, price: dur ? dur.price : 0
-  });
-
-  try {
-    if(APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
-      // Demo mode
-      await new Promise(r=>setTimeout(r,1200));
-      showSuccess('DEMO-' + Date.now());
-    } else {
-      const res = await fetch(`${APPS_SCRIPT_URL}?${params}`);
-      const data = await res.json();
-      if(data.error) { showToast(data.error, 'error'); btn.disabled=false; return; }
-      showSuccess(data.id);
-    }
-  } catch(e) {
-    showToast(t('booking_error'), 'error');
-    btn.disabled = false;
-  }
-}
-
-function showSuccess(id) {
-  document.getElementById('bookingPanel').style.display='none';
-  const s = document.getElementById('bookingSuccess');
-  s.classList.add('show');
-  document.getElementById('bookingIdDisplay').textContent = '# ' + id;
-}
-
-function resetBooking() {
-  selectedService=null; selectedDuration=null; selectedSlot=null;
-  document.getElementById('bookingPanel').style.display='block';
-  document.getElementById('bookingSuccess').classList.remove('show');
-  document.getElementById('custName').value='';
-  document.getElementById('custPhone').value='';
-  document.getElementById('submitBtn').disabled=false;
-  renderServiceSelectList();
-  goToStep(1);
-}
-
-// ═══════════════════════════════════════════════
-// MOBILE MENU
-// ═══════════════════════════════════════════════
-function openMobile() { document.getElementById('mobileMenu').classList.add('open'); }
-function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
-
-// ═══════════════════════════════════════════════
-// TOAST
-// ═══════════════════════════════════════════════
-function showToast(msg, type='') {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = `toast ${type} show`;
-  setTimeout(()=>t.classList.remove('show'), 3200);
-}
+function saveLocalBk(b){const a=JSON.parse(localStorage.getItem('bks')||'[]');a.push(b);localStorage.setItem('bks',JSON.stringify(a));}
+function getLocalBks(date){const a=JSON.parse(localStorage.getItem('bks')||'[]');return date?a.filter(b=>b.date===date&&b.status!=='cancelled'):a.filter(b=>b.status!=='cancelled');}
+function showSuccess(id){document.getElementById('bkPanel').style.display='none';const s=document.getElementById('bkSuccess');s.classList.add('show');document.getElementById('bkIdDisplay').textContent='# '+id;}
+function resetBk(){selSvc=null;selDur=null;selSlot=null;document.getElementById('bkPanel').style.display='block';document.getElementById('bkSuccess').classList.remove('show');document.getElementById('custName').value='';document.getElementById('custPhone').value='';document.getElementById('submitBtn').disabled=false;renderSvcOpts();goToStep(1);}
+function openMob(){document.getElementById('mobMenu').classList.add('open');}
+function closeMob(){document.getElementById('mobMenu').classList.remove('open');}
+function showToast(msg,type=''){const el=document.getElementById('toast');el.textContent=msg;el.className=`toast ${type} show`;setTimeout(()=>el.classList.remove('show'),3400);}
 </script>
 </body>
 </html>
