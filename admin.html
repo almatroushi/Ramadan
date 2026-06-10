@@ -257,7 +257,6 @@ const SERVICE_PRICES = {
 
 let sessionPass = '';
 
-// ── LOGIN ──
 function doLogin() {
   const u = document.getElementById('loginUser').value.trim();
   const p = document.getElementById('loginPass').value;
@@ -279,7 +278,6 @@ function doLogout() {
   document.getElementById('loginPass').value='';
 }
 
-// ── DATE CONTROLS ──
 function setToday() {
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('filterDate').value = today;
@@ -291,20 +289,17 @@ function clearDateFilter() {
   loadBookings();
 }
 
-// ── LOAD BOOKINGS ──
 async function loadBookings() {
   const date = document.getElementById('filterDate').value;
   const tbody = document.getElementById('bookingsTable');
   tbody.innerHTML = '<tr><td colspan="11" class="empty-state">جاري التحميل...</td></tr>';
 
   if(APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
-    // Demo data
-    const demo = [
-      {id:'BK001',name:'محمد العامري',service:'full_body',date:'2025-06-10',time:'10:00',duration:60,phone:'0501234567',status:'confirmed',isManual:false},
-      {id:'BK002',name:'سعيد الشحي',service:'sports',date:'2025-06-10',time:'16:30',duration:30,phone:'0557654321',status:'confirmed',isManual:true},
-    ];
-    renderTable(demo);
-    updateStats(demo, new Date().toISOString().split('T')[0]);
+    let bookings = JSON.parse(localStorage.getItem('bks') || '[]');
+    if(date) bookings = bookings.filter(b => b.date === date);
+    bookings.sort((a,b) => (b.id||'').localeCompare(a.id||''));
+    renderTable(bookings);
+    updateStats(bookings, date || new Date().toISOString().split('T')[0]);
     return;
   }
 
@@ -356,11 +351,18 @@ function updateStats(bookings, today) {
   document.getElementById('statRevenue').textContent = rev;
 }
 
-// ── CANCEL BOOKING ──
 async function cancelBooking(id) {
   if(!confirm('هل تريد إلغاء هذا الحجز؟')) return;
   if(APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
-    showToast('وضع العرض — لا يمكن الإلغاء', 'error'); return;
+    const bookings = JSON.parse(localStorage.getItem('bks') || '[]');
+    const idx = bookings.findIndex(b => b.id === id);
+    if(idx !== -1) {
+      bookings[idx].status = 'cancelled';
+      localStorage.setItem('bks', JSON.stringify(bookings));
+      showToast('تم إلغاء الحجز بنجاح', 'success');
+      loadBookings();
+    }
+    return;
   }
   try {
     const params = new URLSearchParams({action:'admin_cancelBooking', id, password:sessionPass});
@@ -372,7 +374,6 @@ async function cancelBooking(id) {
   } catch(e) { showToast('حدث خطأ', 'error'); }
 }
 
-// ── ADD MANUAL BOOKING ──
 function openAddModal() {
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('mDate').value = today;
@@ -385,16 +386,23 @@ function closeAddModal() {
 
 async function submitManualBooking() {
   const service = document.getElementById('mService').value;
-  const duration = document.getElementById('mDuration').value;
+  const duration = parseInt(document.getElementById('mDuration').value);
   const date = document.getElementById('mDate').value;
   const time = document.getElementById('mTime').value;
   const name = document.getElementById('mName').value.trim();
   const phone = document.getElementById('mPhone').value.trim();
-  if(!name||!phone||!date) { showToast('الرجاء ملء جميع البيانات','error'); return; }
+  if(!name || !phone || !date) { showToast('الرجاء ملء جميع البيانات','error'); return; }
 
   if(APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
-    showToast('وضع العرض — جاري المحاكاة...','');
-    setTimeout(()=>{ closeAddModal(); showToast('تمت الإضافة (وضع عرض)','success'); },1000);
+    const id = 'MN' + Date.now();
+    const price = SERVICE_PRICES[service]?.[duration] || 0;
+    const bk = { id, service, date, time, duration, name, phone, price, status:'confirmed', isManual:true };
+    const bookings = JSON.parse(localStorage.getItem('bks') || '[]');
+    bookings.push(bk);
+    localStorage.setItem('bks', JSON.stringify(bookings));
+    showToast('تمت إضافة الحجز بنجاح', 'success');
+    closeAddModal();
+    loadBookings();
     return;
   }
 
@@ -413,7 +421,6 @@ async function submitManualBooking() {
   } catch(e) { showToast('حدث خطأ','error'); }
 }
 
-// ── TOAST ──
 function showToast(msg, type='') {
   const el = document.getElementById('toast');
   el.textContent = msg;
@@ -421,7 +428,6 @@ function showToast(msg, type='') {
   setTimeout(()=>el.classList.remove('show'), 3000);
 }
 
-// Close modal on overlay click
 document.getElementById('addModal').addEventListener('click', function(e) {
   if(e.target === this) closeAddModal();
 });

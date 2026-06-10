@@ -59,7 +59,7 @@ body.en .mclose{right:auto;left:24px;}
 .hcontent{position:relative;z-index:2;text-align:center;padding:130px 6% 90px;max-width:860px;}
 .hbadge{display:inline-flex;align-items:center;gap:12px;border:1px solid rgba(201,168,76,.22);color:var(--t3);font-size:.62rem;letter-spacing:5px;padding:7px 22px;margin-bottom:42px;font-family:'Inter','Tajawal',sans-serif;text-transform:uppercase;}
 .hbadge::before,.hbadge::after{content:'';display:block;width:18px;height:1px;background:var(--gold);opacity:.45;}
-.htitle{font-family:'Amiri',serif;font-size:clamp(3.2rem,9.5vw,7.8rem);font-weight:700;color:var(--t1);line-height:1.0;letter-spacing:-.02em;margin-bottom:12px;}
+.htitle{font-family:'Amiri',serif;font-size:clamp(3.2rem,9.5vw,7.8rem);font-weight:700;color:var(--t1);line-height:1.0;letter-spacing:-.02em;margin-bottom:12px;animation:titleGlow 5s ease-in-out infinite;}
 body.en .htitle{font-family:'Cormorant Garamond',serif;font-size:clamp(2.4rem,7vw,5.5rem);}
 .hsub{font-family:'Cormorant Garamond',serif;font-size:clamp(.8rem,1.6vw,1rem);letter-spacing:6px;color:var(--t3);text-transform:uppercase;margin-bottom:36px;}
 body.en .hsub{font-family:'Tajawal',sans-serif;font-size:.82rem;letter-spacing:2px;}
@@ -72,6 +72,37 @@ body.en .hsub{font-family:'Tajawal',sans-serif;font-size:.82rem;letter-spacing:2
 .hscroll{position:absolute;bottom:38px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--t3);font-size:.58rem;letter-spacing:4px;text-transform:uppercase;animation:bob 2.2s ease-in-out infinite;}
 .hscroll-line{width:1px;height:42px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);}
 @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(7px);}}
+
+/* HERO AMBIENT ORBS */
+.h-orb{position:absolute;border-radius:50%;pointer-events:none;z-index:1;}
+.o1{width:750px;height:750px;background:radial-gradient(circle,rgba(201,168,76,.11) 0%,transparent 65%);top:-220px;right:-220px;animation:orb1 22s ease-in-out infinite alternate;}
+.o2{width:600px;height:600px;background:radial-gradient(circle,rgba(160,80,20,.07) 0%,transparent 65%);bottom:-120px;left:-180px;animation:orb2 28s ease-in-out infinite alternate;}
+.o3{width:420px;height:420px;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 65%);top:42%;left:42%;transform:translate(-50%,-50%);animation:orb3 19s ease-in-out infinite alternate;}
+@keyframes orb1{from{transform:translate(0,0) scale(1);}to{transform:translate(-110px,90px) scale(1.22);}}
+@keyframes orb2{from{transform:translate(0,0) scale(1);}to{transform:translate(80px,-65px) scale(1.18);}}
+@keyframes orb3{from{transform:translate(-50%,-50%) scale(1);}to{transform:translate(calc(-50% - 55px),calc(-50% + 45px)) scale(1.12);}}
+
+/* HERO PARTICLES */
+.h-particle{position:absolute;border-radius:50%;background:var(--gold);pointer-events:none;z-index:1;animation:pfloat linear infinite;}
+@keyframes pfloat{0%{transform:translateY(0) rotate(0deg);opacity:0;}10%{opacity:1;}90%{opacity:.4;}100%{transform:translateY(-100vh) rotate(720deg);opacity:0;}}
+
+/* TITLE GLOW */
+@keyframes titleGlow{0%,100%{text-shadow:0 0 40px rgba(201,168,76,0);}50%{text-shadow:0 0 60px rgba(201,168,76,.18),0 0 100px rgba(201,168,76,.08);}}
+.htitle{animation:titleGlow 5s ease-in-out infinite;}
+
+/* BOOKING STEP TRANSITIONS */
+@keyframes slideInRight{from{opacity:0;transform:translateX(32px);}to{opacity:1;transform:none;}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-32px);}to{opacity:1;transform:none;}}
+.bsec.slide-right{animation:slideInRight .38s cubic-bezier(.4,0,.2,1);}
+.bsec.slide-left{animation:slideInLeft .38s cubic-bezier(.4,0,.2,1);}
+
+/* BADGE PULSE */
+.hbadge{animation:badgePulse 3.5s ease-in-out infinite;}
+@keyframes badgePulse{0%,100%{border-color:rgba(201,168,76,.22);}50%{border-color:rgba(201,168,76,.55);box-shadow:0 0 18px rgba(201,168,76,.1);}}
+
+/* WABTN PULSE */
+.wabtn{animation:waPulse 2.6s ease-in-out infinite;}
+@keyframes waPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.33);}50%{box-shadow:0 4px 28px rgba(37,211,102,.58),0 0 0 8px rgba(37,211,102,.08);}}
 
 /* STATS */
 #stats{background:var(--bg3);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:56px 7%;}
@@ -292,6 +323,10 @@ body.en #btop{left:auto;right:30px;}
 <section id="hero">
   <div class="hbg-img" id="heroBgImg"></div>
   <div class="hov"></div>
+  <div class="h-orb o1"></div>
+  <div class="h-orb o2"></div>
+  <div class="h-orb o3"></div>
+  <div id="heroParticles"></div>
   <div class="hcontent">
     <div class="hbadge" data-i18n="hero_badge">مربح · فجيرة</div>
     <h1 class="htitle" data-i18n="hero_title">المركز الملكي للمساج</h1>
@@ -354,7 +389,7 @@ body.en #btop{left:auto;right:30px;}
         </div>
         <div id="slotsWrap"></div>
         <div class="brow">
-          <button class="bback" onclick="goToStep(1)" data-i18n="back">رجوع</button>
+          <button class="bback" onclick="goToStep(1,2)" data-i18n="back">رجوع</button>
           <button class="bnext" onclick="goStep3()" data-i18n="next">التالي</button>
         </div>
       </div>
@@ -370,7 +405,7 @@ body.en #btop{left:auto;right:30px;}
           <input type="tel" id="custPhone" placeholder="05xxxxxxxx">
         </div>
         <div class="brow">
-          <button class="bback" onclick="goToStep(2)" data-i18n="back">رجوع</button>
+          <button class="bback" onclick="goToStep(2,3)" data-i18n="back">رجوع</button>
           <button class="bnext" onclick="submitBk()" id="submitBtn" data-i18n="confirm_bk">تأكيد الحجز</button>
         </div>
       </div>
@@ -504,7 +539,7 @@ const T={
 let lang=localStorage.getItem('lang')||'ar';
 let selSvc=null,selDur=null,selSlot=null;
 document.addEventListener('DOMContentLoaded',()=>{
-  applyLang(lang);renderSvcs();renderSvcOpts();renderRevs();setMinDate();initScroll();initReveal();
+  applyLang(lang);renderSvcs();renderSvcOpts();renderRevs();setMinDate();initScroll();initReveal();initParticles();
 });
 function initScroll(){
   const prog=document.getElementById('prog'),nav=document.getElementById('nav'),btop=document.getElementById('btop');
@@ -582,9 +617,19 @@ function setMinDate(){
   i.min=new Date().toISOString().split('T')[0];
   const tom=new Date();tom.setDate(tom.getDate()+1);i.value=tom.toISOString().split('T')[0];
 }
-function goStep2(){if(!selSvc){showToast(t('err_svc'),'error');return;}if(!selDur){showToast(t('err_dur'),'error');return;}goToStep(2);loadSlots();}
-function goStep3(){if(!selSlot){showToast(t('err_slot'),'error');return;}goToStep(3);updateSummary();}
-function goToStep(n){[1,2,3].forEach(i=>{document.getElementById('bs'+i).classList.toggle('active',i===n);const s=document.getElementById('st'+i);s.classList.toggle('active',i===n);s.classList.toggle('done',i<n);});}
+function goStep2(){if(!selSvc){showToast(t('err_svc'),'error');return;}if(!selDur){showToast(t('err_dur'),'error');return;}goToStep(2,1);loadSlots();}
+function goStep3(){if(!selSlot){showToast(t('err_slot'),'error');return;}goToStep(3,2);updateSummary();}
+function goToStep(n,prev){
+  const dir=(!prev||n>prev)?'slide-right':'slide-left';
+  [1,2,3].forEach(i=>{
+    const el=document.getElementById('bs'+i);
+    const s=document.getElementById('st'+i);
+    el.classList.remove('active','slide-right','slide-left');
+    s.classList.toggle('active',i===n);
+    s.classList.toggle('done',i<n);
+    if(i===n){el.classList.add('active');requestAnimationFrame(()=>el.classList.add(dir));}
+  });
+}
 function updateSummary(){
   const s=SERVICES.find(x=>x.id===selSvc);if(!s)return;
   const d=s.durations.find(x=>x.min===selDur);
@@ -641,6 +686,16 @@ function showSuccess(id){document.getElementById('bkPanel').style.display='none'
 function resetBk(){selSvc=null;selDur=null;selSlot=null;document.getElementById('bkPanel').style.display='block';document.getElementById('bkSuccess').classList.remove('show');document.getElementById('custName').value='';document.getElementById('custPhone').value='';document.getElementById('submitBtn').disabled=false;renderSvcOpts();goToStep(1);}
 function openMob(){document.getElementById('mobMenu').classList.add('open');}
 function closeMob(){document.getElementById('mobMenu').classList.remove('open');}
+function initParticles(){
+  const wrap=document.getElementById('heroParticles');if(!wrap)return;
+  for(let i=0;i<22;i++){
+    const p=document.createElement('div');
+    p.className='h-particle';
+    const size=Math.random()*2+1;
+    p.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;bottom:${Math.random()*20}%;opacity:${Math.random()*.35+.08};animation-duration:${Math.random()*14+10}s;animation-delay:-${Math.random()*14}s;`;
+    wrap.appendChild(p);
+  }
+}
 function showToast(msg,type=''){const el=document.getElementById('toast');el.textContent=msg;el.className=`toast ${type} show`;setTimeout(()=>el.classList.remove('show'),3400);}
 </script>
 </body>
