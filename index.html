@@ -458,6 +458,8 @@ body.en .wa-float{right:auto;left:28px;}
 // CONFIG — replace with your Google Apps Script URL
 // ═══════════════════════════════════════════════
 const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+const TG_TOKEN = '8817342240:AAGTetvyNVHXES_nvBY32XA49ghiWw7SOfc';
+const TG_CHAT  = '796643506';
 
 // ═══════════════════════════════════════════════
 // DATA
@@ -826,8 +828,13 @@ async function loadSlots() {
       bookedSlots = data.bookedSlots || [];
     } catch(e) { console.warn('Could not fetch slots:', e); }
   } else {
-    // Demo mode: simulate some booked slots
-    bookedSlots = ['10:00','10:30','16:00'];
+    // Read from localStorage bookings
+    const local = getLocalBookings(date);
+    local.forEach(b => {
+      let cur = timeToMin(b.time);
+      const count = Math.ceil(b.duration / 30);
+      for(let i=0;i<count;i++) bookedSlots.push(minToTime(cur + i*30));
+    });
   }
 
   const allSlots = generateAllSlots(selectedDuration);
@@ -878,28 +885,61 @@ async function submitBooking() {
   const svc = SERVICES.find(s=>s.id===selectedService);
   const dur = svc.durations.find(d=>d.min===selectedDuration);
   const date = document.getElementById('dateInput').value;
+  const id = 'BK' + Date.now();
+  const price = dur ? dur.price : 0;
 
-  const params = new URLSearchParams({
-    action:'book', service:selectedService,
-    date, time:selectedSlot, duration:selectedDuration,
-    name, phone, price: dur ? dur.price : 0
-  });
+  const booking = { id, service:selectedService, date, time:selectedSlot,
+    duration:selectedDuration, name, phone, price, status:'confirmed' };
 
   try {
-    if(APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
-      // Demo mode
-      await new Promise(r=>setTimeout(r,1200));
-      showSuccess('DEMO-' + Date.now());
-    } else {
+    if(APPS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL_HERE') {
+      const params = new URLSearchParams({action:'book',...booking});
       const res = await fetch(`${APPS_SCRIPT_URL}?${params}`);
       const data = await res.json();
-      if(data.error) { showToast(data.error, 'error'); btn.disabled=false; return; }
+      if(data.error) { showToast(data.error,'error'); btn.disabled=false; return; }
       showSuccess(data.id);
+    } else {
+      // Save locally + send Telegram directly
+      saveLocalBooking(booking);
+      await sendTelegramDirect(booking);
+      showSuccess(id);
     }
   } catch(e) {
     showToast(t('booking_error'), 'error');
     btn.disabled = false;
   }
+}
+
+async function sendTelegramDirect(b) {
+  const svcName = { full_body:'مساج كامل', sports:'مساج رياضي', foot_normatec:'مساج قدمين — نورماتيك' };
+  const msg =
+    `🔔 *حجز جديد 🌐*\n` +
+    `──────────────\n` +
+    `📌 رقم الحجز: \`${b.id}\`\n` +
+    `💆 الخدمة: ${svcName[b.service]}\n` +
+    `📅 التاريخ: ${b.date}\n` +
+    `⏰ الوقت: ${b.time}\n` +
+    `⌛ المدة: ${b.duration} دقيقة\n` +
+    `💰 السعر: ${b.price} د.إ\n` +
+    `👤 الاسم: ${b.name}\n` +
+    `📱 الهاتف: ${b.phone}\n` +
+    `──────────────`;
+  await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ chat_id:TG_CHAT, text:msg, parse_mode:'Markdown' })
+  });
+}
+
+function saveLocalBooking(b) {
+  const all = JSON.parse(localStorage.getItem('bookings')||'[]');
+  all.push(b);
+  localStorage.setItem('bookings', JSON.stringify(all));
+}
+
+function getLocalBookings(date) {
+  const all = JSON.parse(localStorage.getItem('bookings')||'[]');
+  return date ? all.filter(b=>b.date===date && b.status!=='cancelled') : all.filter(b=>b.status!=='cancelled');
 }
 
 function showSuccess(id) {
