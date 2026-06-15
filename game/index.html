@@ -214,10 +214,10 @@ scene.add(binG);
 /* ── FAN ───────────────────────────────────────────────────────────── */
 var fanG = new THREE.Group();
 fanG.position.set(-4.5, 0, -1.0);
-fanG.add(Object.assign(
-  new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.38, 0.07, 16), mLamb(0x334155)),
-  { position: new THREE.Vector3(0, 0.035, 0) }
-));
+var fanBase = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.38, 0.07, 16), mLamb(0x334155));
+fanBase.position.y = 0.035;
+fanBase.castShadow = true;
+fanG.add(fanBase);
 var fanStand = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.07, 2.0, 10), mLamb(0x475569));
 fanStand.position.y = 1.0; fanStand.castShadow = true;
 fanG.add(fanStand);
