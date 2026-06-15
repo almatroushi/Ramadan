@@ -1,0 +1,11 @@
+id,role,type,description,size/ratio,style_line_ref,source
+scene_room,3d_environment,procedural,warm office room with wood floor and cream walls,fullscreen,formula block 3,generate_procedural
+desk,3d_prop,procedural,dark mahogany wooden desk,in-scene,formula block 3,generate_procedural
+trash_ball,3d_prop,procedural,crumpled white paper ball icosphere with noise vertices,0.15 units radius,formula block 3,generate_procedural
+trash_bin,3d_prop,procedural,forest green truncated cone trash bin with rim,0.9 units tall,formula block 3,generate_procedural
+fan,3d_prop,procedural,metallic steel-grey desk fan with spinning blades and cage,2 units tall,formula block 3,generate_procedural
+wind_particles,vfx,procedural,pale cyan point cloud streaming rightward from fan,60 points,formula block 3,generate_procedural
+confetti,vfx,procedural,multicolor celebration point burst,80 points,formula block 4,generate_procedural
+trajectory_line,ui_overlay,procedural,white dashed arc preview line,TRAJ_POINTS=40,formula block 5,generate_procedural
+thumbnail,marketing,image,game cover — crumpled paper ball arc toward bin with fan and wind,16:9,formula all blocks,generated_programmatic
+favicon,marketing,image,trash bin icon with flying paper ball,1:1,formula blocks 1+3,generated_programmatic
